@@ -1,0 +1,27 @@
+type Event = record {
+  id : nat64;
+  title : text;
+  date : text;
+  description : text;
+  price : nat64;
+};
+type Ticket = record {
+  id : nat8;
+  resale : bool;
+  owner : principal;
+  resale_price : nat8;
+  event_id : nat8;
+  price : nat64;
+};
+service : () -> {
+  buy_resale_ticket : (int) -> (text);
+  buy_ticket : (int, int) -> (Ticket);
+  create_event : (int, text, text, text, int) -> (Event);
+  get_all_events : () -> (vec Event) query;
+  get_event : (text) -> (vec Event) query;
+  get_ticket : (int) -> (Ticket) query;
+  get_user_tokens : (principal) -> (int);
+  resale_ticket : (int, int) -> (text);
+  reward_tokens : (principal, int) -> (text);
+  spend_tokens : (principal, int) -> (text);
+}

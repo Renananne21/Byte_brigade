@@ -1,0 +1,183 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #73b1e0;
+}
+
+.header{
+  width: 100%;
+  min-height: 100px;
+  background-image: url(Images/concertImage.jpg);
+  background-position: center;
+  background-size: cover;
+  padding: 10px 10%;
+  overflow: hidden;
+}
+
+img{
+  width: 50px;
+  height: 50px;
+}
+
+nav{
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  margin: 2px 2px;
+}
+
+nav ul li{
+  display: inline-block;
+  list-style: none;
+  margin: 10px 15px;
+
+}
+
+nav ul li a{
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+}
+
+.login, .signup{
+  text-decoration: none;
+  background-image: linear-gradient(45deg, #1d275f, #1d275f );
+  border-radius: 20px;
+  display: inline-block;
+  padding: 14px 12px;
+  color: white;
+  margin: 0 7px;
+  border: 2px solid white ;
+}
+
+.upcomingEvents{
+  background-color: #73b1e0;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 1000px;
+
+  .item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  
+  h2{
+    margin:0
+  }
+  .eventdropdown{
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+    color: #d1d2e7;
+    cursor: pointer;
+  }
+}
+
+.eventsGrid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+
+
+.eventCard{
+  background-color: #73b1e0;
+  overflow: hidden;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+.eventImage{
+  width:100%;
+  height: 130px;
+  object-fit: cover;
+}
+}
+}
+}
+
+.more{
+  text-decoration: none;
+  background-image: linear-gradient(45deg, #1d275f, #1d275f );
+  border: none;
+  border-radius: 10px;
+  display: block;
+  padding: 10px 20px;
+  color: white;
+  margin: 20px auto;
+  cursor: pointer;
+}
+
+.createResell{
+  margin: 20px auto;
+  background-color: #73b1e0;
+  padding: 20px 20px;
+  max-width: 1000px;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+
+  .createEvent{
+   padding: 20px;
+   border: none;
+   border-radius: 5px;
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+   .createbtn{
+  text-decoration: none;
+  background-image: linear-gradient(45deg, #1d275f, #1d275f );
+  border: none;
+  border-radius: 10px;
+  display: block;
+  padding: 10px 20px;
+  color: white;
+  margin: 20px auto;
+  cursor: pointer;
+   }
+  }
+
+  .resell{
+    padding: 20px;
+    border: none;
+   border-radius: 5px;
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+   
+
+
+   .resellbtn, .learnmorebtn{
+  text-decoration: none;
+  background-image: linear-gradient(45deg, #1d275f, #1d275f );
+  border: none;
+  border-radius: 10px;
+  display: inline-block;
+  padding: 10px 20px;
+  color: white;
+  margin: 20px 1px;
+  cursor: pointer;
+   }
+  }
+}
+
+.wholefooter{
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #73b1e0;
+  max-width: 1000px;
+  text-align: center;
+
+  .footer{
+  display: flex;
+  justify-content: space-between;
+
+  .events, .company, .support{
+    padding: 20px 40px;
+    border: none;
+    border-radius: 5px;
+  }
+  }
+
+  .lastline{
+    padding: 20px;
+  }
+}
