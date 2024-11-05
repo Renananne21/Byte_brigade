@@ -1,55 +1,11 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { sentix_backend } from 'declarations/sentix_backend';
-import { Actor, HttpAgent } from '@dfinity/agent';
+import { Link } from 'react-router-dom';
 import logo from './Images/logo.png';
 import Image1 from './Images/Img1.jpg';
 import Image2 from './Images/Img2.jpg';
 import Image3 from './Images/Img3.jpg';
 import Image4 from './Images/Img4.jpg';
-
-const agent = new HttpAgent();
-
-const upcomingEvents = [
-  {
-    image: Image1,
-    title: "Concert in the Park",
-    date: "November 15, 2024",
-    time: "7:00 PM",
-    description: "Join us for a night of music under the stars!"
-  },
-  {
-    image: Image2,
-    title: "Art Exhibition",
-    date: "December 1, 2024",
-    time: "5:00 PM",
-    description: "Explore the latest works from local artists."
-  },
-  {
-    image: Image3,
-    title: "Fashion Week",
-    date: "November 24, 2024",
-    time: "10:00 AM",
-    description: "Dont miss the chance to immerse yourself in a world of fashion"
-  },
-  {
-    image: Image4,
-    title: "November Music Festival",
-    date: "November 30, 2024",
-    time: "10:00 PM",
-    description: "Come and celebrate the joy of music!"
-  }
-];
-
-const handleBuyTicket = async (eventId, price) => {
-  try {
-    const response = await sentix_backend.buy_ticket(eventId, price);
-    alert("Ticket purchased successfully!");
-  } catch (error) {
-    alert("Failed to buy ticket. Please try again.");
-    console.error("Buy Ticket Error:", error);
-  }
-};
-
 
 const handleCreateEvent = async (title, description, date, price, image) => {
   try {
@@ -61,85 +17,120 @@ const handleCreateEvent = async (title, description, date, price, image) => {
   }
 };
 
-function App() {
-    return (
-    <main>
-      <div class="header">
-        <nav>
-          <img src={logo} class="logo" />
-          <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#Contact">Contact</a></li>
-          </ul>
-        <div>
-            <a href="#login" class="login">Log In</a>
-            <a href="#signup" class="signup">Sign Up</a>
-          </div>
-        </nav>  
-      </div>
-      <div class='upcomingEvents'>
-      <div class="item">
-      <h2>Upcoming Events</h2>
-      <select name="SelectEvent" class="eventDropdown">
-          <option>Event type</option>
-          <option>Concert</option>
-          <option>Workshop</option>
-          <option>Festival</option>
-      </select>
-      </div>
-      <div class="eventsGrid">
-          {upcomingEvents.map((event,index) => (
-            <div class ="eventCard" key={index}>
-              <img src={event.image} class="eventImage" />
-              <h3>{event.title}</h3>
-              <p>{event.date} at {event.time}</p>
-              <p>{event.description}</p>
-            </div>
-          ))}
-        </div>
-        <button class="more">More</button>
-        </div>
-        <div class="createResell">
 
-          <div class="createEvent">
+function App() {
+  const [upcomingEvents, setUpcomingEvents] = useState([
+    {
+      image: Image1, title: "Concert in the Park", date: "November 15, 2024", time: "7:00 PM",
+      description: "Join us for a night of music under the stars!", eventType: "Concert", location: 'Central Park',
+      moreDescription: 'Join us for an unforgettable evening of music!',
+      ticketOptions: [
+        { type: 'General Admission', price: 20 },
+        { type: 'VIP', price: 50 },
+      ],
+    },
+    {
+      image: Image2, title: "Art Exhibition", date: "December 1, 2024", time: "5:00 PM",
+      description: "Explore the latest works from local artists.", eventType: "Art"
+    },
+    {
+      image: Image3, title: "Fashion Week", date: "November 24, 2024", time: "10:00 AM",
+      description: "Dont miss the chance to immerse yourself in a world of fashion", eventType: "Fashion"
+    },
+    {
+      image: Image4, title: "November Music Festival", date: "November 30, 2024", time: "10:00 PM",
+      description: "Come and celebrate the joy of music!", eventType: "Festival"
+    }
+  ]);
+
+
+
+  return (
+    <div>
+      <main>
+        <div className="header">
+          <nav>
+            <img src={logo} className="logo" />
+            <ul>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/about">About</Link></li>
+              <li><Link to="/contactUs">Contact</Link></li>
+            </ul>
+            <div>
+              <Link to="/signUp" className="signup">Sign Up</Link>
+            </div>
+          </nav>
+        </div>
+        <div className='upcomingEvents'>
+          <div className="item">
+            <h2>Upcoming Events</h2>
+            <form className="searchbar">
+              <input type="text" placeholder="Search..." className='search' />
+            </form>
+            <select name="SelectEvent" className="eventDropdown">
+              <option>Event type</option>
+              <option>Concert</option>
+              <option>Art</option>
+              <option>Festival</option>
+              <option>Fashion</option>
+            </select>
+          </div>
+          <div className="eventsGrid">
+            {upcomingEvents.map((event, index) => (
+              <Link to="/buy-ticket/:eventId">
+                <div className="eventCard" key={index}>
+                  <img src={event.image} className="eventImage" />
+                  <h3>{event.title}</h3>
+                  <p>{event.date} at {event.time}</p>
+                  <p>{event.description}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <button className="more" >More</button>
+        </div>
+        <div className="createResell">
+          <div className="createEvent">
             <h2>Add Your Event Now!</h2>
             <p>Have an event? Create Your event and sell tickets easily on TicketGo.</p>
-            <button class="createbtn" onClick = { () => { handleCreateEvent}}>Create</button>
-
+            <Link to="createEvent"><button className="createbtn">Create</button></Link>
           </div>
-          <div class="BuyTicket">
+          <div className="resell">
             <h2>Ticket Resale Market</h2>
             <p>Got tickets you no longer need? Resell them here!</p>
-            <button class="resellbtn" onClick={() => handleBuyTicket(event.id, event.price)}>Buy Ticket</button>
-
-            <button class="learnmorebtn">Learn More</button>
+            <div className="resellbtns">
+              <button className="resellbtn">Resell</button>
+              <button className="learnmorebtn">Learn More</button>
             </div>
+          </div>
         </div>
-        <div class="wholefooter">
-        <div class="footer">
-          <div class="events">
-            <h2>Events</h2>
-            <p>Upcoming Events</p>
-            <p>Resell Tickets</p>
-            <p>My Tickets</p>
+      </main>
+      <footer>
+        <div className="wholefooter">
+          <div className="footer">
+            <div className="events">
+              <h2>Events</h2>
+              <p>Upcoming Events</p>
+              <p>Resell Tickets</p>
+              <p>My Tickets</p>
+            </div>
+            <div className="company">
+              <h2>Company</h2>
+              <p><Link to="/about">About US</Link></p>
+              <p>Careers</p>
+              <p>Blogs</p>
+            </div>
+            <div className="support">
+              <h2>Support</h2>
+              <p>Help Center</p>
+              <p><Link to="/contactUs">Contact Us</Link></p>
+              <p>FAQs</p>
+            </div>
           </div>
-          <div class="company">
-            <h2>Company</h2>
-            <p>About US</p>
-            <p>Careers</p>
-            <p>Blogs</p>
-          </div>
-          <div class="support">
-            <h2>Support</h2>
-            <p>Help Center</p>
-            <p>Contact Us</p>
-            <p>FAQs</p>
-          </div>
-          </div>
-          <p class="lastline">©2024 TicketGO  |  Terms & Conditions  | Privacy</p>
+          <p>&copy; 2024 Your Company. All rights reserved.</p>
         </div>
-    </main>
+      </footer>
+    </div>
   );
 }
 
