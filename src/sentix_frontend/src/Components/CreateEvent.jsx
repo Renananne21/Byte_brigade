@@ -1,7 +1,18 @@
 import React, { useState } from 'react';
+import { sentix_backend } from 'declarations/sentix_backend';
 import Navbar from './Navbar';
 
-function CreateEvent({ handleCreateEvent }) {
+const handleCreateEventbtn = async (title, description, date, price, image) => {
+    try {
+      const response = await sentix_backend.create_event(eventId,title, description, date, price, image);
+      alert("Event created successfully!");
+    } catch (error) {
+      alert("Failed to create event.");
+      console.error("Create Event Error:", error);
+    }
+  };
+
+function CreateEvent() {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [date, setDate] = useState('');
@@ -10,7 +21,7 @@ function CreateEvent({ handleCreateEvent }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        handleCreateEvent(title, description, date, price, image);
+        handleCreateEventbtn(title, description, date, price, image);
     };
 
     return (
@@ -72,7 +83,7 @@ function CreateEvent({ handleCreateEvent }) {
                     />
                 </div>
 
-                <button type="submit">Create Event</button>
+                <button type="submit" >Create Event</button>
             </form>
         </div>
     );

@@ -14,7 +14,7 @@ class Ticket(Record):
     owner: Principal
     price: nat64
     resale: bool
-    resale_price: nat8  
+    resale_price: nat8
 
 class UserTokens(Record):
     user: Principal

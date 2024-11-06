@@ -2,21 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider, Route, } from "react-router-dom";
 import App from './App';
-import SignUp from './Components/SignUp';
 import CreateEvent from './Components/CreateEvent';
 import About from './Components/About';
+import EventList from './Components/EventList';
+import TicketPurchasePage from './Components/BuyTickets';
 import Dashboard from './Components/Dashboard';
 import ContactUs from './Components/Contact';
+import TicketPage from './Components/ticketPage';
+import ResellTicketPage from './Components/resellPage';
 import './index.scss';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-  },
-  {
-    path: "signUP",
-    element: <SignUp />,
   },
   {
     path: "about",
@@ -30,7 +29,14 @@ const router = createBrowserRouter([
     path: "createEvent",
     element: <CreateEvent />,
   },
-
+  {
+    path: "eventList",
+    element: <EventList />,
+  },
+  {
+    path: "buyTicket",
+    element: <TicketPurchasePage />,
+  },
 
 ]);
 
