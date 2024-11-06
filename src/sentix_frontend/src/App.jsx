@@ -25,8 +25,18 @@ const defaultOptions = {
     maxTimeToLive: 8 * 24 * 60 * 60 * 1e9, // days * hours * nanoseconds
   },
 };
-
-
+const handleBuyTicket = (selectedEventId) => {
+  console.log("Selected Event ID:", selectedEventId);
+  console.log("Upcoming Events:", upcomingEvents);
+  if (selectedEventId !== null) {
+    const event = upcomingEvents.find(event => event.id === selectedEventId);
+    if (event) {
+      alert(`Ticket for "${event.title}" purchased successfully for $${event.price}!`);
+    }
+  } else {
+    alert("Please select an event to purchase a ticket.");
+  }
+};
 function App() {
   const [upcomingEvents, setUpcomingEvents] = useState([
     {
@@ -221,7 +231,7 @@ function App() {
          </div>
          <div className="eventsGrid">
            {upcomingEvents.slice(0, visibleCount).map((event, index) => (
-             <Link to="/buyticket">
+             <Link to={handleBuyTicket}>
                <div className="eventCard" key={index}>
                  <img src={event.image} className="eventImage" />
                  <h3>{event.title}</h3>

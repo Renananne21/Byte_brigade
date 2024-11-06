@@ -33,11 +33,6 @@ const router = createBrowserRouter([
     path: "eventList",
     element: <EventList />,
   },
-  {
-    path: "buyTicket",
-    element: <TicketPurchasePage />,
-  },
-
 ]);
 
 
