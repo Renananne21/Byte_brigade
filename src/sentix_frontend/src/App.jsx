@@ -5,10 +5,12 @@ import { sentix_backend } from 'declarations/sentix_backend';
 import { Link } from 'react-router-dom';
 import Navbar from './Components/Navbar';
 import logo from './Images/logo.png';
+import EventImage from './Images/EventImage.jpg'
 import Image1 from './Images/Img1.jpg';
 import Image2 from './Images/Img2.jpg';
 import Image3 from './Images/Img3.jpg';
 import Image4 from './Images/Img4.jpg';
+import ticketImage from './Images/ticketImage.jpg' 
 
 
 const defaultOptions = {
@@ -31,7 +33,7 @@ const handleBuyTicket = (selectedEventId) => {
   if (selectedEventId !== null) {
     const event = upcomingEvents.find(event => event.id === selectedEventId);
     if (event) {
-      alert(`Ticket for "${event.title}" purchased successfully for $${event.price}!`);
+      alert(`Ticket for "${event.title}" purchased successfully for ${event.price}!`);
     }
   } else {
     alert("Please select an event to purchase a ticket.");
@@ -155,7 +157,7 @@ function App() {
 
 
 
- 
+
 
   const [visibleCount, setVisibleCount] = useState(4);
 
@@ -207,98 +209,118 @@ function App() {
   const renderIndex = () => {
     console.log("Render index");
   };
+  
+  
 
   return (
     <div>
-      {isAuthenticated ? (
-       <main>
-       <div className="header">
-         <Navbar></Navbar>
-       </div>
-       <div className='upcomingEvents'>
-         <div className="item">
-           <h2>Upcoming Events</h2>
-           <form className="searchbar">
-             <input type="text" placeholder="Search..." className='search' />
-           </form>
-           <select name="SelectEvent" className="eventDropdown">
-             <option>All Events</option>
-             <option>Concert</option>
-             <option>Art</option>
-             <option>Festival</option>
-             <option>Fashion</option>
-           </select>
-         </div>
-         <div className="eventsGrid">
-           {upcomingEvents.slice(0, visibleCount).map((event, index) => (
-             <Link to={handleBuyTicket}>
-               <div className="eventCard" key={index}>
-                 <img src={event.image} className="eventImage" />
-                 <h3>{event.title}</h3>
-                 <p>{event.date} at {event.time}</p>
-                 <p>{event.description}</p>
-               </div>
-             </Link>
-           ))}
-         </div>
-         <button className="more" onClick={handleMoreClick} >Discover More Events</button>
-       </div>
-       <div className="createResell">
-         <div className="createEvent">
-           <h2>Add Your Event Now!</h2>
-           <p>Have an event? Create Your event and sell tickets easily on TicketGo.</p>
-           <Link to="createEvent"><button className="createbtn">Create</button></Link>
-         </div>
-         <div className="resell">
-           <h2>Ticket Resale Market</h2>
-           <p>Got tickets you no longer need? Resell them here!</p>
-           <div className="resellbtns">
-             <button className="resellbtn">Resell</button>
-             <button className="learnmorebtn">Learn More</button>
-           </div>
-         </div>
-       </div>
-     </main>
-    ) : (
-      <div className="signUpPage">
-      <nav>
-        <img src={logo} className="logo" />
-        <ul>
-          <li><Link to="/about">About</Link></li>
-          <li><Link to="/contactUs">Contact</Link></li>
-        </ul>
-      </nav>
-      <h1 className="signUpHeader">Please Log In</h1>
-      <button onClick={login} className="signup">Log In with Internet Identity</button>
-    </div>
-        
-        )}
-
-      <footer>
-        <div className="wholefooter">
-          <div className="footer">
-            <div className="events">
-              <h2>Events</h2>
-              <p>Upcoming Events</p>
-              <p>Resell Tickets</p>
-              <p>My Tickets</p>
-            </div>
-            <div className="company">
-              <h2>Company</h2>
-              <p><Link to="/about">About US</Link></p>
-              <p>Careers</p>
-              <p>Blogs</p>
-            </div>
-            <div className="support">
-              <h2>Support</h2>
-              <p>Help Center</p>
-              <p><Link to="/contactUs">Contact Us</Link></p>
-              <p>FAQs</p>
-            </div>
+      
+        <main>
+          <div className="header">
+            <Navbar></Navbar>
           </div>
-          <p>&copy; 2024 Your Company. All rights reserved.</p>
-        </div>
-      </footer>
+          {!isAuthenticated ? (
+              <div className="signUpPage">         
+                <div className="signUpHeader">
+                  <h1 className="signUpHeader">TicketGO!</h1>
+                  <h1>Your ticket to Unforgettable Experiences</h1>
+                  <p>Secure your spot at the best events</p>
+                  <button onClick={login} className="signup">Log In with Internet Identity</button>
+                </div>
+              </div>
+      ) : (
+        <div className="signUpPage">         
+                <div className="signUpHeader">
+                  <h1 className="signUpHeader">TicketGO!</h1>
+                  <h1>Your ticket to Unforgettable Experiences</h1>                  
+                </div>
+              </div>
+      ) }
+          <div className='upcomingEvents'>
+            <div className="item">
+              <h2>Upcoming Events</h2>
+              <form className="searchbar">
+                <input type="text" placeholder="Search..." className='search' />
+              </form>
+              <select name="SelectEvent" className="eventDropdown">
+                <option>All Events</option>
+                <option>Concert</option>
+                <option>Art</option>
+                <option>Festival</option>
+                <option>Fashion</option>
+              </select>
+            </div>
+            <div className="eventsGrid">
+              {upcomingEvents.slice(0, visibleCount).map((event, index) => (
+                <Link to={handleBuyTicket}>
+                  <div className="eventCard" key={index}>
+                    <img src={event.image} className="eventImage" />
+                    <h3>{event.title}</h3>
+                    <p>{event.date} at {event.time}</p>
+                    <p>{event.description}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+            <button className="more" onClick={handleMoreClick} >Discover More Events</button>
+          </div>
+          
+          <div className="createResell" >  
+          <h2>Add Your Event Now!</h2>            
+              <div className="createEvent" >
+              <div className="text" >
+              <p>Sell it All with TicketGO!<br/>Concerts.Workshops.Festivals.Fashion Shows.Food & Drink Events.You name it!</p>
+              <p>TicketGO is built for creators and organizers to bring any idea to life and find what clicks with your audience.</p>
+              <p>Ready to eplore your potential?<br/>Let's TicketGO!</p>
+              </div>
+              <div className="image" >
+                <img src={EventImage} alt="" />
+              </div>
+              </div>
+              <Link to="createEvent"><button className="createbtn">Create Your Event</button></Link>            
+            </div>
+            
+            <div className="createResell">
+            <h2>Ticket Resale Market</h2>
+              <div className="resell" >
+              <div className="image" >
+                <img src={ticketImage} alt="" />
+              </div>
+              <div className="text" >
+              <p>Got tickets you no longer need?<br/> Resell your Tickets Easily with TicketGO!<br/>TicketGO is the #1 platform for event-goers to buy and resell tickets effortlessly</p>
+              <p>Create your own ticketing hub, manage resales, secure payments, and keep everything smooth, all in one place</p>
+              <p>Zero hassle. No hidden fees </p>
+              <p>What are you waiting for? GetTicketGO</p>
+              </div>
+              </div>
+                <button className="resellbtn">Resell</button>
+               </div> 
+          <footer>
+            <div className="wholefooter">
+              <div className="footer">
+                <div className="events">
+                  <h2>Events</h2>
+                  <p>Upcoming Events</p>
+                  <p>Resell Tickets</p>
+                  <p>My Tickets</p>
+                </div>
+                <div className="company">
+                  <h2>Company</h2>
+                  <p><Link to="/about">About US</Link></p>
+                  <p>Careers</p>
+                  <p>Blogs</p>
+                </div>
+                <div className="support">
+                  <h2>Support</h2>
+                  <p>Help Center</p>
+                  <p><Link to="/contactUs">Contact Us</Link></p>
+                  <p>FAQs</p>
+                </div>
+              </div>
+              <p>© 2024 Your Company. All rights reserved.</p>
+            </div>
+          </footer>
+        </main>
     </div>
   );
 }

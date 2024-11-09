@@ -37,8 +37,8 @@ a:hover {
 }
 
 img {
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
 }
 
 nav {
@@ -148,55 +148,58 @@ nav ul li a {
 
 }
 
+
 .createResell {
   background-color: #73b1e0;
-  margin: 20px auto;
+  text-align: center;
+  margin: 50px auto;
   padding: 20px 20px;
   max-width: 80%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+}
+
+.createEvent,
+.resell {
   display: flex;
-  justify-content: space-between;
-  text-align: center;
-
-  .createEvent {
-    padding: 20px;
-    border: none;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  align-items: center;
+  padding: 20px;
+  border: none;
+  border-radius: 5px;
 
 
 
-    .createbtn {
-      text-decoration: none;
-      display: block;
-      padding: 10px 20px;
-      color: white;
+  .text {
+    max-width: 50%;
+    height: auto;
+    text-align: left;
+    padding: 10px;
+
+    p {
       margin: 20px auto;
-      cursor: pointer;
     }
   }
 
-  .resell {
-    padding: 20px;
-    border: none;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  .image {
+    max-width: 50%;
+    height: auto;
 
-    .resellbtns {
-      display: flex;
-      justify-content: space-between;
-    }
+    img {
+      width: 100%;
+      height: auto;
 
-    .resellbtn,
-    .learnmorebtn {
-      text-decoration: none;
-      display: flex;
-      justify-content: center;
-      padding: 10px 5%;
-      color: white;
-      margin: 20px auto;
-      cursor: pointer;
     }
   }
+}
+
+.createbtn,
+.resellbtn {
+  text-decoration: none;
+  display: block;
+  padding: 10px 20px;
+  color: white;
+  margin: 20px auto;
+  cursor: pointer;
 }
 
 .wholefooter {
