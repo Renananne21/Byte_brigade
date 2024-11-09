@@ -20,11 +20,11 @@ Node.js and Yarn installed on your machine.
 Knowledge of basic blockchain and decentralized applications (optional but helpful).
 
 Installation
-Clone the repository:git clone https://github.com/yourusername/TicketGO.git
+Clone the repository:git clone https://github.com/Renananne21/Byte_brigade.git
 Navigate to the project directory:cd TicketGO
 Install dependencies:yarn install
 Running the Project:yarn start
-This will start the development server. Open http://localhost:3000 in your browser to see TicketGO in action.
+
 
 Usage
 For Attendees: Browse events, purchase tickets, and receive updates in real time.
