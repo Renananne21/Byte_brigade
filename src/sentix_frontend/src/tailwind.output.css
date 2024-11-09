@@ -1,0 +1,7 @@
+/* main.scss */
+@import 'tailwind.output.css';
+
+/* Your SCSS code */
+body {
+  font-family: 'Custom Font', sans-serif;
+}
