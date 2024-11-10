@@ -3,12 +3,12 @@
     "sentix_backend": {
       "build": "python -m kybra sentix_backend src/sentix_backend/src/main.py",
       "candid": "src/sentix_backend/sentix_backend.did",
-      "gzip": true,
       "metadata": [
-        {
-          "name": "candid:service"
-        }
-      ],
+               {
+     "name": "candid:service"
+               }
+],
+      "gzip": true,
       "tech_stack": {
         "cdk": {
           "kybra": {}
@@ -20,37 +20,13 @@
       "type": "custom",
       "wasm": ".kybra/sentix_backend/sentix_backend.wasm"
     },
-    "icrc1_ledger_canister": {
-            "type": "custom",
-            "candid": "https://raw.githubusercontent.com/dfinity/ic/aba60ffbc46acfc8990bf4d5685c1360bd7026b9/rs/ledger_suite/icrc1/ledger/ledger.did",
-            "wasm": "https://download.dfinity.systems/ic/aba60ffbc46acfc8990bf4d5685c1360bd7026b9/canisters/ic-icrc1-ledger.wasm.gz",
-            "metadata": [
-        {
-          "name": "candid:service"
-        }
-      ]
-        
-    },
-    
-    "internet_identity": {
-  "type": "custom",
-  "candid": "https://github.com/dfinity/internet-identity/releases/latest/download/internet_identity.did",
-  "wasm": "https://github.com/dfinity/internet-identity/releases/latest/download/internet_identity_dev.wasm.gz",
-  "remote": {
-    "id": {
-      "ic": "rdmx6-jaaaa-aaaaa-aaadq-cai"
-    }
-  },
-  "frontend": {}
-},
-      
     "sentix_frontend": {
       "dependencies": [
         "sentix_backend"
       ],
       "frontend": {
-        "entrypoint": "src/sentix_frontend"
-      },
+          "entrypoint": "src/sentix_frontend"
+        },
       "source": [
         "src/sentix_frontend/dist"
       ],
@@ -64,11 +40,12 @@
       "packtool": ""
     }
   },
-  "metadata": [
-    {
-      "name": "candid:service"
-    }
-  ],
   "output_env_file": ".env",
-  "version": 1
+  "version": 1,
+
+  "metadata": [
+   {
+     "name": "candid:service"
+   }
+]
 }
