@@ -25,4 +25,7 @@ dist/
 .env
 venv/
 byte_brigade/
+<<<<<<< HEAD
 byte_venus/
+=======
+>>>>>>> origin/master
