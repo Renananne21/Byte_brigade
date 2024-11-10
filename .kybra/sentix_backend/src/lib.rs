@@ -2901,11 +2901,11 @@ fn post_upgrade() {
 }
 #[ic_cdk_macros::query(name = "get_ticket")]
 #[candid::candid_method(query, rename = "get_ticket")]
-async fn _cdk_user_defined_get_ticket(_cdk_user_defined_ticketID: u64) -> (Option<Ticket>) {
+async fn _cdk_user_defined_get_ticket(_cdk_user_defined_ticket_id: u64) -> (Option<Ticket>) {
     let interpreter = unsafe { INTERPRETER_OPTION.as_mut() }
         .unwrap_or_trap("SystemError: missing python interpreter");
     let vm = &interpreter.vm;
-    let params = (_cdk_user_defined_ticketID
+    let params = (_cdk_user_defined_ticket_id
         .try_into_vm_value(vm)
         .unwrap_or_trap(),);
     call_global_python_function("get_ticket", params)
@@ -2923,16 +2923,16 @@ async fn _cdk_user_defined_get_all_events() -> (Vec<Event>) {
         .await
         .unwrap_or_trap()
 }
-#[ic_cdk_macros::query(name = "get_event_by_id")]
-#[candid::candid_method(query, rename = "get_event_by_id")]
-async fn _cdk_user_defined_get_event_by_id(
-    _cdk_user_defined_id: candid::Principal,
-) -> (Option<Event>) {
+#[ic_cdk_macros::query(name = "get_event")]
+#[candid::candid_method(query, rename = "get_event")]
+async fn _cdk_user_defined_get_event(_cdk_user_defined_event_id: u64) -> (Option<Event>) {
     let interpreter = unsafe { INTERPRETER_OPTION.as_mut() }
         .unwrap_or_trap("SystemError: missing python interpreter");
     let vm = &interpreter.vm;
-    let params = (_cdk_user_defined_id.try_into_vm_value(vm).unwrap_or_trap(),);
-    call_global_python_function("get_event_by_id", params)
+    let params = (_cdk_user_defined_event_id
+        .try_into_vm_value(vm)
+        .unwrap_or_trap(),);
+    call_global_python_function("get_event", params)
         .await
         .unwrap_or_trap()
 }
@@ -2976,14 +2976,14 @@ async fn _cdk_user_defined_spend_tokens(_cdk_user_defined_amount: candid::Int) -
 #[ic_cdk_macros::update(name = "buy_ticket")]
 #[candid::candid_method(update, rename = "buy_ticket")]
 async fn _cdk_user_defined_buy_ticket(
-    _cdk_user_defined_eventID: u64,
+    _cdk_user_defined_event_id: u64,
     _cdk_user_defined_price: u64,
 ) -> (Ticket) {
     let interpreter = unsafe { INTERPRETER_OPTION.as_mut() }
         .unwrap_or_trap("SystemError: missing python interpreter");
     let vm = &interpreter.vm;
     let params = (
-        _cdk_user_defined_eventID
+        _cdk_user_defined_event_id
             .try_into_vm_value(vm)
             .unwrap_or_trap(),
         _cdk_user_defined_price
@@ -2997,14 +2997,14 @@ async fn _cdk_user_defined_buy_ticket(
 #[ic_cdk_macros::update(name = "resale_ticket")]
 #[candid::candid_method(update, rename = "resale_ticket")]
 async fn _cdk_user_defined_resale_ticket(
-    _cdk_user_defined_ticketID: u64,
+    _cdk_user_defined_ticket_id: u64,
     _cdk_user_defined_resale_price: u64,
 ) -> (Option<Ticket>) {
     let interpreter = unsafe { INTERPRETER_OPTION.as_mut() }
         .unwrap_or_trap("SystemError: missing python interpreter");
     let vm = &interpreter.vm;
     let params = (
-        _cdk_user_defined_ticketID
+        _cdk_user_defined_ticket_id
             .try_into_vm_value(vm)
             .unwrap_or_trap(),
         _cdk_user_defined_resale_price
@@ -3017,11 +3017,11 @@ async fn _cdk_user_defined_resale_ticket(
 }
 #[ic_cdk_macros::update(name = "buy_resale_ticket")]
 #[candid::candid_method(update, rename = "buy_resale_ticket")]
-async fn _cdk_user_defined_buy_resale_ticket(_cdk_user_defined_ticketID: u64) -> (String) {
+async fn _cdk_user_defined_buy_resale_ticket(_cdk_user_defined_ticket_id: u64) -> (String) {
     let interpreter = unsafe { INTERPRETER_OPTION.as_mut() }
         .unwrap_or_trap("SystemError: missing python interpreter");
     let vm = &interpreter.vm;
-    let params = (_cdk_user_defined_ticketID
+    let params = (_cdk_user_defined_ticket_id
         .try_into_vm_value(vm)
         .unwrap_or_trap(),);
     call_global_python_function("buy_resale_ticket", params)
@@ -3044,7 +3044,7 @@ async fn _cdk_user_defined_create_user(_cdk_user_defined_username: String) -> (U
 #[ic_cdk_macros::update(name = "create_event")]
 #[candid::candid_method(update, rename = "create_event")]
 async fn _cdk_user_defined_create_event(
-    _cdk_user_defined_eventId: u64,
+    _cdk_user_defined_event_id: u64,
     _cdk_user_defined_title: String,
     _cdk_user_defined_description: String,
     _cdk_user_defined_date: String,
@@ -3054,7 +3054,7 @@ async fn _cdk_user_defined_create_event(
         .unwrap_or_trap("SystemError: missing python interpreter");
     let vm = &interpreter.vm;
     let params = (
-        _cdk_user_defined_eventId
+        _cdk_user_defined_event_id
             .try_into_vm_value(vm)
             .unwrap_or_trap(),
         _cdk_user_defined_title
