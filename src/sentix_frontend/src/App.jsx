@@ -9,7 +9,7 @@ import Image1 from './Images/Img1.jpg';
 import Image2 from './Images/Img2.jpg';
 import Image3 from './Images/Img3.jpg';
 import Image4 from './Images/Img4.jpg';
-import Button from './components/Button';
+import Button from './Components/Button';
 
 
 const defaultOptions = {

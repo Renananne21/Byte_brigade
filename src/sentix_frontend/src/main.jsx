@@ -5,7 +5,6 @@ import App from './App';
 import CreateEvent from './Components/CreateEvent';
 import About from './Components/About';
 import EventList from './Components/EventList';
-import TicketPurchasePage from './Components/BuyTickets';
 import Dashboard from './Components/Dashboard';
 import ContactUs from './Components/Contact';
 import TicketPage from './Components/ticketPage';
@@ -14,7 +13,7 @@ import './index.scss';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "Dasboard",
     element: <App />,
   },
   {
@@ -24,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: "contactUs",
     element: <ContactUs />,
+  },
+  {
+    path: "/",
+    element: <Dashboard />,
   },
   {
     path: "createEvent",

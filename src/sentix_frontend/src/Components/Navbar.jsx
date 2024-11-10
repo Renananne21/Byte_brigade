@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo from 'src/Components/Images/logo.png'; 
+import logo from '/home/venus/Byte_brigade/src/sentix_frontend/src/Images/logo.png'; 
 
 function Navbar() {
   return (
