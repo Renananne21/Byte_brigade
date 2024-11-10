@@ -5,11 +5,9 @@ import App from './App';
 import CreateEvent from './Components/CreateEvent';
 import About from './Components/About';
 import EventList from './Components/EventList';
-import TicketPurchasePage from './Components/BuyTickets';
-import Dashboard from './Components/Dashboard';
+import BuyTickets from './Components/BuyTickets';
+import Confirmation from './Components/confirmation';
 import ContactUs from './Components/Contact';
-import TicketPage from './Components/ticketPage';
-import ResellTicketPage from './Components/resellPage';
 import './index.scss';
 
 const router = createBrowserRouter([
@@ -32,7 +30,16 @@ const router = createBrowserRouter([
   {
     path: "eventList",
     element: <EventList />,
+  }, 
+  {
+    path: "/buy-tickets/:eventId",
+    element: <BuyTickets />,
   },
+  {
+    path: "confirmation",
+    element: <Confirmation />,
+  },
+
 ]);
 
 // Add viewport meta tag to make the UI responsive
