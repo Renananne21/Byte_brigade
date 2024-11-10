@@ -8,17 +8,6 @@ tickets = StableBTreeMap[nat64, Ticket](
 )
 
 @update
-<<<<<<< HEAD
-def buy_ticket(eventID: nat64, price: nat64) -> Ticket:
-    caller_principal = ic.caller()
-    
-    
-    ticketID = tickets.len() + 1
-    
-    ticket: Ticket = {
-        "id": ticketID,
-        "event_id": eventID,
-=======
 def buy_ticket(event_id: nat64, price: nat64) -> Ticket:
     caller_principal = ic.caller()
     
@@ -28,18 +17,13 @@ def buy_ticket(event_id: nat64, price: nat64) -> Ticket:
     ticket: Ticket = {
         "id": ticket_id,
         "event_id": event_id,
->>>>>>> origin/master
         "owner": caller_principal,
         "price": price,
         "resale": False,
         "resale_price": 0,
     }
     
-<<<<<<< HEAD
-    tickets.insert(ticketID, ticket)
-=======
     tickets.insert(ticket_id, ticket)
->>>>>>> origin/master
     
     reward_tokens(amount)
 
@@ -47,11 +31,7 @@ def buy_ticket(event_id: nat64, price: nat64) -> Ticket:
 
 
 @update
-<<<<<<< HEAD
-def resale_ticket(ticketID: nat64, resale_price: nat64) -> Opt[Ticket]:
-=======
 def resale_ticket(ticket_id: nat64, resale_price: nat64) -> Opt[Ticket]:
->>>>>>> origin/master
     caller_principal = ic.caller()
     ticket_opt: Opt[Ticket] = tickets.get(ticket_id)
 
@@ -66,26 +46,16 @@ def resale_ticket(ticket_id: nat64, resale_price: nat64) -> Opt[Ticket]:
     ticket.resale = True
     ticket.resale_price = resale_price
     
-<<<<<<< HEAD
-    tickets.insert(ticketID, ticket)
-=======
     tickets.insert(ticket_id, ticket)
->>>>>>> origin/master
 
     ic.print("Ticket is available for resale")
 
     return ticket 
 
 @update
-<<<<<<< HEAD
-def buy_resale_ticket(ticketID: nat64) -> str:
-    caller_principal = ic.caller()
-    ticket_opt: Opt[Ticket] = tickets.get(ticketID)
-=======
 def buy_resale_ticket(ticket_id: nat64) -> str:
     caller_principal = ic.caller()
     ticket_opt: Opt[Ticket] = tickets.get(ticket_id)
->>>>>>> origin/master
     
     if ticket_opt is None:
         return "Ticket not found."
@@ -100,23 +70,13 @@ def buy_resale_ticket(ticket_id: nat64) -> str:
     ticket.resale = False
     ticket.resale_price = 0  
     
-<<<<<<< HEAD
-    tickets.insert(ticketID, ticket)  
-    reward_tokens(caller_principal, 5)  
-=======
     tickets.insert(ticket_id, ticket)  # Update the ticket in storage
     reward_tokens(caller_principal, 5)  # Reward for buying a resale ticket
->>>>>>> origin/master
     
     return "Resale successful"
 
 @query
-<<<<<<< HEAD
-def get_ticket(ticketID: nat64) -> Opt[Ticket]:
-    ticket_opt: Opt[Ticket] = tickets.get(ticketID)
-=======
 def get_ticket(ticket_id: nat64) -> Opt[Ticket]:
     ticket_opt: Opt[Ticket] = tickets.get(ticket_id)
->>>>>>> origin/master
     
     return ticket_opt  # Return the ticket option directly
