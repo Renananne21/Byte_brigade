@@ -1,27 +1,53 @@
 from kybra import ic, nat64, query, Record, StableBTreeMap, update, Vec, Opt
 from models import Event
+<<<<<<< HEAD
+=======
+# Define the Event record
+# class Event(Record):
+#     id: nat64
+#     title: str
+#     description: str
+#     date: str
+#     price: nat64
+>>>>>>> origin/master
 
 events = StableBTreeMap[nat64, Event](
     memory_id=0, max_key_size=80, max_value_size=1000
 )
 
 @update
+<<<<<<< HEAD
 def create_event(eventId: nat64, title: str, description: str, date: str, price: nat64) -> Event:
+=======
+def create_event(event_id: nat64, title: str, description: str, date: str, price: nat64) -> Event:
+>>>>>>> origin/master
     """
     Create a new event with the given details.
     The event ID must be unique.
     """
+<<<<<<< HEAD
     
 
     event: Event = {
         "id": eventId,
+=======
+    # if events.contains(event_id):
+    #     raise ValueError(f"Event ID {event_id} already exists.")
+
+    event: Event = {
+        "id": event_id,
+>>>>>>> origin/master
         "title": title,
         "description": description,
         "date": date,
         "price": price,
     }
 
+<<<<<<< HEAD
     events.insert(eventId, event)
+=======
+    events.insert(event_id, event)
+>>>>>>> origin/master
     return event
 
 @query
@@ -40,8 +66,16 @@ def get_all_events() -> Vec[Event]:
 #     return Vec(matching_events)
 
 @query
+<<<<<<< HEAD
 def get_event(eventId: nat64) -> Opt[Event]:
     """
     Retrieve an event by its ID.
     """
     return events.get(eventId)
+=======
+def get_event(event_id: nat64) -> Opt[Event]:
+    """
+    Retrieve an event by its ID.
+    """
+    return events.get(event_id)
+>>>>>>> origin/master

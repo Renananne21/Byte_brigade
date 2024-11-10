@@ -1,8 +1,15 @@
 {
   "sentix_backend": {
+<<<<<<< HEAD
     "ic": "owm5s-oyaaa-aaaap-anrkq-cai"
   },
   "sentix_frontend": {
     "ic": "o7pwo-yqaaa-aaaap-anrla-cai"
+=======
+    "ic": "midqr-piaaa-aaaaj-azvna-cai"
+  },
+  "sentix_frontend": {
+    "ic": "mpcwf-cqaaa-aaaaj-azvnq-cai"
+>>>>>>> origin/master
   }
 }

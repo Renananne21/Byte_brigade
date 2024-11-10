@@ -80,12 +80,9 @@ nav ul li a {
 }
 
 .upcomingEvents {
-  padding: 30px;
+  padding: 20px;
   margin: 20px auto;
   max-width: 80%;
-  border: 4px solid #0056b3; // Adds a thick border around all events
-  border-radius: 10px; // Adds rounded corners to the border
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); // Adds a subtle shadow for depth
 
   .item {
     display: flex;
@@ -94,7 +91,7 @@ nav ul li a {
     margin-bottom: 20px;
 
     h2 {
-      margin: 0;
+      margin: 0
     }
 
     .search {
@@ -124,11 +121,7 @@ nav ul li a {
       overflow: hidden;
       text-align: center;
       border-radius: 8px;
-      border: 2px solid #0056b3; // Border for individual event cards
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      position: relative;
-      transform-origin: center bottom;
 
       .eventImage {
         width: 100%;
@@ -136,10 +129,9 @@ nav ul li a {
         object-fit: cover;
       }
 
-      &:hover {
-        transform: scale(1.1) translateY(-10px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        z-index: 10;
+      .eventCard:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       }
     }
   }

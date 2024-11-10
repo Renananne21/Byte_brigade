@@ -1,68 +1,92 @@
 import React, { useState } from 'react';
 import { sentix_backend } from 'declarations/sentix_backend';
-import Navbar from './Navbar'; 
+import Navbar from './Navbar';
+
+const handleCreateEventbtn = async (title, description, date, price, image) => {
+    try {
+      const response = await sentix_backend.create_event(eventId,title, description, date, price, image);
+      alert("Event created successfully!");
+    } catch (error) {
+      alert("Failed to create event.");
+      console.error("Create Event Error:", error);
+    }
+  };
 
 function CreateEvent() {
-  const [concert, setConcert] = useState(''); 
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [date, setDate] = useState('');
+    const [price, setPrice] = useState('');
+    const [image, setImage] = useState('');
 
-  function handleSubmit(event) {
-    event.preventDefault();
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        handleCreateEventbtn(title, description, date, price, image);
+    };
 
-    const eventId = Number(event.target.elements.eventId.value);
-    const title = event.target.elements.title.value;
-    const description = event.target.elements.description.value;
-    const date = event.target.elements.date.value;
-    const price = Number(event.target.elements.price.value);
+    return (
+        <div className="create-event-container">
+            <Navbar></Navbar>
+            <h1>Create Event</h1>
+            <form onSubmit={handleSubmit}>
+                <div className="form-group">
+                    <label htmlFor="title">Event Title</label>
+                    <input
+                        type="text"
+                        id="title"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        required
+                    />
+                </div>
 
-    sentix_backend.create_event(eventId, title, description, date, price)
-      .then((concert) => {
-        setConcert(concert);
-        console.log('Event created successfully!');
-      })
-      .catch((error) => {
-        console.error('Failed to create event:', error);
-      });
+                <div className="form-group">
+                    <label htmlFor="description">Description</label>
+                    <textarea
+                        id="description"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        required
+                    ></textarea>
+                </div>
 
-    return false; 
-  }
+                <div className="form-group">
+                    <label htmlFor="date">Event Date</label>
+                    <input
+                        type="date"
+                        id="date"
+                        value={date}
+                        onChange={(e) => setDate(e.target.value)}
+                        required
+                    />
+                </div>
 
-  return (
-    <div>
-      <Navbar />
+                <div className="form-group">
+                    <label htmlFor="price">Price</label>
+                    <input
+                        type="number"
+                        id="price"
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)}
+                        required
+                    />
+                </div>
 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Event ID</label>
-          <input type="text" name="eventId" required />
+                <div className="form-group">
+                    <label htmlFor="image">Image URL</label>
+                    <input
+                        type="text"
+                        id="image"
+                        value={image}
+                        onChange={(e) => setImage(e.target.value)}
+                        required
+                    />
+                </div>
+
+                <button type="submit" >Create Event</button>
+            </form>
         </div>
-        <div>
-          <label>Title</label>
-          <input type="text" name="title" required />
-        </div>
-        <div>
-          <label>Description</label>
-          <textarea name="description" required />
-        </div>
-        <div>
-          <label>Date</label>
-          <input type="date" name="date" required />
-        </div>
-        <div>
-          <label>Price</label>
-          <input type="number" name="price" required />
-        </div>
-
-        <button type="submit">Create Event</button>
-      </form>
-
-      {/* Display the created event data */}
-      {concert && (
-        <div>
-          <h3>Event Created Successfully!</h3>
-        </div>
-      )}
-    </div>
-  );
-}
+    );
+};
 
 export default CreateEvent;
