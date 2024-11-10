@@ -8,22 +8,22 @@ tickets = StableBTreeMap[nat64, Ticket](
 )
 
 @update
-def buy_ticket(event_id: nat64, price: nat64) -> Ticket:
+def buy_ticket(eventID: nat64, price: nat64) -> Ticket:
     caller_principal = ic.caller()
     
     
-    ticket_id = tickets.len() + 1
+    ticketID = tickets.len() + 1
     
     ticket: Ticket = {
-        "id": ticket_id,
-        "event_id": event_id,
+        "id": ticketID,
+        "event_id": eventID,
         "owner": caller_principal,
         "price": price,
         "resale": False,
         "resale_price": 0,
     }
     
-    tickets.insert(ticket_id, ticket)
+    tickets.insert(ticketID, ticket)
     
     reward_tokens(amount)
 
@@ -31,7 +31,7 @@ def buy_ticket(event_id: nat64, price: nat64) -> Ticket:
 
 
 @update
-def resale_ticket(ticket_id: nat64, resale_price: nat64) -> Opt[Ticket]:
+def resale_ticket(ticketID: nat64, resale_price: nat64) -> Opt[Ticket]:
     caller_principal = ic.caller()
     ticket_opt: Opt[Ticket] = tickets.get(ticket_id)
 
@@ -46,16 +46,16 @@ def resale_ticket(ticket_id: nat64, resale_price: nat64) -> Opt[Ticket]:
     ticket.resale = True
     ticket.resale_price = resale_price
     
-    tickets.insert(ticket_id, ticket)
+    tickets.insert(ticketID, ticket)
 
     ic.print("Ticket is available for resale")
 
     return ticket 
 
 @update
-def buy_resale_ticket(ticket_id: nat64) -> str:
+def buy_resale_ticket(ticketID: nat64) -> str:
     caller_principal = ic.caller()
-    ticket_opt: Opt[Ticket] = tickets.get(ticket_id)
+    ticket_opt: Opt[Ticket] = tickets.get(ticketID)
     
     if ticket_opt is None:
         return "Ticket not found."
@@ -70,13 +70,13 @@ def buy_resale_ticket(ticket_id: nat64) -> str:
     ticket.resale = False
     ticket.resale_price = 0  
     
-    tickets.insert(ticket_id, ticket)  # Update the ticket in storage
-    reward_tokens(caller_principal, 5)  # Reward for buying a resale ticket
+    tickets.insert(ticketID, ticket)  
+    reward_tokens(caller_principal, 5)  
     
     return "Resale successful"
 
 @query
-def get_ticket(ticket_id: nat64) -> Opt[Ticket]:
-    ticket_opt: Opt[Ticket] = tickets.get(ticket_id)
+def get_ticket(ticketID: nat64) -> Opt[Ticket]:
+    ticket_opt: Opt[Ticket] = tickets.get(ticketID)
     
     return ticket_opt  # Return the ticket option directly

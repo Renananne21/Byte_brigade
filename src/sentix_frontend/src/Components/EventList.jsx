@@ -20,6 +20,7 @@ const EventList = () => {
 
     return (
         <div>
+            <Navbar />
             <h1>All Events</h1>
             <div className="events-grid">
                 {events.map((event) => (

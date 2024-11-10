@@ -1,17 +1,16 @@
-from kybra import Record, Principal, nat64, nat8, blob 
+from kybra import Record, Principal, nat64, nat8
 
 class Event(Record):
-    id: Principal 
+    id: nat64 
     title: str
     description: str
     date: str
     price: nat64 
-    
 
 
 class Ticket(Record):
-    id: Principal
-    event_id: Principal 
+    id: nat8
+    event_id: nat8  
     owner: Principal
     price: nat64
     resale: bool
@@ -23,26 +22,3 @@ class UserTokens(Record):
 
 class Tokens(Record):
     e8s: nat64
-
-class User(Record):
-    id: Principal
-    created_at: nat64
-    creating_ids: Vec[Principal]
-    username: str
-
-class CreateConcert(Variant, total=False):
-    Ok: Event
-    Err: "CreateEventErr"
-
-
-class CreateConcertErr(Variant, total=False):
-    UserDoesNotExist: Principal
-
-class Image(Record):
-    image_id: Principal
-    image: blob 
-
-class UploadImageResult(Variant, total=False):
-    Ok: Image
-    Err: "UploadImageErr"
-

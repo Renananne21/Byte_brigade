@@ -16,7 +16,7 @@ type Ticket = record {
 service : () -> {
   buy_resale_ticket : (nat64) -> (text);
   buy_ticket : (nat64, nat64) -> (Ticket);
-  create_event : (text, text, text, nat64) -> (Event);
+  create_event : (nat64, text, text, text, nat64) -> (Event);
   get_all_events : () -> (vec Event) query;
   get_event : (nat64) -> (opt Event) query;
   get_ticket : (nat64) -> (opt Ticket) query;
@@ -24,5 +24,4 @@ service : () -> {
   resale_ticket : (nat64, nat64) -> (opt Ticket);
   reward_tokens : (int) -> (text);
   spend_tokens : (int) -> (text);
-  upload_image : (text, blob) -> (text);
 }
