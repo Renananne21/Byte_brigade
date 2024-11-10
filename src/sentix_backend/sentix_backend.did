@@ -25,9 +25,8 @@ type User = record {
 };
 service : () -> {
   buy_resale_ticket : (nat64) -> (text);
-  buy_ticket : (principal, nat64) -> (Ticket);
-  create_event : (text, text, text, nat64) -> (CreateConcert);
-  create_user : (text) -> (User);
+  buy_ticket : (nat64, nat64) -> (Ticket);
+  create_event : (nat64, text, text, text, nat64) -> (Event);
   get_all_events : () -> (vec Event) query;
   get_event_by_id : (principal) -> (opt Event) query;
   get_ticket : (principal) -> (opt Ticket) query;
@@ -35,5 +34,4 @@ service : () -> {
   resale_ticket : (principal, nat64) -> (opt Ticket);
   reward_tokens : (int) -> (text);
   spend_tokens : (int) -> (text);
-  upload_image : (blob) -> (UploadImageResult);
 }
