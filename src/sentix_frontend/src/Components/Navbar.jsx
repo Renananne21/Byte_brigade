@@ -42,15 +42,8 @@ function Navbar({ searchTerm, setSearchTerm }) {
             <nav>
                 <div className="logo">
                 <img src={logo} alt="" />
-
-                <h1 className="ticketGo">TokenTix</h1>
-                </div>
-                <input
-                type="text"
-                placeholder="Search events..."
-                className="search-input"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)} />
+                 </div>
+                <h1 className="ticketGo">TicketGo</h1>
             <ul>
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/about">About</Link></li>
