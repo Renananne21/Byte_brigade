@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { sentix_backend } from 'declarations/sentix_backend';
-import Navbar from './Navbar';
+import Navbar from './Navbar'; 
 
 
 
