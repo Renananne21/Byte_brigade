@@ -1,0 +1,51 @@
+{
+  "canisters": {
+    "sentix_backend": {
+      "build": "python -m kybra sentix_backend src/sentix_backend/src/main.py",
+      "candid": "src/sentix_backend/sentix_backend.did",
+      "metadata": [
+               {
+     "name": "candid:service"
+               }
+],
+      "gzip": true,
+      "tech_stack": {
+        "cdk": {
+          "kybra": {}
+        },
+        "language": {
+          "python": {}
+        }
+      },
+      "type": "custom",
+      "wasm": ".kybra/sentix_backend/sentix_backend.wasm"
+    },
+    "sentix_frontend": {
+      "dependencies": [
+        "sentix_backend"
+      ],
+      "frontend": {
+          "entrypoint": "src/sentix_frontend"
+        },
+      "source": [
+        "src/sentix_frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "sentix_frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1,
+
+  "metadata": [
+   {
+     "name": "candid:service"
+   }
+]
+}

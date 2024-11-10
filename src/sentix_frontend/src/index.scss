@@ -1,0 +1,475 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #73b1e0;
+}
+
+button {
+  background-color: #1d275f;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+
+
+  &:hover {
+    background-color: #0056b3;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  color: #2C3E50;
+}
+
+.header {
+  max-width: 80%;
+  min-height: 100px;
+  background-position: center;
+  margin: 20px auto;
+  background-size: cover;
+  padding: 10px auto;
+  overflow: hidden;
+}
+
+img {
+  width: 60px;
+  height: 60px;
+}
+
+nav {
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  margin: 2px 2px;
+}
+
+nav ul li {
+  display: inline-block;
+  list-style: none;
+  margin: 10px 15px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+}
+
+
+.signup {
+  text-decoration: none;
+  background-color: #1d275f;
+  border-radius: 20px;
+  display: block;
+  padding: 14px 12px;
+  color: white;
+  margin: 20px auto;
+  border: 2px solid white;
+  cursor: pointer;
+
+
+  a:hover {
+    color: #2C3E50;
+    background-color: #0056b3;
+  }
+}
+
+.upcomingEvents {
+  padding: 30px;
+  margin: 20px auto;
+  max-width: 80%;
+  border: 4px solid #0056b3; // Adds a thick border around all events
+  border-radius: 10px; // Adds rounded corners to the border
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); // Adds a subtle shadow for depth
+
+  .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    h2 {
+      margin: 0;
+    }
+
+    .search {
+      margin: auto;
+      border: 1px solid gray;
+      padding: 10px;
+      border-radius: 10px;
+      max-width: 80%;
+    }
+
+    .eventDropdown {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      background-color: #d1d2e7;
+      cursor: pointer;
+    }
+  }
+
+  .eventsGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+
+    .eventCard {
+      background-color: #73b1e0;
+      overflow: hidden;
+      text-align: center;
+      border-radius: 8px;
+      border: 2px solid #0056b3; // Border for individual event cards
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      transform-origin: center bottom;
+
+      .eventImage {
+        width: 100%;
+        height: 130px;
+        object-fit: cover;
+      }
+
+      &:hover {
+        transform: scale(1.1) translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        z-index: 10;
+      }
+    }
+  }
+}
+
+.more {
+  text-decoration: none;
+  display: block;
+  padding: 10px 20px;
+  color: white;
+  margin: 20px auto;
+
+}
+
+
+.createResell {
+  background-color: #73b1e0;
+  text-align: center;
+  margin: 50px auto;
+  padding: 20px 20px;
+  max-width: 80%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+}
+
+.createEvent,
+.resell {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border: none;
+  border-radius: 5px;
+
+
+
+  .text {
+    max-width: 50%;
+    height: auto;
+    text-align: left;
+    padding: 10px;
+
+    p {
+      margin: 20px auto;
+    }
+  }
+
+  .image {
+    max-width: 50%;
+    height: auto;
+
+    img {
+      width: 100%;
+      height: auto;
+
+    }
+  }
+}
+
+.createbtn,
+.resellbtn {
+  text-decoration: none;
+  display: block;
+  padding: 10px 20px;
+  color: white;
+  margin: 20px auto;
+  cursor: pointer;
+}
+
+.wholefooter {
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #73b1e0;
+  max-width: 80%;
+  text-align: center;
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+
+    .events,
+    .company,
+    .support {
+      padding: 20px 40px;
+      border: none;
+      border-radius: 5px;
+    }
+  }
+
+}
+
+.navbar {
+  max-width: 80%;
+  margin: 20px auto;
+  padding: 20px auto;
+  height: 100px;
+}
+
+.signUpPage {
+  max-width: 80%;
+  margin: 20px auto;
+  padding: 20px auto;
+}
+
+.signUpHeader {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+
+
+.about-page {
+  padding: 2rem;
+  max-width: 800px;
+  margin: auto;
+
+  .about-hero {
+    text-align: center;
+
+    h1 {
+      font-size: 2.5rem;
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #666;
+    }
+  }
+
+  .about-details,
+  .about-features,
+  .about-team {
+    margin-top: 2rem;
+
+    h2 {
+      font-size: 1.8rem;
+      color: #333;
+      margin-bottom: 1rem;
+    }
+
+    p,
+    li {
+      font-size: 1rem;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    ul {
+      list-style-type: disc;
+      padding-left: 1.5rem;
+
+      li {
+        margin: 0.5rem 0;
+      }
+    }
+  }
+}
+
+.container {
+  padding: 20px;
+}
+
+.page-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  margin: 20px;
+  padding: 20px;
+  max-width: 400px;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.02);
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+  border-bottom: 2px solid #ddd;
+}
+
+.card-content {
+  padding: 10px;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.card-description {
+  color: #666;
+  margin-top: 10px;
+}
+
+.contact {
+  margin: 0;
+
+
+  header {
+    max-width: 80%;
+    margin: 20px auto;
+    padding: 10px auto;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  main {
+    margin: 20px auto;
+    max-width: 80%;
+    padding: 10px auto;
+
+  }
+
+
+  form {
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  label {
+    display: block;
+    margin: 10px 0 5px;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  button {
+    text-decoration: none;
+    display: block;
+    padding: 10px 20px;
+    color: white;
+    margin: 20px auto;
+    cursor: pointer;
+  }
+
+  .info {
+    margin: 20px auto;
+  }
+}
+
+.create-event-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  form {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: auto;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+
+      &:focus {
+        border-color: #007bff;
+        outline: none;
+      }
+    }
+
+    textarea {
+      height: 100px;
+      resize: none;
+    }
+  }
+
+  button {
+    width: 100%;
+    padding: 0.75rem;
+    color: white;
+    font-size: 1rem;
+
+
+  }
+}
+
+.buyTicketForm {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: auto;
+  justify-content: center;
+
+  .buyTicket {
+    padding: auto;
+    margin: 10px auto;
+
+  }
+
+  button {
+    margin: 20px auto;
+    padding: auto 10px;
+  }
+}
