@@ -1,5 +1,12 @@
 from kybra import ic, nat64, query, Record, StableBTreeMap, update, Vec, Opt
 from models import Event
+# Define the Event record
+# class Event(Record):
+#     id: nat64
+#     title: str
+#     description: str
+#     date: str
+#     price: nat64
 
 events = StableBTreeMap[nat64, Event](
     memory_id=0, max_key_size=80, max_value_size=1000
@@ -23,14 +30,15 @@ def create_user(username: str) -> User:
 
 
 @update
-def create_event(eventId: nat64, title: str, description: str, date: str, price: nat64) -> Event:
+def create_event(event_id: nat64, title: str, description: str, date: str, price: nat64) -> Event:
     """
     Create a new event with the given details.
     """
-    
+    # if events.contains(event_id):
+    #     raise ValueError(f"Event ID {event_id} already exists.")
 
-    concert: Event = {
-        "id": id,
+    event: Event = {
+        "id": event_id,
         "title": title,
         "description": description,
         "date": date,
@@ -38,21 +46,8 @@ def create_event(eventId: nat64, title: str, description: str, date: str, price:
         
     }
 
-    events.insert(concert['id'], concert)
-
-    new_user: User = {
-        "id": user["id"],
-        "created_at": user["created_at"],
-        "username": user["username"],
-        "creating_ids": [*user["creating_ids"], recording["id"]],
-    }
-
-    users.insert(new_user["id"], new_user)
-
-    return {"Success": Event}
-
-
-
+    events.insert(event_id, event)
+    return event
 
 @query
 def get_all_events() -> Vec[Event]:
@@ -65,8 +60,8 @@ def get_all_events() -> Vec[Event]:
 
 
 @query
-def get_event_by_id(id: Principal) -> Opt[Event]:
+def get_event(event_id: nat64) -> Opt[Event]:
     """
     Retrieve an event by its ID.
     """
-    return events.get(id)
+    return events.get(event_id)
