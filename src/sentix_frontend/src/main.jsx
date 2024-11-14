@@ -6,8 +6,8 @@ import CreateEvent from './Components/CreateEvent';
 import About from './Components/About';
 import EventList from './Components/EventList';
 import BuyTickets from './Components/BuyTickets';
+import ResellTicket from './Components/ResellTicket';
 import Confirmation from './Components/confirmation';
-import Ticket from  './Components/ticketPage';
 import ContactUs from './Components/Contact';
 import './index.scss';
 
@@ -35,6 +35,10 @@ const router = createBrowserRouter([
   {
     path: "/buy-tickets/:eventId",
     element: <BuyTickets />,
+  },
+  {
+    path: "resell-ticket",
+    element: <ResellTicket />,
   },
   {
     path: "confirmation",

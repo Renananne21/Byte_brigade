@@ -210,10 +210,22 @@ function App() {
     setShowToast(true);
   };
 
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Add this useEffect hook after your other useEffect
+  useEffect(() => {
+    const slideInterval = setInterval(() => {
+      setCurrentSlide((prevSlide) =>
+        prevSlide === 3 ? 0 : prevSlide + 1
+      );
+    }, 5000); // 30 seconds
+
+    return () => clearInterval(slideInterval);
+  }, []);
+
   return (
     <div className="app-container" >
       <Navbar />
-
       <main>
         {!isAuthenticated ? (
           <div className="hero-section">
@@ -225,8 +237,27 @@ function App() {
         ) : (
           <div className="welcome-section" >
             <h1 >Welcome to TicketGO!</h1>
-            <p>Discover and book amazing events</p>
+            <h3>Discover and book amazing events</h3>
+            <div className="featured-slider">
+              {upcomingEvents.slice(currentSlide, currentSlide + 1).map((event, index) => (
+                <div
+                  className="slider-card"
+                  key={index}
+                  onClick={() => handleBuyTicket(event.id, event.price)}
+                >
+                  <img src={event.image} alt={event.title} />
+                  <div className="slider-content">
+                    <h2>{event.title}</h2>
+                    <div className="slider-info">
+                      <p className="slider-date">{event.date} at {event.time}</p>
+                      <p className="slider-location">{event.location}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
+
         )}
         <section className="events-section" >
           <div className="events-header" >
@@ -253,7 +284,7 @@ function App() {
 
           <div className="events-grid" >
             {filteredEvents.slice(0, visibleCount).map((event, index) => (
-              <div className="event-card" key={index}>
+              <div className="event-card" key={index} onClick={() => handleBuyTicket(event.id, event.price)} >
                 <div className="event-image-container" >
                   <img src={event.image} alt={event.title} className="event-image" />
                   <div className="event-type-badge">{event.eventType}</div>
@@ -263,15 +294,12 @@ function App() {
                   <div className="event-info" >
                     <p className="event-date">{event.date} at {event.time}</p>
                     <p className="event-location">{event.location}</p>
+                    <p className="event-price">Price: {event.price}</p>
+                    <p className="event-description">{event.description}</p>
+                    <p className="event-tickets">
+                      Available Tickets: {event.capacity - event.ticketsSold} / {event.capacity}
+                    </p>
                   </div>
-                  <p className="event-description">{event.description}</p>
-                  <div className="event-stats">
-                    <span className="event-price">{event.price}</span>
-                    <span className="tickets-remaining">
-                      {event.capacity - event.ticketsSold} tickets left
-                    </span>
-                  </div>
-                  <button className="buy-ticket-button" onClick={() => handleBuyTicket(event.id, event.price)}>Buy Tickets</button>
                 </div>
               </div>
             ))}
@@ -305,7 +333,7 @@ function App() {
               <h3 style={{ fontSize: '28px', marginBottom: '20px', color: '#2c3e50' }}>Can't make it to an event?</h3>
               <p >Resell your tickets safely and easily on TicketGO!</p>
               <p style={{ marginBottom: '25px' }}>The #1 trusted platform for secure ticket resales</p>
-              <button className="rese1ll-button">Start Reselling</button>
+              <Link to="resell-ticket" className="rese1ll-button">Start Reselling</Link>
             </div>
           </div>
         </section>

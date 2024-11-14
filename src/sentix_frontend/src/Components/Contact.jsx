@@ -27,7 +27,7 @@ function ContactUs() {
                         <label htmlFor="message">Message:</label>
                         <textarea id="message" name="message" rows="4" required></textarea>
 
-                        <button type="submit">Send Message</button>
+                        <button className="sendMessage"type="submit">Send Message</button>
                     </form>
                 </div>
 
@@ -39,32 +39,37 @@ function ContactUs() {
                 </div>
             </main>
 
-            <footer>
-                <div className="wholefooter">
-                    <div className="footer">
-                        <div className="events">
-                            <h2>Events</h2>
-                            <p>Upcoming Events</p>
-                            <p>Resell Tickets</p>
-                            <p>My Tickets</p>
-                        </div>
-                        <div className="company">
-                            <h2>Company</h2>
-                            <p><Link to="/about">About US</Link></p>
-                            <p>Careers</p>
-                            <p>Blogs</p>
-                        </div>
-                        <div className="support">
-                            <h2>Support</h2>
-                            <p>Help Center</p>
-                            <p>Contact Us</p>
-                            <p>FAQs</p>
-                        </div>
-                    </div>
-                    <p>&copy; 2024 Your Company. All rights reserved.</p>
-                </div>
-
-            </footer>
+            <footer className="footer">
+          <div className="footer-content">
+            <div className="footer-section" >
+              <h3>Events</h3>
+              <ul >
+                <li>Upcoming Events</li>
+                <li>Resell Tickets</li>
+                <li>My Tickets</li>
+              </ul>
+            </div>
+            <div className="footer-section">
+              <h3>Company</h3>
+              <ul >
+                <li><Link to="/about" style={{ color: '#666', textDecoration: 'none' }}>About Us</Link></li>
+                <li>Careers</li>
+                <li>Blog</li>
+              </ul>
+            </div>
+            <div className="footer-section" >
+              <h3 >Support</h3>
+              <ul >
+                <li>Help Center</li>
+                <li><Link to="/contactUs" style={{ color: '#666', textDecoration: 'none' }}>Contact Us</Link></li>
+                <li>FAQs</li>
+              </ul>
+            </div>
+          </div>
+          <div className="footer-bottom">
+            <p>© 2024 TicketGO. All rights reserved.</p>
+          </div>
+        </footer>
         </div>
     );
 };
