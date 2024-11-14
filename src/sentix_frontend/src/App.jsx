@@ -4,7 +4,6 @@ import { AuthClient } from '@dfinity/auth-client';
 import { sentix_backend } from 'declarations/sentix_backend';
 import { Link, useNavigate } from 'react-router-dom';
 import Navbar from './Components/Navbar';
-import BuyTickets from './Components/BuyTickets';
 import EventImage from './Images/EventImage.jpg'
 import Image1 from './Images/Img1.jpg';
 import Image2 from './Images/Img2.jpg';
@@ -23,7 +22,7 @@ const defaultOptions = {
       process.env.DFX_NETWORK === "ic"
         ? "https://identity.ic0.app/#authorize"
         : "https://identity.ic0.app/#authorize",
-    maxTimeToLive: 8 * 24 * 60 * 60 * 1e9,
+    maxTimeToLive:BigInt(30 * 24 * 60 * 60 * 1000 * 1000 * 1000)
   },
 };
 

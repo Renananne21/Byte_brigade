@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
+// import DepositInfo from './ticketPage';
 
 function BuyTickets(props)  {
   const navigate = useNavigate();
@@ -10,6 +11,13 @@ function BuyTickets(props)  {
   const [selectedPayment, setSelectedPayment] = useState('credit');
   
   const totalPrice = quantity * parseFloat(event.price.replace('$', ''));
+
+
+  useEffect(() => {
+    if (selectedPayment === 'icp') {
+      window.location.href = 'https://ramp.alchemypay.org/#/receivingMode';
+    }
+  }, [selectedPayment]);
 
  
 
@@ -96,8 +104,20 @@ function BuyTickets(props)  {
                   checked={selectedPayment === 'mpesa'}
                   onChange={(e) => setSelectedPayment(e.target.value)}
                 />
-                Mpesa
+                mpesa 
               </label>
+              <label>
+              <input
+                type="radio"
+                value="icp"
+                checked={selectedPayment === 'icp'}
+                onChange={(e) => setSelectedPayment(e.target.value)}
+              />
+              ICP Token
+            </label>
+
+            {/* Conditionally render DepositInfo when "ICP Token" is selected
+            {selectedPayment === 'icp' && <DepositInfo />} */}
             </div>
           </div>
 

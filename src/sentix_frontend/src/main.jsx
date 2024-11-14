@@ -7,6 +7,7 @@ import About from './Components/About';
 import EventList from './Components/EventList';
 import BuyTickets from './Components/BuyTickets';
 import Confirmation from './Components/confirmation';
+import Ticket from  './Components/ticketPage';
 import ContactUs from './Components/Contact';
 import './index.scss';
 
