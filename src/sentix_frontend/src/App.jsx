@@ -4,7 +4,6 @@ import { AuthClient } from '@dfinity/auth-client';
 import { sentix_backend } from 'declarations/sentix_backend';
 import { Link, useNavigate } from 'react-router-dom';
 import Navbar from './Components/Navbar';
-import BuyTickets from './Components/BuyTickets';
 import EventImage from './Images/EventImage.jpg'
 import Image1 from './Images/Img1.jpg';
 import Image2 from './Images/Img2.jpg';
