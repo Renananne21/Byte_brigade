@@ -3109,11 +3109,11 @@ async fn _cdk_user_defined_get_all_events() -> (Vec<Event>) {
 }
 #[ic_cdk_macros::query(name = "get_event")]
 #[candid::candid_method(query, rename = "get_event")]
-async fn _cdk_user_defined_get_event(_cdk_user_defined_event_id: u64) -> (Option<Event>) {
+async fn _cdk_user_defined_get_event(_cdk_user_defined_eventId: u64) -> (Option<Event>) {
     let interpreter = unsafe { INTERPRETER_OPTION.as_mut() }
         .unwrap_or_trap("SystemError: missing python interpreter");
     let vm = &interpreter.vm;
-    let params = (_cdk_user_defined_event_id
+    let params = (_cdk_user_defined_eventId
         .try_into_vm_value(vm)
         .unwrap_or_trap(),);
     call_global_python_function("get_event", params)
@@ -3249,7 +3249,7 @@ async fn _cdk_user_defined_create_user(_cdk_user_defined_username: String) -> (U
 #[ic_cdk_macros::update(name = "create_event")]
 #[candid::candid_method(update, rename = "create_event")]
 async fn _cdk_user_defined_create_event(
-    _cdk_user_defined_event_id: u64,
+    _cdk_user_defined_eventId: u64,
     _cdk_user_defined_title: String,
     _cdk_user_defined_description: String,
     _cdk_user_defined_date: String,
@@ -3259,7 +3259,7 @@ async fn _cdk_user_defined_create_event(
         .unwrap_or_trap("SystemError: missing python interpreter");
     let vm = &interpreter.vm;
     let params = (
-        _cdk_user_defined_event_id
+        _cdk_user_defined_eventId
             .try_into_vm_value(vm)
             .unwrap_or_trap(),
         _cdk_user_defined_title
