@@ -30,7 +30,7 @@ def create_user(username: str) -> User:
 
 
 @update
-def create_event(event_id: nat64, title: str, description: str, date: str, price: nat64) -> Event:
+def create_event(eventId: nat64, title: str, description: str, date: str, price: nat64) -> Event:
     """
     Create a new event with the given details.
     """
@@ -38,7 +38,7 @@ def create_event(event_id: nat64, title: str, description: str, date: str, price
     #     raise ValueError(f"Event ID {event_id} already exists.")
 
     event: Event = {
-        "id": event_id,
+        "id": eventId,
         "title": title,
         "description": description,
         "date": date,
@@ -46,7 +46,7 @@ def create_event(event_id: nat64, title: str, description: str, date: str, price
         
     }
 
-    events.insert(event_id, event)
+    events.insert(eventId, event)
     return event
 
 @query
@@ -60,8 +60,8 @@ def get_all_events() -> Vec[Event]:
 
 
 @query
-def get_event(event_id: nat64) -> Opt[Event]:
+def get_event(eventId: nat64) -> Opt[Event]:
     """
     Retrieve an event by its ID.
     """
-    return events.get(event_id)
+    return events.get(eventId)
