@@ -1,30 +1,50 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+// import React, { useState, useEffect } from 'react';
+// import { sentix_backend } from 'declarations/sentix_backend';
 
-const TicketPage = () => {
-  const history = useNavigate();
-  
-  const tickets = [
-    { id: "1", eventName: "Concert ABC", eventDate: "2024-11-15", originalPrice: 50 },
-    // ... more tickets
-  ];
+// const AccountInfo = () => {
+//   const [accountInfo, setAccountInfo] = useState('Loading...');
+//   const [depositInfo, setDepositInfo] = useState('Loading...');
 
-  const handleResell = (ticketId) => {
-    history.push(`/resell/${ticketId}`); // Navigate to the Resell Ticket Page
-  };
+//   useEffect(() => {
+//     const fetchAccountInfo = async () => {
+//       try {
+//         const info = await sentix_backend.get_account_info();
+//         setAccountInfo(info);
+//       } catch (error) {
+//         console.error("Error fetching account info:", error);
+//         setAccountInfo('Error fetching account info');
+//       }
+//     };
 
-  return (
-    <div>
-      <h1>Your Tickets</h1>
-      {tickets.map((ticket) => (
-        <div key={ticket.id}>
-          <h3>{ticket.eventName}</h3>
-          <p>Date: {ticket.eventDate}</p>
-          <button onClick={() => handleResell(ticket.id)}>Resell</button>
-        </div>
-      ))}
-    </div>
-  );
-};
+//     const fetchDepositInfo = async () => {
+//       try {
+//         const info = await sentix_backend.get_deposit_info();
+//         setDepositInfo(JSON.stringify(info, null, 2));
+//       } catch (error) {
+//         console.error("Error fetching deposit info:", error);
+//         setDepositInfo('Error fetching deposit info');
+//       }
+//     };
 
-export default TicketPage;
+//     fetchAccountInfo();
+//     fetchDepositInfo();
+//   }, []);
+
+//   return (
+//     <div>
+//       <h1>Account Information</h1>
+      
+//       <div className="info-container">
+//         <h2>Account Info</h2>
+//         <pre>{accountInfo}</pre>
+//       </div>
+
+//       <div className="info-container">
+//         <h2>Deposit Info</h2>
+//         <pre>{depositInfo}</pre>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default AccountInfo;

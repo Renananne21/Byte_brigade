@@ -3,7 +3,6 @@ import { sentix_backend } from 'declarations/sentix_backend';
 import Navbar from './Navbar'; 
 
 function CreateEvent() {
-<<<<<<< HEAD
     const [eventImage, setEventImage] = useState(null);
     const [uploadProgress, setUploadProgress] = useState(null);
     const [title, setTitle] = useState('');
@@ -60,7 +59,7 @@ function CreateEvent() {
 
     // Your existing event creation API call
     await createEvent(newEvent);
-};
+
     
                   
     
@@ -68,33 +67,6 @@ function CreateEvent() {
 
     return (
         <div className="createEventPage">
-=======
-  const [concert, setConcert] = useState(''); 
-
-  function handleSubmit(event) {
-    event.preventDefault();
-
-    const eventId = Number(event.target.elements.eventId.value);
-    const title = event.target.elements.title.value;
-    const description = event.target.elements.description.value;
-    const date = event.target.elements.date.value;
-    const price = Number(event.target.elements.price.value);
-
-    sentix_backend.create_event(eventId, title, description, date, price)
-      .then((concert) => {
-        setConcert(concert);
-        console.log('Event created successfully!');
-      })
-      .catch((error) => {
-        console.error('Failed to create event:', error);
-      });
-
-    return false; 
-  }
-
-  return (
-    <div className="create-event-container">
->>>>>>> 153e5ad (create event integration)
             <Navbar></Navbar>
         <div className="create-event-container">
             <h1>Create Event</h1>
@@ -121,7 +93,6 @@ function CreateEvent() {
                 <input type="number" name="price" required />
               </div>
 
-<<<<<<< HEAD
                 <div className="form-group">
                     <label htmlFor="description">Description</label>
                     <textarea
@@ -180,10 +151,6 @@ function CreateEvent() {
         </div>
     );
 };
-=======
-              <button type="submit">Create Event</button>
-            </form>
->>>>>>> 153e5ad (create event integration)
 
       {/* Display the created event data */}
       {concert && (
@@ -191,8 +158,7 @@ function CreateEvent() {
           <h3>Event Created Successfully!</h3>
         </div>
       )}
-    </div>
-  );
+  
 }
 
 export default CreateEvent;

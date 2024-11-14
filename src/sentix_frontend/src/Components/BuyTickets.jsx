@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Navbar, { filter } from './Navbar';
 
@@ -10,6 +10,13 @@ function BuyTickets(props)  {
   const [selectedPayment, setSelectedPayment] = useState('credit');
   
   const totalPrice = quantity * parseFloat(event.price.replace('$', ''));
+
+
+  useEffect(() => {
+    if (selectedPayment === 'icp') {
+      window.location.href = 'https://ramp.alchemypay.org/#/receivingMode';
+    }
+  }, [selectedPayment]);
 
  
 
