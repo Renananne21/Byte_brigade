@@ -1,42 +1,43 @@
-*{
+* {
   margin: 0;
-  background-color: #73b1e0;
 }
 
 .app-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+  max-width: 100vw;
+  margin: 0;
   min-height: 100vh;
   font-family: Arial, sans-serif;
-  background-color: #73b1e0;
+  background-color: #98c5e8;
 }
 
 .hero-section {
   text-align: center;
   padding: 20px 20px;
-  background-Color: #73b1e0;
   border-radius: 10px;
   margin-bottom: 30px;
 
 
   .main-title {
-    font-size: 48px;
-    color: #2c3e50;
-    margin-bottom: 10px;
+    font-size: 50px;
     font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    color: #333;
+
   }
 
   .subtitle {
-    font-size: 24px;
-    color: #34495e;
+    font-size: 26px;
+    color: #333;
     margin-bottom: 10px;
     font-weight: 500;
   }
 
   .hero-text {
-    font-size: 18px;
-    color: #34495e;
+    font-size: 20px;
+    color: #333;
     margin-bottom: 10px;
   }
 
@@ -57,27 +58,31 @@
 
 .welcome-section {
   text-align: center;
-  padding: 20px 20px;
-  background-color: #73b1e0;
   border-radius: 10px;
   margin-bottom: 30px;
 
   h1 {
-    font-size: 36px;
-    color: #34495e;
-    margin-bottom: 10px;
+    font-size: 50px;
     font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    color: #333;
   }
 
-  p {
-    font-size: 18px;
-    color: #34495e;
+  h3 {
+    font-size: 26px;
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: 500;
   }
 }
 
 .events-section {
-  padding: 20px 0;
-  margin-bottom: 30px;
+  padding: 20px 20px;
+  margin-bottom: 60px 40px;
+  max-width: 1200px;
 
   .events-header {
     margin-bottom: 20px;
@@ -91,6 +96,11 @@
       font-size: 32x;
       color: #34495e;
       margin: 0;
+      font-size: 48px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    color: #333;
     }
 
     .search-filters {
@@ -129,6 +139,15 @@
       border-radius: 10px;
       overflow: hidden;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+  transform-origin: center;
+
+  &:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 8px 25px rgba(29, 39, 95, 0.3);
+    filter: brightness(1.05);
+  }
 
       .event-image-container {
         position: relative;
@@ -143,16 +162,15 @@
           position: absolute;
           top: 10px;
           right: 10px;
-          background-color: #73b1e0;
           color: white;
           padding: 5px 10px;
           border-radius: 15px;
           font-size: 12px;
         }
       }
-.event-details {
+
+      .event-details {
         padding: 25px;
-        background-color: #73b1e0;
         transition: all 0.3s ease;
 
         h3 {
@@ -184,48 +202,50 @@
             gap: 5px;
           }
         }
-          .event-description {
-            color: #555;
+
+        .event-description {
+          color: #555;
+          font-size: 15px;
+          margin-bottom: 20px;
+          line-height: 1.6;
+        }
+
+        .event-stats {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 15px;
+          padding-top: 10px;
+          border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+          .event-price {
+            font-weight: 700;
+            color: #28a745;
+            font-size: 20px;
+          }
+
+          .tickets-remaining {
+            color: #dc3545;
             font-size: 15px;
-            margin-bottom: 20px;
-            line-height: 1.6;
+            font-weight: 500;
           }
+        }
 
-          .event-stats {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-top: 10px;
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        .buy-ticket-button {
+          width: 100%;
+          padding: 10px;
+          background-color: #1d275f;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          font-weight: bold;
 
-            .event-price {
-              font-weight: 700;
-              color: #28a745;
-              font-size: 20px;
-            }
-
-            .tickets-remaining {
-              color: #dc3545;
-              font-size: 15px;
-              font-weight: 500;
-            }
+          &:hover {
+            background-color: #0056b3;
           }
-         .buy-ticket-button {
-            width: 100%;
-            padding: 10px;
-            background-color: #1d275f;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
+        }
 
-            &:hover {
-              background-color: #0056b3;
-            }
-          }
-        
       }
     }
   }
@@ -247,52 +267,51 @@
   }
 }
 
-
 .create-event-section {
-  padding: 20px 0;
-  background-color: #73b1e0;
-  margin-bottom: 30px;
+
+  padding: 60px 40px;
+  margin-bottom: 60px ;
 
   h2 {
     text-align: center;
     margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
     color: #333;
-    font-size: 32px;
+    font-size: 42px;
   }
 
   .create-event-content {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    gap: 10px;
+    gap: 50px;
 
     .create-event-text {
       flex: 1;
+      color: #333;
 
       h3 {
-        font-size: 28px;
-        margin-bottom: 20px;
-        color: #333;
+        font-size: 36px;
+        margin-bottom: 25px;
+        font-weight: 700;
       }
 
       p {
-        font-size: 16px;
+        font-size: 18px;
         line-height: 1.6;
-        margin-bottom: 15px;
-        color: #333;
+        margin-bottom: 20px;
+        opacity: 0.9;
+        
       }
 
       .create-event-button {
-        display: inline-block;
-        padding: 10px 10px;
+        padding: 12px 10px;
         background-color: #1d275f;
         color: white;
-        text-decoration: none;
-        border-radius: 5px;
+        border: none;
+        border-radius: 10px;
         font-weight: bold;
+        cursor: pointer;
 
         &:hover {
           background-color: #0056b3;
@@ -311,16 +330,30 @@
   }
 }
 
+@media (max-width: 768px) {
+  .create-event-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .create-event-image {
+    max-width: 100%;
+    order: -1;
+  }
+}
+
 .resell-section {
-  padding: 20px 0;
-  background-color: #73b1e0;
-  margin-bottom: 30px;
+  padding: 60px 40px;
+  margin-bottom: 60px;
 
   h2 {
+    font-size: 50px;
+    font-weight: bold;
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
     color: #333;
-    font-size: 32px;
   }
 
   .resell-content {
@@ -345,16 +378,18 @@
       flex: 1;
 
       h3 {
-        font-size: 28px;
-        margin-bottom: 10px;
         color: #333;
+        font-size: 36px;
+        margin-bottom: 25px;
+        font-weight: 700;
       }
 
       p {
-        font-size: 16px;
-        line-height: 1.6;
-        margin-bottom: 15px;
         color: #333;
+        font-size: 18px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+        opacity: 0.9;
       }
 
       .rese1ll-button {
@@ -374,8 +409,19 @@
   }
 }
 
+@media (max-width: 768px) {
+  .resell-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .resell-image {
+    max-width: 100%;
+    order: -1;
+  }
+}
+
 .footer {
-  background-color: #73b1e0;
   padding: 10px 0;
   margin-top: 20px;
 
@@ -443,32 +489,36 @@ a:hover {
     justify-content: space-between;
     margin: 2px 2px;
   }
-  
+
   img {
     width: 60px;
     height: 60px;
   }
-  
-  
+
+
   nav ul li {
     display: inline-block;
     list-style: none;
     margin: 10px 15px;
   }
-  
+
   nav ul li a {
     text-decoration: none;
     color: white;
     font-weight: 500;
   }
-  
+
 }
 
 
 .about-page {
+   background-color: #98c5e8;
+   margin: 0;
+
+  .about-container {
   padding: 2rem;
   max-width: 800px;
-  margin: auto;
+  margin: 0 auto;
 
   .about-hero {
     text-align: center;
@@ -513,17 +563,17 @@ a:hover {
     }
   }
 }
-
+}
 
 
 .contact {
-  margin: 0;
-
+margin: 0;
+background-color: #98c5e8;
 
   header {
     max-width: 80%;
-    margin: 20px auto;
-    padding: 10px auto;
+    margin: 0 auto;
+    padding: 60px auto;
     overflow: hidden;
     text-align: center;
   }
@@ -561,9 +611,14 @@ a:hover {
     text-decoration: none;
     display: block;
     padding: 10px 20px;
+    background-color: #1d275f;
     color: white;
     margin: 20px auto;
     cursor: pointer;
+
+    &:hover {
+      background-color: #0056b3;
+    }
   }
 
   .info {
@@ -571,6 +626,10 @@ a:hover {
   }
 }
 
+.createEventPage{
+  margin: 0;
+  background-color: #98c5e8;
+}
 .create-event-container {
   max-width: 600px;
   margin: 0 auto;
@@ -629,86 +688,87 @@ a:hover {
 }
 
 
+.buyTicketsPage{
+  background-color: #98c5e8;
+  margin: 0;
 
 .buy-tickets-container {
+  background-color: #98c5e8;
   max-width: 600px;
-  margin: 40px auto;
+  margin: 0 auto;
   padding: 20px;
-  
+
   .ticket-details {
-    background: #73b1e0;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    
+
     .event-header {
       gap: 30px;
       padding: 30px;
-      
+
       .event-image {
         width: 100%;
         height: 300px;
         object-fit: cover;
         border-radius: 8px;
       }
-      
-        
-        h1 {
-          font-size: 2.5em;
-          margin-bottom: 10px;
-        }
-        
-      
+
+
+      h1 {
+        font-size: 2.5em;
+        margin-bottom: 10px;
+      }
+
+
     }
-    
+
     .details-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 20px;
       padding: 30px;
-      background: #73b1e0;
-      
+
       .detail-item {
         h3 {
           color: #2c3e50;
           margin-bottom: 8px;
         }
-        
+
         p {
           color: #666;
           font-size: 1.1em;
         }
       }
     }
-    
+
     .event-description {
       padding: 30px;
-      
+
       h3 {
         color: #2c3e50;
         margin-bottom: 15px;
       }
-      
+
       p {
         line-height: 1.6;
         color: #666;
       }
     }
-    
+
     .purchase-section {
       padding: 30px;
-      background: #73b1e0;
       border-top: 1px solid #eee;
-      
+
       .quantity-selector {
         margin-bottom: 25px;
-        
+
         label {
           display: block;
           margin-bottom: 10px;
           color: #2c3e50;
         }
-        
+
         select {
           padding: 10px;
           width: 100px;
@@ -717,19 +777,19 @@ a:hover {
           font-size: 1em;
         }
       }
-      
+
       .payment-method {
         margin-bottom: 25px;
-        
+
         h3 {
           color: #2c3e50;
           margin-bottom: 15px;
         }
-        
+
         .payment-options {
           display: flex;
           gap: 20px;
-          
+
           label {
             display: flex;
             align-items: center;
@@ -738,18 +798,17 @@ a:hover {
           }
         }
       }
-      
+
       .price-summary {
-        background: #73b1e0;
         padding: 20px;
         border-radius: 8px;
         margin-bottom: 25px;
-        
+
         .price-row {
           display: flex;
           justify-content: space-between;
           padding: 10px 0;
-          
+
           &.total {
             border-top: 2px solid #eee;
             margin-top: 10px;
@@ -759,7 +818,7 @@ a:hover {
           }
         }
       }
-      
+
       .purchase-button {
         width: 100%;
         padding: 15px;
@@ -770,8 +829,8 @@ a:hover {
         font-size: 1.1em;
         font-weight: 600;
         cursor: pointer;
-      
-        
+
+
         &:hover {
           background: #0056b3;
         }
@@ -779,12 +838,15 @@ a:hover {
     }
   }
 }
+}
+.confirmation {
+   background-color: #98c5e8;
+   margin: 0;
 
-.confirmation-container {
+  .confirmation-container{
   max-width: 600px;
-  margin: 40px auto;
+  margin: 0 auto;
   padding: 20px;
-  background-color: #73b1e0;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 
@@ -803,93 +865,246 @@ a:hover {
 
   .order-details {
     padding: 25px;
-    background-color: #73b1e0;
     border-radius: 8px;
     margin-bottom: 20px;
 
-      h2 {
-        font-size: 20px;
-        color: #2c3e50;
-        margin-bottom: 8px;
-      }
-
-      p {
-        font-size: 16px;
-        color: #2c3e50;
-        line-height: 1.6;
-      }
-    }
-  }
-
-  .event-summary {
-    margin: 20px;
-    .event-thumbnail{
-      width: 100%;
-      height: 300px;
-      border-radius: 8px;
+    h2 {
+      font-size: 20px;
+      color: #2c3e50;
+      margin-bottom: 8px;
     }
 
-    .event-info {
-      margin-top: 20px;
-      h3{
-        font-size: 20px;
-        color: #2c3e50;
-        margin-bottom: 8px;
-      }
-
-    p{
+    p {
       font-size: 16px;
       color: #2c3e50;
       line-height: 1.6;
     }
-    }
+  }
+}
+
+.event-summary {
+  margin: 20px;
+
+  .event-thumbnail {
+    width: 100%;
+    height: 300px;
+    border-radius: 8px;
   }
 
-  .payment-summary {
-    margin-top: 30px;
-    
-h2{
-  font-size: 20px;
-        color: #2c3e50;
-        margin-bottom: 8px;
+  .event-info {
+    margin-top: 20px;
+
+    h3 {
+      font-size: 20px;
+      color: #2c3e50;
+      margin-bottom: 8px;
+    }
+
+    p {
+      font-size: 16px;
+      color: #2c3e50;
+      line-height: 1.6;
+    }
+  }
 }
-p{
-  font-size: 16px;
-  color: #2c3e50;
-  line-height: 1.6;
-}
+
+.payment-summary {
+  margin-top: 30px;
+
+  h2 {
+    font-size: 20px;
+    color: #2c3e50;
+    margin-bottom: 8px;
+  }
+
+  p {
+    font-size: 16px;
+    color: #2c3e50;
+    line-height: 1.6;
+  }
 }
 
 .next-steps {
   margin-top: 20px;
-  h3{
+
+  h3 {
     font-size: 20px;
-          color: #2c3e50;
-          margin-bottom: 8px;
+    color: #2c3e50;
+    margin-bottom: 8px;
   }
+
   ul li {
     font-size: 16px;
     color: #2c3e50;
     line-height: 1.6;
   }
 }
-    .action-buttons {
-      display: flex;
-      justify-content: center;
-      .download-tickets, .return-home {
-      padding: 12px 30px;
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+
+  .download-tickets,
+  .return-home {
+    padding: 12px 30px;
+    background-color: #1d275f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 20px 10px;
+
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+}
+}
+ 
+.resellPage{
+  background-color: #98c5e8;
+  margin: 0;
+
+.resell-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 32px;
+    margin-bottom: 30px;
+  }
+
+  .resell-form {
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    .form-group {
+      margin-bottom: 20px;
+      margin: auto;
+      
+
+      label {
+        display: block;
+        color: #2c3e50;
+        font-weight: 500;
+        margin-bottom: 8px;
+      }
+
+      input,
+      textarea {
+        width: 80%;
+        padding: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        
+
+        &:focus {
+          outline: none;
+          border-color: #1d275f;
+        }
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+    }
+
+    .resell-submit-btn {
+      width: 100%;
+      padding: 14px;
       background-color: #1d275f;
       color: white;
       border: none;
-      border-radius: 5px;
-      font-weight: bold;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
       cursor: pointer;
-      margin: 20px 10px;
+      margin-top: 20px;
 
       &:hover {
         background-color: #0056b3;
       }
     }
+  }
+  }
+}
+
+.featured-slider {
+  width: 100%;
+  height: 500px;
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  display: flex;
+  transition: all 0.5s ease-in-out;
+
+  .slider-card {
+    flex: 0 0 100%;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    animation:fadeIn 0.5s ease-in-out;
+
+    &:hover {
+      transform: scale(1.02);
     }
-  
-  
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 15px;
+    }
+
+    .slider-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 40px;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+      color: white;
+
+      h2 {
+        font-size: 32px;
+        margin-bottom: 15px;
+        
+      }
+
+      .slider-info {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        p {
+          font-size: 18px;
+        
+        }
+
+        .slider-price {
+          font-size: 24px;
+          font-weight: bold;
+          color: #73b1e0;
+        }
+      }
+    }
+  }
+}
+

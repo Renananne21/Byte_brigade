@@ -11,9 +11,10 @@ const Confirmation = () => {
   const purchaseDate = new Date().toLocaleDateString();
 
   return (
-    <div>
+    <div className="confirmation">
       <Navbar />
       <div className="confirmation-container">
+        
         <div className="confirmation-header">
           <h1>Thank You for Your Purchase! ✓</h1>
         </div>
@@ -70,7 +71,8 @@ const Confirmation = () => {
           </div>
         </div>
       </div>
-    </div>
+     </div>
+    
   );
 };
 

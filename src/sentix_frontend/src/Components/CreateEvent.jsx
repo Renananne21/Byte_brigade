@@ -25,6 +25,7 @@ function CreateEvent() {
     };
 
     return (
+        <div className="createEventPage">
         <div className="create-event-container">
             <Navbar></Navbar>
             <h1>Create Event</h1>
@@ -85,6 +86,7 @@ function CreateEvent() {
 
                 <button type="submit" >Create Event</button>
             </form>
+            </div>
         </div>
     );
 };
