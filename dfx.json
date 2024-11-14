@@ -1,14 +1,115 @@
 {
   "canisters": {
+    "nns-cycles-minting": {
+      "build": "",
+      "candid": "candid/nns-cycles-minting.did",
+      "remote": {
+        "id": {
+          "ic": "rkp4c-7iaaa-aaaaa-aaaca-cai",
+          "local": "rkp4c-7iaaa-aaaaa-aaaca-cai"
+        }
+      },
+      "type": "custom",
+      "wasm": ""
+    },
+    "nns-genesis-token": {
+      "build": "",
+      "candid": "candid/nns-genesis-token.did",
+      "remote": {
+        "id": {
+          "ic": "renrk-eyaaa-aaaaa-aaada-cai",
+          "local": "renrk-eyaaa-aaaaa-aaada-cai"
+        }
+      },
+      "type": "custom",
+      "wasm": ""
+    },
+    "nns-governance": {
+      "build": "",
+      "candid": "candid/nns-governance.did",
+      "remote": {
+        "id": {
+          "ic": "rrkah-fqaaa-aaaaa-aaaaq-cai",
+          "local": "rrkah-fqaaa-aaaaa-aaaaq-cai"
+        }
+      },
+      "type": "custom",
+      "wasm": ""
+    },
+    "nns-ledger": {
+      "build": "",
+      "candid": "candid/nns-ledger.did",
+      "metadata": [
+        {
+          "name": "candid:service"
+        }
+      ],
+      "remote": {
+        "id": {
+          "ic": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "local": "ryjl3-tyaaa-aaaaa-aaaba-cai"
+        }
+      },
+      "type": "custom",
+      "wasm": ""
+    },
+    "nns-lifeline": {
+      "build": "",
+      "candid": "candid/nns-lifeline.did",
+      "remote": {
+        "id": {
+          "ic": "rno2w-sqaaa-aaaaa-aaacq-cai",
+          "local": "rno2w-sqaaa-aaaaa-aaacq-cai"
+        }
+      },
+      "type": "custom",
+      "wasm": ""
+    },
+    "nns-registry": {
+      "build": "",
+      "candid": "candid/nns-registry.did",
+      "remote": {
+        "id": {
+          "ic": "rwlgt-iiaaa-aaaaa-aaaaa-cai",
+          "local": "rwlgt-iiaaa-aaaaa-aaaaa-cai"
+        }
+      },
+      "type": "custom",
+      "wasm": ""
+    },
+    "nns-root": {
+      "build": "",
+      "candid": "candid/nns-root.did",
+      "remote": {
+        "id": {
+          "ic": "r7inp-6aaaa-aaaaa-aaabq-cai",
+          "local": "r7inp-6aaaa-aaaaa-aaabq-cai"
+        }
+      },
+      "type": "custom",
+      "wasm": ""
+    },
+    "nns-sns-wasm": {
+      "build": "",
+      "candid": "candid/nns-sns-wasm.did",
+      "remote": {
+        "id": {
+          "ic": "qaa6y-5yaaa-aaaaa-aaafa-cai",
+          "local": "qaa6y-5yaaa-aaaaa-aaafa-cai"
+        }
+      },
+      "type": "custom",
+      "wasm": ""
+    },
     "sentix_backend": {
       "build": "python -m kybra sentix_backend src/sentix_backend/src/main.py",
       "candid": "src/sentix_backend/sentix_backend.did",
-      "metadata": [
-               {
-     "name": "candid:service"
-               }
-],
       "gzip": true,
+      "metadata": [
+        {
+          "name": "candid:service"
+        }
+      ],
       "tech_stack": {
         "cdk": {
           "kybra": {}
@@ -25,8 +126,8 @@
         "sentix_backend"
       ],
       "frontend": {
-          "entrypoint": "src/sentix_frontend"
-        },
+        "entrypoint": "src/sentix_frontend"
+      },
       "source": [
         "src/sentix_frontend/dist"
       ],
@@ -40,12 +141,11 @@
       "packtool": ""
     }
   },
-  "output_env_file": ".env",
-  "version": 1,
-
   "metadata": [
-   {
-     "name": "candid:service"
-   }
-]
+    {
+      "name": "candid:service"
+    }
+  ],
+  "output_env_file": ".env",
+  "version": 1
 }
