@@ -1,5 +1,5 @@
 {
-  "engines": {
+"engines": {
     "node": ">=16.0.0",
     "npm": ">=7.0.0"
   },
@@ -14,17 +14,7 @@
   "type": "module",
   "workspaces": [
     "src/sentix_frontend"
-<<<<<<< HEAD
-  ],
-  "dependencies": {
-    "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.47",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "tailwindcss": "^3.4.14"
-  }
-}
-=======
   ]
 }
->>>>>>> origin/master
+
+  
