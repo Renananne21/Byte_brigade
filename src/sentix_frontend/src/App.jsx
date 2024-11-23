@@ -135,7 +135,7 @@ function App() {
       eventType: "Movie Screening",
       location: "Main Street Cinema",
       price: "$15",
-      capacity: "200",
+      capacity: "200", 
       ticketsSold: "150"
     },
     {
