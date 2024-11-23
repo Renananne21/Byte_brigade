@@ -1,4 +1,3 @@
-TokenTix
 Welcome to TokenTix—your go-to decentralized ticketing system that brings security, transparency, and ease of use to event management. Designed to empower both event organizers and attendees, TokenTix leverages blockchain technology for reliable and real-time ticket transactions, ensuring a smooth and secure experience for all users.
 
 🌐 Live Demo:
