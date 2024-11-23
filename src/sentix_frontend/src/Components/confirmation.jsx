@@ -12,7 +12,6 @@ const Confirmation = () => {
 
   return (
     <div className="confirmation">
-      <Navbar />
       <div className="confirmation-container">
         
         <div className="confirmation-header">

@@ -33,7 +33,6 @@ function BuyTickets(props)  {
     <div className="buyTicketsPage">
     
     <div className="buy-tickets-container">
-    <Navbar />
       <div className="ticket-details">
         <div className="event-header">
         <h1>{event.title}</h1>

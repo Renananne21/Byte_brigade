@@ -5,8 +5,7 @@ import Navbar from './Navbar';
 function About () {
     return (
         <div className="about-page">
-            <div className="about-container">
-            <Navbar></Navbar>
+            
             <div className="about-hero">
                 <h1>About Us</h1>
                 <p>Welcome to TicketGO - your go-to platform for hassle-free event ticketing!</p>
@@ -31,7 +30,6 @@ function About () {
                 <h2>Meet the Team</h2>
                 <p>We're a team of passionate developers, designers, and event enthusiasts dedicated to transforming the ticketing industry.</p>
             </div>
-        </div>
         </div>
     );
 };

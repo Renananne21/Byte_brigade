@@ -7,7 +7,7 @@
   margin: 0;
   min-height: 100vh;
   font-family: Arial, sans-serif;
-  background-color: #98c5e8;
+  background-color: #f2f0ef;
 }
 
 .hero-section {
@@ -41,25 +41,13 @@
     margin-bottom: 10px;
   }
 
-  .login-button {
-    background-color: #1d275f;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 16px;
-    color: white;
-    padding: 14px 12px;
-
-    &:hover {
-      background-color: #0056b3;
-    }
-  }
+  
 }
 
 .welcome-section {
   text-align: center;
   border-radius: 10px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 
   h1 {
     font-size: 50px;
@@ -81,7 +69,7 @@
 
 .events-section {
   padding: 20px 20px;
-  margin-bottom: 60px 40px;
+  margin-bottom: 0;
   max-width: 1200px;
 
   .events-header {
@@ -93,12 +81,12 @@
     gap: 20px;
 
     h2 {
-      font-size: 32x;
+      font-size: 30px;
       color: #34495e;
       margin: 0;
-      font-size: 48px;
+    
     font-weight: bold;
-    text-transform: uppercase;
+    text-align: center;
     letter-spacing: .5px;
     color: #333;
     }
@@ -108,13 +96,7 @@
       gap: 15px;
       flex-wrap: wrap;
 
-      .search-input {
-        padding: 10px 10px;
-        border-radius: 5px;
-        border: 1px solid #ddd;
-        font-size: 14px;
-        min-width: 200px;
-      }
+      
 
       .event-type-select {
         padding: 10px 10px;
@@ -127,10 +109,9 @@
     }
   }
 
-
   .events-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 30px;
     padding: 10px 0;
 
@@ -269,16 +250,15 @@
 
 .create-event-section {
 
-  padding: 60px 40px;
-  margin-bottom: 60px ;
+  padding: 0 10px;
+  margin-bottom: 10px ;
 
   h2 {
-    text-align: center;
+    text-align: left;
     margin-bottom: 20px;
-    text-transform: uppercase;
     letter-spacing: .5px;
-    color: #333;
-    font-size: 42px;
+    color: black;
+    font-size: 30px;
   }
 
   .create-event-content {
@@ -288,12 +268,12 @@
 
     .create-event-text {
       flex: 1;
-      color: #333;
+      color: black;
 
       h3 {
-        font-size: 36px;
+        font-size: 26px;
         margin-bottom: 25px;
-        font-weight: 700;
+        
       }
 
       p {
@@ -343,17 +323,16 @@
 }
 
 .resell-section {
-  padding: 60px 40px;
-  margin-bottom: 60px;
+  padding: 10px 10px;
+  margin-bottom: 10px;
 
   h2 {
-    font-size: 50px;
+    font-size: 30px;
     font-weight: bold;
-    text-align: center;
+    text-align: left;
     margin-bottom: 20px;
-    text-transform: uppercase;
     letter-spacing: .5px;
-    color: #333;
+    color: black;
   }
 
   .resell-content {
@@ -362,7 +341,7 @@
     justify-content: space-between;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 ;
     gap: 10px;
 
 
@@ -375,17 +354,16 @@
     }
 
     .resell-text {
-      flex: 1;
 
       h3 {
-        color: #333;
+        color: black;
         font-size: 36px;
         margin-bottom: 25px;
         font-weight: 700;
       }
 
       p {
-        color: #333;
+        color: black;
         font-size: 18px;
         line-height: 1.6;
         margin-bottom: 20px;
@@ -438,7 +416,7 @@
     min-width: 200px;
 
     h3 {
-      color: #333;
+      color: black;
       margin-bottom: 15px;
     }
 
@@ -448,7 +426,7 @@
 
       li {
         margin: 8px 0;
-        color: #666;
+        color: black;
         cursor: pointer;
       }
     }
@@ -478,23 +456,38 @@ a:hover {
 
 
 .navbar {
-  max-width: 80%;
-  margin: 20px auto;
-  padding: 20px auto;
-  height: 100px;
+  max-width: 100%;
+  margin:  0;
+  padding: 10px;
+  height: 50px;
 
   nav {
-    padding: 10px 0;
+  
     display: flex;
     justify-content: space-between;
     margin: 2px 2px;
   }
 
-  img {
-    width: 60px;
-    height: 60px;
+
+  .logo{
+    display: flex;
   }
 
+  img {
+    width: 40px;
+    height: 40px;
+  }
+  h1{
+    font-size: 20px;
+    margin: 10px 10px;
+  }
+  .search-input {
+    padding: 10px 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    max-width: 350px;
+  }
 
   nav ul li {
     display: inline-block;
@@ -504,8 +497,22 @@ a:hover {
 
   nav ul li a {
     text-decoration: none;
-    color: white;
+    color: black;
     font-weight: 500;
+  }
+
+  .login-button {
+    background-color: #1d275f;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    color: white;
+    padding: 14px 12px;
+
+    &:hover {
+      background-color: #0056b3;
+    }
   }
 
 }
@@ -628,10 +635,11 @@ background-color: #98c5e8;
 
 .createEventPage{
   margin: 0;
-  background-color: #98c5e8;
+  background-color: #f2f0ef;
 }
 .create-event-container {
-  max-width: 600px;
+  max-width: 800px;
+  background-color: #73b1e0;
   margin: 0 auto;
   padding: 2rem;
   border: 1px solid #ddd;
@@ -679,13 +687,22 @@ background-color: #98c5e8;
 
   button {
     width: 100%;
-    padding: 0.75rem;
+    padding: 15px;
+    background: #1d275f;
     color: white;
-    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
 
 
+    &:hover {
+      background: #0056b3;
+    }
   }
-}
+    }
+
 
 
 .buyTicketsPage{
@@ -1070,7 +1087,7 @@ background-color: #98c5e8;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: 15px;
+      border-radius: 10px;
     }
 
     .slider-content {

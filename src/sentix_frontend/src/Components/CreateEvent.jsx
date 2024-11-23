@@ -78,7 +78,6 @@ function CreateEvent() {
     return (
         <div className="createEventPage">
         <div className="create-event-container">
-            <Navbar></Navbar>
             <h1>Create Event</h1>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
@@ -124,16 +123,7 @@ function CreateEvent() {
                     />
                 </div>
 
-                <div className="form-group">
-                    <label htmlFor="image">Image URL</label>
-                    <input
-                        type="text"
-                        id="image"
-                        value={image}
-                        onChange={(e) => setImage(e.target.value)}
-                        required
-                    />
-                </div>
+              
                 <div className="image-upload-section">
                 <button type="button" onClick={uploadEventPhotos}>
                     Upload Event Image

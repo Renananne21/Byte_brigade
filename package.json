@@ -14,5 +14,8 @@
   "type": "module",
   "workspaces": [
     "src/sentix_frontend"
-  ]
+  ],
+  "dependencies": {
+    "react-router-dom": "^6.27.0"
+  }
 }

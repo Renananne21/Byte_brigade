@@ -12,20 +12,7 @@ import Image3 from './Images/Img3.jpg';
 import Image4 from './Images/Img4.jpg';
 import ticketImage from './Images/ticketImage.jpg'
 
-const defaultOptions = {
-  createOptions: {
-    idleOptions: {
-      disableIdle: true,
-    },
-  },
-  loginOptions: {
-    identityProvider:
-      process.env.DFX_NETWORK === "ic"
-        ? "https://identity.ic0.app/#authorize"
-        : "https://identity.ic0.app/#authorize",
-    maxTimeToLive: 8 * 24 * 60 * 60 * 1e9,
-  },
-};
+
 
 
 
@@ -169,8 +156,8 @@ function App() {
 
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedEventType, setSelectedEventType] = useState('All Events');
-  const [visibleCount, setVisibleCount] = useState(6);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(4);
+  
   const [showToast, setShowToast] = useState(false);
   const [showBuyTicket, setShowBuyTicket] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -188,32 +175,15 @@ function App() {
     return matchesSearch && matchesType;
   });
 
-  useEffect(() => {
-    const init = async () => {
-      const authClient = await AuthClient.create(defaultOptions.createOptions);
-      if (await authClient.isAuthenticated()) {
-        handleAuthenticated(authClient);
-      }
-    };
-    init();
-  }, []);
+ 
 
-  const login = async () => {
-    const authClient = await AuthClient.create(defaultOptions.createOptions);
-    await authClient.login({
-      ...defaultOptions.loginOptions,
-      onSuccess: () => handleAuthenticated(authClient),
-    });
-  };
 
-  const handleAuthenticated = (authClient) => {
-    setIsAuthenticated(true);
-    setShowToast(true);
-  };
+
+ 
 
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Add this useEffect hook after your other useEffect
+  
   useEffect(() => {
     const slideInterval = setInterval(() => {
       setCurrentSlide((prevSlide) =>
@@ -226,19 +196,15 @@ function App() {
 
   return (
     <div className="app-container" >
-      <Navbar />
+      <Navbar upcomingEvents={upcomingEvents} 
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+      />
       <main>
-        {!isAuthenticated ? (
-          <div className="hero-section">
-            <h1 className="main-title" >TicketGO!</h1>
-            <h2 className="subtitle" >Your Gateway to Unforgettable Experiences</h2>
-            <p className="hero-text" >Secure your spot at exclusive events today</p>
-            <button onClick={login} className="login-button" >Log In with Internet Identity</button>
-          </div>
-        ) : (
+                 
+        
           <div className="welcome-section" >
-            <h1 >Welcome to TicketGO!</h1>
-            <h3>Discover and book amazing events</h3>
+    
             <div className="featured-slider">
               {upcomingEvents.slice(currentSlide, currentSlide + 1).map((event, index) => (
                 <div
@@ -253,23 +219,18 @@ function App() {
                       <p className="slider-date">{event.date} at {event.time}</p>
                       <p className="slider-location">{event.location}</p>
                     </div>
-                  </div>
-                </div>
+
+                  </div>                </div>
               ))}
             </div>
           </div>
 
-        )}
+        
         <section className="events-section" >
           <div className="events-header" >
             <h2>Upcoming Events</h2>
             <div className="search-filters" >
-              <input
-                type="text"
-                placeholder="Search events..."
-                className="search-input"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)} />
+             
               <select
                 value={selectedEventType}
                 onChange={(e) => setSelectedEventType(e.target.value)}
@@ -308,7 +269,7 @@ function App() {
 
           {visibleCount < filteredEvents.length && (
             <button className="load-more-button" onClick={() => setVisibleCount(upcomingEvents.length)}>
-              Load More Events
+               More Events
             </button>
           )}
         </section>
@@ -317,9 +278,11 @@ function App() {
           <h2>Create Your Own Event</h2>
           <div className="create-event-content" >
             <div className="create-event-text" >
-              <h3>Sell it All with TicketGO!</h3>
-              <p>From concerts to workshops, festivals to fashion shows - bring your ideas to life!</p>
+              <p>Sell it All with TockenTix!</p>
+              <p>Concerts. Workshops. Festivals<br/>Fashion shows</p>
+              <p>Food and Drink Events. You name it!</p>
               <p style={{ marginBottom: '25px' }}>Our platform is designed to help creators and organizers reach their perfect audience.</p>
+              <p>Ready to explore your potential?<br/> Lets's TockenTix!</p>
               <Link to="createEvent" className="create-event-button">Create Event</Link>
             </div>
             <img src={EventImage} alt="Create Event" className="create-event-image" />
@@ -330,8 +293,8 @@ function App() {
           <h2>Ticket Resale Marketplace</h2>
           <div className="resell-content" >
             <img src={ticketImage} alt="Resell Tickets" className="resell-image" />
-            <div className="resell-text" style={{ flex: '1' }}>
-              <h3 style={{ fontSize: '28px', marginBottom: '20px', color: '#2c3e50' }}>Can't make it to an event?</h3>
+            <div className="resell-text" >
+              <p style={{ fontSize: '28px', marginBottom: '20px', color: 'black' }}>Can't make it to an event?</p>
               <p >Resell your tickets safely and easily on TicketGO!</p>
               <p style={{ marginBottom: '25px' }}>The #1 trusted platform for secure ticket resales</p>
               <Link to="resell-ticket" className="rese1ll-button">Start Reselling</Link>
