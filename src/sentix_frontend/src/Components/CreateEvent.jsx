@@ -13,16 +13,67 @@ const handleCreateEventbtn = async (title, description, date, price, image) => {
   };
 
 function CreateEvent() {
+    const [eventImage, setEventImage] = useState(null);
+    const [uploadProgress, setUploadProgress] = useState(null);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [date, setDate] = useState('');
     const [price, setPrice] = useState('');
     const [image, setImage] = useState('');
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        handleCreateEventbtn(title, description, date, price, image);
+   
+    const uploadEventPhotos = () => {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'image/*';
+        input.multiple = true;
+        
+        input.onchange = async () => {
+            setUploadProgress(0);
+            try {
+                const file = input.files[0];
+                const batch = assetManager.batch();
+                const {width, height} = await detailsFromFile(file);
+    
+                    // Create event-specific path
+                    const fileName = `event-${Date.now()}-${file.name}`;
+                    const key = await batch.store(file, {
+                        path: '/events/images',
+                        fileName
+                    });
+
+                    await batch.commit({
+                        onProgress: ({current, total}) => setUploadProgress(current / total)
+                    });
+
+                    setEventImage({key, fileName, width, height});
+                        
+            } catch (error) {
+                toast.error("Failed to upload event image");
+                console.error(error);
+            }
+            setUploadProgress(null);
+        };
+
+        input.click();
     };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+    const newEvent = {
+        title: formData.title,
+        date: formData.date,
+        // ... other event fields
+        image: eventImage // This will now be available in your upcoming events
+    };
+
+    // Your existing event creation API call
+    await createEvent(newEvent);
+};
+    
+                  
+    
+               
 
     return (
         <div className="createEventPage">
@@ -83,6 +134,23 @@ function CreateEvent() {
                         required
                     />
                 </div>
+                <div className="image-upload-section">
+                <button type="button" onClick={uploadEventPhotos}>
+                    Upload Event Image
+                </button>
+                {eventImage && (
+                    <img 
+                        src={eventImage.key} 
+                        alt="Event preview" 
+                        className="preview-image"
+                    />
+                )}
+                {uploadProgress !== null && (
+                    <div className="upload-progress">
+                        {Math.round(uploadProgress * 100)}%
+                    </div>
+                )}
+            </div>
 
                 <button type="submit" >Create Event</button>
             </form>

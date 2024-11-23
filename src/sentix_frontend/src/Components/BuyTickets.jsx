@@ -16,8 +16,7 @@ function BuyTickets(props)  {
   const handlePurchase = async () => {
    
       
-      // You can add your API call here
-      // await purchaseTickets(purchaseData);
+      
       
       
       navigate("/confirmation", { 
@@ -98,6 +97,15 @@ function BuyTickets(props)  {
                   onChange={(e) => setSelectedPayment(e.target.value)}
                 />
                 Mpesa
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  value="icpToken"
+                  checked={selectedPayment === 'icpToken'}
+                  onChange={(e) => setSelectedPayment(e.target.value)}
+                />
+                ICP token
               </label>
             </div>
           </div>
