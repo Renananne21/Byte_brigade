@@ -56,7 +56,7 @@ function Navbar({ searchTerm, setSearchTerm }) {
                 <button onClick={login} className="login-button">Log In</button>
             )}
             </nav>
-        </div>
+        </div> 
     );
 }
 

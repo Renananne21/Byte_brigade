@@ -14,7 +14,7 @@ function BuyTickets(props)  {
 
   useEffect(() => {
     if (selectedPayment === 'icp') {
-      window.location.href = 'https://ramp.alchemypay.org/#/receivingMode';
+    
     }
   }, [selectedPayment]);
 
