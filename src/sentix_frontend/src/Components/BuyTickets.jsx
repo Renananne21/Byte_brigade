@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
-// import DepositInfo from './ticketPage';
+import PayComponent from './Pay';
 
 function BuyTickets(props)  {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ function BuyTickets(props)  {
 
   useEffect(() => {
     if (selectedPayment === 'icp') {
-      window.location.href = 'https://ramp.alchemypay.org/#/receivingMode';
+    
     }
   }, [selectedPayment]);
 
@@ -117,8 +117,8 @@ function BuyTickets(props)  {
               ICP Token
             </label>
 
-            {/* Conditionally render DepositInfo when "ICP Token" is selected
-            {selectedPayment === 'icp' && <DepositInfo />} */}
+            
+            {selectedPayment === 'icp' && <PayComponent />}
             </div>
           </div>
 

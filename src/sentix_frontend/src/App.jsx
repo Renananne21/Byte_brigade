@@ -21,7 +21,7 @@ const defaultOptions = {
     identityProvider:
       process.env.DFX_NETWORK === "ic"
         ? "https://identity.ic0.app/#authorize"
-        : "https://identity.ic0.app/#authorize",
+        : `http://${process.env.CANISTER_ID_INTERNET_IDENTITY}.localhost:4943`,
     maxTimeToLive:BigInt(30 * 24 * 60 * 60 * 1000 * 1000 * 1000)
   },
 };
@@ -145,7 +145,7 @@ function App() {
       eventType: "Movie Screening",
       location: "Main Street Cinema",
       price: "$15",
-      capacity: "200",
+      capacity: "200", 
       ticketsSold: "150"
     },
     {

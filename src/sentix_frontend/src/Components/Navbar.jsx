@@ -13,7 +13,7 @@ function Navbar() {
                 <li><Link to="/contactUs">Contact</Link></li>
             </ul>
             </nav>
-        </div>
+        </div> 
     );
 }
 
