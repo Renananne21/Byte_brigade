@@ -29,6 +29,7 @@ const ResellTicket = () => {
 
   return (
    <div className="resellPage">
+    <Navbar />
     <div className="resell-container">
       <h2>Resell Your Ticket</h2>
       <form onSubmit={handleSubmit} className="resell-form">

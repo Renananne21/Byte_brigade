@@ -6,8 +6,9 @@ import Navbar from './Navbar';
 function ContactUs() {
     return (
         <div className="contact">
+            <Navbar></Navbar>
             <header>
-                <Navbar></Navbar>
+                
                 <h1>Contact Us</h1>
             </header>
 

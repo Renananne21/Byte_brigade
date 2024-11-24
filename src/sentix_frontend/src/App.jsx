@@ -4,6 +4,7 @@ import { AuthClient } from '@dfinity/auth-client';
 import { sentix_backend } from 'declarations/sentix_backend';
 import { Link, useNavigate } from 'react-router-dom';
 import Navbar from './Components/Navbar';
+import Cart from './Components/Cart';
 import BuyTickets from './Components/BuyTickets';
 import EventImage from './Images/EventImage.jpg'
 import Image1 from './Images/Img1.jpg';
@@ -17,6 +18,7 @@ import ticketImage from './Images/ticketImage.jpg'
 
 
 function App() {
+  const [cart, setCart] = useState([]);
   const navigate = useNavigate();
   const [upcomingEvents, setUpcomingEvents] = useState([
     {
@@ -176,9 +178,6 @@ function App() {
   });
 
  
-
-
-
  
 
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -210,7 +209,7 @@ function App() {
                 <div
                   className="slider-card"
                   key={index}
-                  onClick={() => handleBuyTicket(event.id, event.price)}
+                  onClick={() =>handleBuyTicket(event.id, event.price) }
                 >
                   <img src={event.image} alt={event.title} />
                   <div className="slider-content">
@@ -219,8 +218,8 @@ function App() {
                       <p className="slider-date">{event.date} at {event.time}</p>
                       <p className="slider-location">{event.location}</p>
                     </div>
-
-                  </div>                </div>
+                  </div>          
+                  </div>
               ))}
             </div>
           </div>
@@ -315,7 +314,7 @@ function App() {
             <div className="footer-section">
               <h3>Company</h3>
               <ul >
-                <li><Link to="/about" style={{ color: '#666', textDecoration: 'none' }}>About Us</Link></li>
+                <li><Link to="/about" style={{ color: '#black', textDecoration: 'none' }}>About Us</Link></li>
                 <li>Careers</li>
                 <li>Blog</li>
               </ul>
@@ -324,7 +323,7 @@ function App() {
               <h3 >Support</h3>
               <ul >
                 <li>Help Center</li>
-                <li><Link to="/contactUs" style={{ color: '#666', textDecoration: 'none' }}>Contact Us</Link></li>
+                <li><Link to="/contactUs" style={{ color: '#black', textDecoration: 'none' }}>Contact Us</Link></li>
                 <li>FAQs</li>
               </ul>
             </div>

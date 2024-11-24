@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import Navbar from './Navbar';
+import Navbar, { filter } from './Navbar';
 
 function BuyTickets(props)  {
   const navigate = useNavigate();
@@ -31,16 +31,21 @@ function BuyTickets(props)  {
 
   return (
     <div className="buyTicketsPage">
-    
+    <Navbar />
     <div className="buy-tickets-container">
       <div className="ticket-details">
         <div className="event-header">
         <h1>{event.title}</h1>
-          <img src={event.image} alt={event.title} className="event-image" />          
-        </div>
+        
+        </div>        
+                   
+        
 
         <div className="details-grid">
+        <img src={event.image} alt={event.title} className="event-image" />
+        <div className="details">
           <div className="detail-item">
+           
             <h3>Date & Time</h3>
             <p>{event.date} at {event.time}</p>
           </div>
@@ -57,12 +62,12 @@ function BuyTickets(props)  {
             <p>{event.capacity - event.ticketsSold} tickets remaining</p>
           </div>
         </div>
-
+        </div>
         <div className="event-description">
           <h3>Event Description</h3>
           <p>{event.description}</p>
         </div>
-
+       
         <div className="purchase-section">
           <div className="quantity-selector">
             <label>Number of Tickets:</label>
@@ -130,10 +135,10 @@ function BuyTickets(props)  {
           >
             Complete Purchase
           </button>
+        </div>        
         </div>
       </div>
     </div>
-  </div>
   );
 };
 export default BuyTickets;

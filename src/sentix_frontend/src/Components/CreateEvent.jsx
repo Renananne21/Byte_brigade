@@ -77,6 +77,7 @@ function CreateEvent() {
 
     return (
         <div className="createEventPage">
+            <Navbar></Navbar>
         <div className="create-event-container">
             <h1>Create Event</h1>
             <form onSubmit={handleSubmit}>
@@ -124,9 +125,10 @@ function CreateEvent() {
                 </div>
 
               
-                <div className="image-upload-section">
-                <button type="button" onClick={uploadEventPhotos}>
-                    Upload Event Image
+                <div className="form-group">
+                <label htmlFor="EventImage">Upload Event Image</label>
+                <button type="button" className='upload-button'onClick={uploadEventPhotos}>
+                &uarr;  Add file
                 </button>
                 {eventImage && (
                     <img 
@@ -142,7 +144,7 @@ function CreateEvent() {
                 )}
             </div>
 
-                <button type="submit" >Create Event</button>
+                <button type="submit" className='submit-event'>Create Event</button>
             </form>
             </div>
         </div>

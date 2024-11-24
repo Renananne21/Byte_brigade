@@ -4,15 +4,10 @@ import logo from '../Images/LOGO.jpg';
 import { useState } from 'react';
 import { AuthClient } from "@dfinity/auth-client";
 
-function Navbar({ searchTerm, setSearchTerm, selectedEventType, upcomingEvents }) {
+function Navbar({ searchTerm, setSearchTerm }) {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [showToast, setShowToast] = useState(false);
-    const filteredEvents = upcomingEvents.filter(event => {
-        const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          event.description.toLowerCase().includes(searchTerm.toLowerCase());
-        const matchesType = selectedEventType === 'All Events' || event.eventType === selectedEventType;
-        return matchesSearch && matchesType;
-      });
+   
 
       
     const defaultOptions = {
@@ -61,6 +56,7 @@ function Navbar({ searchTerm, setSearchTerm, selectedEventType, upcomingEvents }
                 <li><Link to="/about">About</Link></li>
                 <li><Link to="/contactUs">Contact</Link></li>
             </ul>
+            <span style={{ fontSize: '2rem' }}>&#128722;</span>
             {isAuthenticated ? (
                 console.log("Authenticated")
             ) : (
