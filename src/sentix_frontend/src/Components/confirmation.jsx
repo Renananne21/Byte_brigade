@@ -25,7 +25,7 @@ const Confirmation = () => {
             <p><strong>Order Number:</strong> #{orderNumber}</p>
             <p><strong>Purchase Date:</strong> {purchaseDate}</p>
           </div>
-
+          <div>
           <div className="event-summary">
             <img src={event.image} alt={event.title} className="event-thumbnail" />
             <div className="event-info">
@@ -34,9 +34,7 @@ const Confirmation = () => {
               <p>{event.location}</p>
               <p>Quantity: {quantity} tickets</p>
             </div>
-          </div>
-
-          <div className="payment-summary">
+            <div className="payment-summary">
             <h3>Payment Details</h3>
             <div className="payment-info">
               <p><strong>Payment Method:</strong> {paymentMethod}</p>
@@ -45,6 +43,9 @@ const Confirmation = () => {
               <p className="total-amount"><strong>Total Paid:</strong> ${(totalPrice * 1.10).toFixed(2)}</p>
             </div>
           </div>
+          </div>
+
+         
 
           <div className="next-steps">
             <h3>What's Next?</h3>
@@ -54,7 +55,7 @@ const Confirmation = () => {
               <li>Arrive at least 30 minutes before the event</li>
             </ul>
           </div>
-
+          </div>
           <div className="action-buttons">
             <button 
               className="download-tickets"

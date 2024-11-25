@@ -5,8 +5,9 @@ import Navbar from './Navbar';
 
 function ContactUs() {
     return (
-        <div className="contact">
-            <Navbar></Navbar>
+        <div>
+            <Navbar />
+        <div className="contact">            
             <header>
                 
                 <h1>Contact Us</h1>
@@ -35,37 +36,43 @@ function ContactUs() {
                 <div className="info">
                     <h2>Contact Information</h2>
                     <p><strong>Phone:</strong> <a href="tel:+1234567890">+1 234 567 890</a></p>
-                    <p><strong>Email:</strong> <a href="mailto:info@example.com">info@ticketgo.com</a></p>
+                    <p><strong>Email:</strong> <a href="mailto:info@example.com">info@tockentix.com</a></p>
                     <p><strong>Address:</strong>  Nairobi, Kenya</p>
                 </div>
             </main>
 
-            <footer>
-                <div className="wholefooter">
-                    <div className="footer">
-                        <div className="events">
-                            <h2>Events</h2>
-                            <p>Upcoming Events</p>
-                            <p>Resell Tickets</p>
-                            <p>My Tickets</p>
-                        </div>
-                        <div className="company">
-                            <h2>Company</h2>
-                            <p><Link to="/about">About US</Link></p>
-                            <p>Careers</p>
-                            <p>Blogs</p>
-                        </div>
-                        <div className="support">
-                            <h2>Support</h2>
-                            <p>Help Center</p>
-                            <p>Contact Us</p>
-                            <p>FAQs</p>
-                        </div>
-                    </div>
-                    <p>&copy; 2024 Your Company. All rights reserved.</p>
-                </div>
-
-            </footer>
+            <footer className="footer">
+          <div className="footer-content">
+            <div className="footer-section" >
+              <h3>Events</h3>
+              <ul >
+                <li>Upcoming Events</li>
+                <li>Resell Tickets</li>
+                <li>My Tickets</li>
+              </ul>
+            </div>
+            <div className="footer-section">
+              <h3>Company</h3>
+              <ul >
+                <li><Link to="/about" style={{ color: '#black', textDecoration: 'none' }}>About Us</Link></li>
+                <li>Careers</li>
+                <li>Blog</li>
+              </ul>
+            </div>
+            <div className="footer-section" >
+              <h3 >Support</h3>
+              <ul >
+                <li>Help Center</li>
+                <li><Link to="/contactUs" style={{ color: '#black', textDecoration: 'none' }}>Contact Us</Link></li>
+                <li>FAQs</li>
+              </ul>
+            </div>
+          </div>
+          <div className="footer-bottom">
+            <p>© 2024 TicketGO. All rights reserved.</p>
+          </div>
+        </footer>
+        </div>
         </div>
     );
 };
