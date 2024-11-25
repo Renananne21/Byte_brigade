@@ -2,11 +2,14 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 [ZoneTransfer]
 ZoneId=3
 =======
 =======
 >>>>>>> 601b16b (added images for payment illustrations)
+=======
+>>>>>>> 85c3dea (added images for payment illustrations)
 [ZoneTransfer]
 ZoneId=3
 HostUrl=https://github.com/
@@ -22,6 +25,8 @@ HostUrl=https://github.com/
 >>>>>>> f773803 (added images for payment illustrations)
 =======
 =======
+=======
+>>>>>>> e462cd8 (added images for payment illustrations)
 [ZoneTransfer]
 ZoneId=3
 >>>>>>> 601b16b (added images for payment illustrations)
@@ -31,6 +36,20 @@ ZoneId=3
 HostUrl=https://github.com/
 >>>>>>> afd4d95 (added images for payment illustrations)
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 9db0ed4 (added images for payment illustrations)
 >>>>>>> 601b16b (added images for payment illustrations)
+=======
+>>>>>>> 9db0ed4 (added images for payment illustrations)
+=======
+=======
+[ZoneTransfer]
+ZoneId=3
+<<<<<<< HEAD
+HostUrl=https://github.com/
+=======
+>>>>>>> origin/master
+>>>>>>> f773803 (added images for payment illustrations)
+>>>>>>> e462cd8 (added images for payment illustrations)
+>>>>>>> 85c3dea (added images for payment illustrations)
