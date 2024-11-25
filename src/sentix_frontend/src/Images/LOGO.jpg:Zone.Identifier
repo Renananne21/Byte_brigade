@@ -1,2 +1,8 @@
+<<<<<<< HEAD
 [ZoneTransfer]
 ZoneId=3
+=======
+[ZoneTransfer]
+ZoneId=3
+HostUrl=https://github.com/
+>>>>>>> afd4d95 (added images for payment illustrations)
