@@ -145,7 +145,7 @@ function BuyTickets(props)  {
 
           <button 
             className="purchase-button"
-            onClick={handlePurchase}
+            onClick={Pay}
           >
             Complete Purchase
           </button>

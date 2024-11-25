@@ -1,104 +1,90 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { AuthClient } from "@dfinity/auth-client";
-import { createAgent } from "@dfinity/utils";
-import { LedgerCanister, AccountIdentifier } from "@dfinity/ledger-icp";
+import { Actor } from "@dfinity/agent"; // Actor to call canister functions
+import { sentix_backend } from "declarations/sentix_backend"; // Auto-generated canister interface
 
-// Ensure Buffer is defined
-// import { Buffer } from 'buffer';
-// window.Buffer = Buffer; // Make Buffer globally available
-
-const PayComponent = () => {
-  const [ledgerCanister, setLedgerCanister] = useState(null);
+const Pay = ({ onSuccess }) => {
+  const [authClient, setAuthClient] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [statusMessage, setStatusMessage] = useState('');
+  const [principalId, setPrincipalId] = useState(null);
+  const [greeting, setGreeting] = useState("");
+  const [status, setStatus] = useState("");
 
   useEffect(() => {
     const initAuth = async () => {
-      const authClient = await AuthClient.create();
-      const isLoggedIn = await authClient.isAuthenticated();
-      setIsAuthenticated(isLoggedIn);
+      const client = await AuthClient.create();
+      setAuthClient(client);
 
-      if (isLoggedIn) {
-        await initLedger(authClient);
+      if (await client.isAuthenticated()) {
+        const identity = client.getIdentity();
+        setPrincipalId(identity.getPrincipal().toText());
+        setIsAuthenticated(true);
+        Actor.agentOf(sentix_backend).replaceIdentity(identity);
       }
     };
 
     initAuth();
   }, []);
 
-  const initLedger = async (authClient) => {
-    const identity = await authClient.getIdentity();
-    const agent = await createAgent({ identity });
-    const ledger = await LedgerCanister.create({ agent });
-    setLedgerCanister(ledger);
-  };
-
   const handleLogin = async () => {
-    const authClient = await AuthClient.create();
+    if (!authClient) return;
+
     await authClient.login({
-      identityProvider: "http://127.0.0.1:4943/?canisterId=rdmx6-jaaaa-aaaaa-aaadq-ca", 
-      onSuccess: async () => {
+      identityProvider: "https://nfid.one/authenticate",
+      onSuccess: () => {
+        const identity = authClient.getIdentity();
+        setPrincipalId(identity.getPrincipal().toText());
         setIsAuthenticated(true);
-        await initLedger(authClient);
+        Actor.agentOf(sentix_backend).replaceIdentity(identity);
       },
     });
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const amount = BigInt(event.target['icp-amount'].value);
-    const destinationHex = event.target.destination.value;
-
-    if (!ledgerCanister) {
-      setStatusMessage("Ledger canister not initialized");
-      return;
-    }
+  const handleGreet = async (e) => {
+    e.preventDefault();
+    setStatus(""); // Reset status messages
+    const name = e.target["name"].value;
 
     try {
-      
-      const destination = AccountIdentifier.fromHex(destinationHex);
-      const transferBlockIndex = await ledgerCanister.transfer({
-        to: destination.toUint8Array(), 
-        fee: { e8s: BigInt(1000) }, 
-        memo: 0, 
-        from_subaccount: null, 
-        created_at_time: null, 
-        amount: { e8s: amount }, 
-      });
-
-      setStatusMessage(`ICP Transfer successful. Block index: ${transferBlockIndex}`);
+      const response = await sentix_backend.get_principal(name);
+      setGreeting(response);
+      setStatus("Greeting retrieved successfully!");
+      if (onSuccess) onSuccess(principalId); // Pass principalId to the parent if needed
     } catch (error) {
-      console.error("ICP Transfer failed:", error);
-      setStatusMessage(`ICP Transfer failed: ${error.message}`);
+      setStatus(`Error: ${error.message}`);
     }
   };
 
   if (!isAuthenticated) {
     return (
-      <div className="pay-container">
-        <h2>Authentication Required</h2>
-        <button onClick={handleLogin}>Login with Internet Identity</button>
+      <div className="auth-container">
+        <h2>Login Required</h2>
+        <button onClick={handleLogin}>Login with NFID</button>
       </div>
     );
   }
 
   return (
     <div className="pay-container">
-      <h2>Pay for Ticket</h2>
-      <form onSubmit={handleSubmit}>
+      <h2>Welcome</h2>
+      <p>Your Principal ID: {principalId}</p>
+      <form onSubmit={handleGreet}>
         <div className="input-group">
-          <label htmlFor="icp-amount">Amount (ICP in motes)</label>
-          <input type="number" id="icp-amount" name="icp-amount" placeholder="Enter amount to transfer in motes (1 ICP = 10^8 motes)" required />
+          <label htmlFor="name">Your Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Enter your name"
+            required
+          />
         </div>
-        <div className="input-group">
-          <label htmlFor="destination">Destination Account ID (Hex)</label>
-          <input type="text" id="destination" name="destination" placeholder="Enter destination account identifier (hex)" required />
-        </div>
-        <button type="submit">Transfer ICP</button>
+        <button type="submit">Get Greeting</button>
       </form>
-      {statusMessage && <div className="status">{statusMessage}</div>}
+      {greeting && <p className="greeting-message">{greeting}</p>}
+      {status && <p className="status-message">{status}</p>}
     </div>
   );
 };
 
-export default PayComponent;
+export default Pay;
