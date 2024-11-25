@@ -294,7 +294,7 @@ function App() {
             <img src={ticketImage} alt="Resell Tickets" className="resell-image" />
             <div className="resell-text" >
               <p style={{ fontSize: '28px', marginBottom: '20px', color: 'black' }}>Can't make it to an event?</p>
-              <p >Resell your tickets safely and easily on TicketGO!</p>
+              <p >Resell your tickets safely and easily on TockenTix!</p>
               <p style={{ marginBottom: '25px' }}>The #1 trusted platform for secure ticket resales</p>
               <Link to="resell-ticket" className="rese1ll-button">Start Reselling</Link>
             </div>
@@ -306,7 +306,8 @@ function App() {
             <div className="footer-section" >
               <h3>Events</h3>
               <ul >
-                <li>Upcoming Events</li>
+        
+                <li><a href='.events-section'>Upcoming Events</a></li>
                 <li>Resell Tickets</li>
                 <li>My Tickets</li>
               </ul>
@@ -329,7 +330,7 @@ function App() {
             </div>
           </div>
           <div className="footer-bottom">
-            <p>© 2024 TicketGO. All rights reserved.</p>
+            <p>© 2024 TockenTix. All rights reserved.</p>
           </div>
         </footer>
 
