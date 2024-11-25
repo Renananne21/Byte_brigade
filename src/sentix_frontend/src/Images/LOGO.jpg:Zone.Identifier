@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 [ZoneTransfer]
 ZoneId=3
 =======
@@ -6,3 +7,11 @@ ZoneId=3
 ZoneId=3
 HostUrl=https://github.com/
 >>>>>>> afd4d95 (added images for payment illustrations)
+=======
+[ZoneTransfer]
+ZoneId=3
+<<<<<<< HEAD
+HostUrl=https://github.com/
+=======
+>>>>>>> origin/master
+>>>>>>> f773803 (added images for payment illustrations)
