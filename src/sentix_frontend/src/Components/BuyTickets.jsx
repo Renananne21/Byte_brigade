@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import Navbar, { filter } from './Navbar';
+import Navbar from './Navbar';
+import MpesaIcon from '/home/renan/Byte_brigade/src/sentix_frontend/src/Images/mpesa icon.jpg';
+import CreditCardIcon from '/home/renan/Byte_brigade/src/sentix_frontend/src/Images/credit card icon.png';
+import ICPIcon from '/home/renan/Byte_brigade/src/sentix_frontend/src/Images/ICP icon.jpg';
 
 function BuyTickets(props)  {
   const navigate = useNavigate();
@@ -98,6 +101,7 @@ function BuyTickets(props)  {
                   checked={selectedPayment === 'credit'}
                   onChange={(e) => setSelectedPayment(e.target.value)}
                 />
+                <img src={CreditCardIcon} alt="" />
                 Credit Card
               </label>
               <label>
@@ -107,6 +111,7 @@ function BuyTickets(props)  {
                   checked={selectedPayment === 'mpesa'}
                   onChange={(e) => setSelectedPayment(e.target.value)}
                 />
+                <img src={MpesaIcon} alt="" />
                 Mpesa
               </label>
               <label>
@@ -116,6 +121,7 @@ function BuyTickets(props)  {
                   checked={selectedPayment === 'icpToken'}
                   onChange={(e) => setSelectedPayment(e.target.value)}
                 />
+                <img src={ICPIcon} alt="" />
                 ICP token
               </label>
             </div>

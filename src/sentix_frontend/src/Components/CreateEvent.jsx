@@ -3,13 +3,17 @@ import { sentix_backend } from 'declarations/sentix_backend';
 import Navbar from './Navbar'; 
 
 function CreateEvent() {
+    console.log('CreateEvent component rendering');
     const [eventImage, setEventImage] = useState(null);
     const [uploadProgress, setUploadProgress] = useState(null);
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [date, setDate] = useState('');
-    const [price, setPrice] = useState('');
-    const [image, setImage] = useState('');
+    const [formData, setFormData] = useState({
+        title: '',
+        description: '',
+        date: '',
+        price: '',
+        eventId: ''
+    });
+    const [createdEvent, setCreatedEvent] = useState(null); // Replace concert with createdEvent
 
    
     const uploadEventPhotos = () => {
@@ -53,14 +57,21 @@ function CreateEvent() {
     const newEvent = {
         title: formData.title,
         date: formData.date,
-        // ... other event fields
+        price: formData.price,
+        description: formData.description,
         image: eventImage // This will now be available in your upcoming events
     };
 
     // Your existing event creation API call
-    await createEvent(newEvent);
+    const [createdEvent, setCreatedEvent] = useState(null); // Replace concert with createdEvent
 
-    
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
                   
     
                
@@ -74,62 +85,32 @@ function CreateEvent() {
             <form onSubmit={handleSubmit}>
             <div className="form-group">
                 <label htmlFor="event ID">Event ID</label>
-                <input type="text" name="eventId" required />
+                <input type="text" name="eventId" value={formData.eventId}
+                            onChange={handleInputChange}
+                            required  />
             </div>
               <div className="form-group">
                 <label htmlFor="Title"> Title</label>
-                <input type="text" name="title" required />
+                <input type="text" name="title" value={formData.title} onChange={handleInputChange}required />
               </div>
               <div className="form-group">
                 <label htmlFor="Description">Description</label>
-                <textarea name="description" required />
+                <textarea name="description" value={formData.description} required />
               </div>
               <div className="form-group">
                 <label htmlFor="Date">Date</label>
-                <input type="date" name="date" required />
+                <input type="date" name="date" value={formData.date} onChange={handleInputChange} required />
               </div>
               <div className="form-group">
                 <label htmlFor="Price">Price</label>
-                <input type="number" name="price" required />
+                <input type="number" name="price" value={formData.price} onChange={handleInputChange}required />
               </div>
 
-                <div className="form-group">
-                    <label htmlFor="description">Description</label>
-                    <textarea
-                        id="description"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        required
-                    ></textarea>
-                </div>
-
-                <div className="form-group">
-                    <label htmlFor="date">Event Date</label>
-                    <input
-                        type="date"
-                        id="date"
-                        value={date}
-                        onChange={(e) => setDate(e.target.value)}
-                        required
-                    />
-                </div>
-
-                <div className="form-group">
-                    <label htmlFor="price">Price</label>
-                    <input
-                        type="number"
-                        id="price"
-                        value={price}
-                        onChange={(e) => setPrice(e.target.value)}
-                        required
-                    />
-                </div>
-
-              
+                             
                 <div className="form-group">
                 <label htmlFor="EventImage">Upload Event Image</label>
                 <button type="button" className='upload-button'onClick={uploadEventPhotos}>
-                &uarr;  Add file
+                ⬆ Add file
                 </button>
                 {eventImage && (
                     <img 
@@ -153,7 +134,7 @@ function CreateEvent() {
 };
 
       {/* Display the created event data */}
-      {concert && (
+      {createdEvent && (
         <div>
           <h3>Event Created Successfully!</h3>
         </div>

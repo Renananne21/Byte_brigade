@@ -8,7 +8,6 @@ import EventList from './Components/EventList';
 import BuyTickets from './Components/BuyTickets';
 import TicketPurchase from './Components/BuyTickets';
 import ContactUs from './Components/Contact';
-import TicketPage from './Components/ticketPage';
 import ResellTicket from './Components/resellPage';
 import Confirmation from './Components/confirmation';
 import './index.scss';

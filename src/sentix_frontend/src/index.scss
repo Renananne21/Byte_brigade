@@ -826,6 +826,11 @@ background-color: #f2f0ef;
             gap: 8px;
             cursor: pointer;
           }
+
+          img {
+            width: 30px;
+            height: 30px;
+          }
         }
       }
 
@@ -874,7 +879,7 @@ background-color: #f2f0ef;
    margin: 0;
 
   .confirmation-container{
-    background-color: #98c5e8;
+
   max-width: 1000px;
   margin: 0 auto;
   padding: 20px;
