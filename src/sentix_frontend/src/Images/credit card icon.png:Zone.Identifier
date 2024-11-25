@@ -1,4 +1,8 @@
 [ZoneTransfer]
 ZoneId=3
+<<<<<<< HEAD
 ReferrerUrl=https://www.google.com/
 HostUrl=https://cdn-icons-png.flaticon.com/512/6963/6963703.png
+=======
+HostUrl=https://github.com/
+>>>>>>> afd4d95 (added images for payment illustrations)
