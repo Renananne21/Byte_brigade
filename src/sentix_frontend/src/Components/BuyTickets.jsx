@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
-import PayComponent from './Pay';
+import Transfer from './tokens';
+import Pay from './Pay';
 
 function BuyTickets(props)  {
   const navigate = useNavigate();
@@ -118,7 +119,7 @@ function BuyTickets(props)  {
             </label>
 
             
-            {selectedPayment === 'icp' && <PayComponent />}
+            {selectedPayment === 'icp' && <Transfer/>}
             </div>
           </div>
 
@@ -139,7 +140,7 @@ function BuyTickets(props)  {
 
           <button 
             className="purchase-button"
-            onClick={handlePurchase}
+            onClick={Pay}
           >
             Complete Purchase
           </button>
