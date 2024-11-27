@@ -3,9 +3,9 @@ import { sentix_backend } from 'declarations/sentix_backend';
 import Navbar from './Navbar'; 
 
 function CreateEvent() {
-    console.log('CreateEvent component rendering');
     const [eventImage, setEventImage] = useState(null);
     const [uploadProgress, setUploadProgress] = useState(null);
+    const [createdEvent, setCreatedEvent] = useState(null);
     const [formData, setFormData] = useState({
         title: '',
         description: '',
@@ -13,9 +13,31 @@ function CreateEvent() {
         price: '',
         eventId: ''
     });
-    const [createdEvent, setCreatedEvent] = useState(null); // Replace concert with createdEvent
-
-   
+    
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
+    
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const newEvent = {
+            title: formData.title,
+            date: formData.date,
+            price: formData.price,
+            description: formData.description,
+            image: eventImage
+        };
+        try {
+            const result = await sentix_backend.create_event(newEvent);
+            setCreatedEvent(result);
+        } catch (error) {
+            console.error("Failed to create event:", error);
+        }
+    };
     const uploadEventPhotos = () => {
         const input = document.createElement('input');
         input.type = 'file';
@@ -51,28 +73,7 @@ function CreateEvent() {
 
         input.click();
     };
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-    const newEvent = {
-        title: formData.title,
-        date: formData.date,
-        price: formData.price,
-        description: formData.description,
-        image: eventImage // This will now be available in your upcoming events
-    };
-
-    // Your existing event creation API call
-    const [createdEvent, setCreatedEvent] = useState(null); // Replace concert with createdEvent
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
-    };
-                  
+   
     
                
 
@@ -110,7 +111,7 @@ function CreateEvent() {
                 <div className="form-group">
                 <label htmlFor="EventImage">Upload Event Image</label>
                 <button type="button" className='upload-button'onClick={uploadEventPhotos}>
-                ⬆ Add file
+                📤 Add file
                 </button>
                 {eventImage && (
                     <img 
@@ -128,17 +129,19 @@ function CreateEvent() {
 
                 <button type="submit" className='submit-event'>Create Event</button>
             </form>
-            </div>
-        </div>
-    );
-};
-
-      {/* Display the created event data */}
-      {createdEvent && (
+            {createdEvent && (
         <div>
           <h3>Event Created Successfully!</h3>
         </div>
       )}
+  
+            </div>
+        </div>
+    );
+
+
+      
+      
   
 }
 

@@ -48,14 +48,14 @@ function Navbar({ searchTerm, setSearchTerm }) {
             <ul>
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/about">About</Link></li>
-                <li><Link to="/contactUs">Contact</Link></li>
-            </ul>
+                <li><Link to="/contactUs">Contact</Link></li>          
+                  </ul>
             <span style={{ fontSize: '2rem' }}>&#128722;</span>
-            {isAuthenticated ? (
-                console.log("Authenticated")
-            ) : (
-                <button onClick={login} className="login-button">Log In</button>
-            )}
+            
+                {!isAuthenticated && (
+                    <button onClick={login} className="login-button">Log In</button>
+                )}
+            
             </nav>
         </div> 
     );
