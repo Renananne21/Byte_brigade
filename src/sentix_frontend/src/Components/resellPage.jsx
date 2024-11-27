@@ -1,5 +1,4 @@
 import React from "react";
-import TicketPage from "./ticketPage";
 
 const ResellTicketPage = ({ match }) => {
   const ticketId = match.params.ticketId;

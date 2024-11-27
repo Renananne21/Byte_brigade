@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # `sentix`
 
 Welcome to your new `sentix` project and to the Internet Computer development community. By default, creating a new project adds this README and some template files to your project directory. You can edit these template files to customize your project and to include your own code to speed up the development cycle.
@@ -59,6 +60,9 @@ If you are hosting frontend code somewhere without using DFX, you may need to ma
 =======
 TicketGO
 Welcome to TicketGO—your go-to decentralized ticketing system that brings security, transparency, and ease of use to event management. Designed to empower both event organizers and attendees, TicketGO leverages blockchain technology for reliable and real-time ticket transactions, ensuring a smooth and secure experience for all users.
+=======
+Welcome to TokenTix—your go-to decentralized ticketing system that brings security, transparency, and ease of use to event management. Designed to empower both event organizers and attendees, TokenTix leverages blockchain technology for reliable and real-time ticket transactions, ensuring a smooth and secure experience for all users.
+>>>>>>> origin/master
 
 🌐 Live Demo:
   Frontend canister via browser
@@ -67,12 +71,12 @@ Welcome to TicketGO—your go-to decentralized ticketing system that brings secu
     sentix_backend: https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io/?id=owm5s-oyaaa-aaaap-anrkq-cai 
 
 Features
-Decentralized Ticket Management: TicketGO operates on a blockchain-based platform, ensuring secure, tamper-proof ticket transactions.
+Decentralized Ticket Management: TokenTix operates on a blockchain-based platform, ensuring secure, tamper-proof ticket transactions.
 User-Friendly Interface: Designed for ease of use, our platform simplifies the process of buying, selling, and managing tickets.
 Real-Time Updates: Enjoy live updates on ticket availability and event details.
 Transparency & Security: Built with transparency in mind, all transactions are securely recorded on the blockchain.
 Getting Started
-Follow these steps to set up and run TicketGO locally.
+Follow these steps to set up and run TockenTix locally.
 
 Prerequisites
 Node.js and Yarn installed on your machine.
@@ -80,7 +84,7 @@ Knowledge of basic blockchain and decentralized applications (optional but helpf
 
 Installation
 Clone the repository:git clone https://github.com/Renananne21/Byte_brigade.git
-Navigate to the project directory:cd TicketGO
+Navigate to the project directory:cd TokenTix
 Install dependencies:yarn install
 Running the Project:yarn start
 

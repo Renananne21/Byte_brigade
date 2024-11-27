@@ -5,6 +5,7 @@ type Event = record {
   description : text;
   price : nat64;
 };
+type PayoutResult = variant { Ok : nat64; Err : text };
 type Ticket = record {
   id : nat8;
   resale : bool;
@@ -21,6 +22,7 @@ service : () -> {
   get_event : (nat64) -> (opt Event) query;
   get_ticket : (nat64) -> (opt Ticket) query;
   get_user_tokens : () -> (int);
+  payout : (principal, nat64) -> (PayoutResult);
   resale_ticket : (nat64, nat64) -> (opt Ticket);
   reward_tokens : (int) -> (text);
   spend_tokens : (int) -> (text);

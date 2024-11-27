@@ -1,3 +1,8 @@
 [ZoneTransfer]
 ZoneId=3
+<<<<<<< HEAD
 HostUrl=https://github.com/
+=======
+ReferrerUrl=https://www.google.com/
+HostUrl=https://cdn-icons-png.flaticon.com/512/6963/6963703.png
+>>>>>>> origin/master

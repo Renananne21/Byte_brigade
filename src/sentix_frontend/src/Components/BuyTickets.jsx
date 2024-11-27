@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
-import Transfer from './tokens';
-import Pay from './Pay';
+import MpesaIcon from '/home/isaack/sentix/src/sentix_frontend/src/Images/mpesa icon.jpg';
+import CreditCardIcon from '/home/isaack/sentix/src/sentix_frontend/src/Images/credit card icon.png';
+import ICPIcon from '/home/isaack/sentix/src/sentix_frontend/src/Images/ICP icon.jpg';
 
 function BuyTickets(props)  {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ function BuyTickets(props)  {
   const event = state?.event;
   const [quantity, setQuantity] = useState(1);
   const [selectedPayment, setSelectedPayment] = useState('credit');
+  const [showTransferComponent, setShowTransferComponent] = useState(false);
   
   const totalPrice = quantity * parseFloat(event.price.replace('$', ''));
 
@@ -25,8 +27,7 @@ function BuyTickets(props)  {
   const handlePurchase = async () => {
    
       
-      // You can add your API call here
-      // await purchaseTickets(purchaseData);
+      
       
       
       navigate("/confirmation", { 
@@ -41,17 +42,21 @@ function BuyTickets(props)  {
 
   return (
     <div className="buyTicketsPage">
-    
-    <div className="buy-tickets-container">
     <Navbar />
+    <div className="buy-tickets-container">
       <div className="ticket-details">
         <div className="event-header">
         <h1>{event.title}</h1>
-          <img src={event.image} alt={event.title} className="event-image" />          
-        </div>
+        
+        </div>        
+                   
+        
 
         <div className="details-grid">
+        <img src={event.image} alt={event.title} className="event-image" />
+        <div className="details">
           <div className="detail-item">
+           
             <h3>Date & Time</h3>
             <p>{event.date} at {event.time}</p>
           </div>
@@ -68,12 +73,12 @@ function BuyTickets(props)  {
             <p>{event.capacity - event.ticketsSold} tickets remaining</p>
           </div>
         </div>
-
+        </div>
         <div className="event-description">
           <h3>Event Description</h3>
           <p>{event.description}</p>
         </div>
-
+       
         <div className="purchase-section">
           <div className="quantity-selector">
             <label>Number of Tickets:</label>
@@ -97,6 +102,7 @@ function BuyTickets(props)  {
                   checked={selectedPayment === 'credit'}
                   onChange={(e) => setSelectedPayment(e.target.value)}
                 />
+                <img src={CreditCardIcon} alt="" />
                 Credit Card
               </label>
               <label>
@@ -106,20 +112,19 @@ function BuyTickets(props)  {
                   checked={selectedPayment === 'mpesa'}
                   onChange={(e) => setSelectedPayment(e.target.value)}
                 />
-                mpesa 
+                <img src={MpesaIcon} alt="" />
+                Mpesa
               </label>
               <label>
-              <input
-                type="radio"
-                value="icp"
-                checked={selectedPayment === 'icp'}
-                onChange={(e) => setSelectedPayment(e.target.value)}
-              />
-              ICP Token
-            </label>
-
-            
-            {selectedPayment === 'icp' && <Transfer/>}
+                <input
+                  type="radio"
+                  value="icpToken"
+                  checked={selectedPayment === 'icpToken'}
+                  onChange={(e) => setSelectedPayment(e.target.value)}
+                />
+                <img src={ICPIcon} alt="" />
+                ICP token
+              </label>
             </div>
           </div>
 
@@ -140,14 +145,14 @@ function BuyTickets(props)  {
 
           <button 
             className="purchase-button"
-            onClick={Pay}
+            onClick={handlePurchase}
           >
             Complete Purchase
           </button>
+        </div>        
         </div>
       </div>
     </div>
-  </div>
   );
 };
 export default BuyTickets;
