@@ -1,27 +1,36 @@
-import { LedgerCanister } from "@dfinity/ledger-icp";
-import { Actor } from "@dfinity/agent";
-import { AuthClient } from "@dfinity/auth-client";
+import { Principal } from '@dfinity/principal';
+import React from 'react';
+import XtcIDL from '../idls/xtc.did';
 
-// agent will know which is the currently connected wallet
-const agent = useAgent()
- 
 
-const actor = LedgerCanister.create( {
-  agent,
-  canisterId: "ryjl3-tyaaa-aaaaa-aaaba-cai",
-})
- 
-const destinationPrincipal = "7u5d5-3p6nl-uc7nq-wregf-tlb6e-h43zs-7uofu-fucbn-2ceeg-6dmu6-hae"
-const address = AccountIdentifier.fromPrincipal({
-  principal: Principal.fromText(destinationPrincipal),
-}).toHex()
- 
-const transferArgs = {
-  to: fromHexString(address),
-  fee: { e8s: BigInt(10000) },
-  memo: BigInt(0),
-  from_subaccount: [],
-  created_at_time: [],
-  amount: { e8s: BigInt(1000) },
+
+export const TTX_CANISTER_ID = 'aanaa-xaaaa-aaaah-aaeiq-cai';
+
+
+const TRANSFER_XTC_TX = {
+  idl: XtcIDL,
+  canisterId: TTX_CANISTER_ID,
+  methodName: 'transfer',
+  args: [{ to: Principal.fromText('7u5d5-3p6nl-uc7nq-wregf-tlb6e-h43zs-7uofu-fucbn-2ceeg-6dmu6-hae'), amount: BigInt(1400000), from: [] }],
+  onSuccess: async (res) => {
+    console.log('transferred TTX successfully');
+  },
+  onFail: (res) => {
+    console.log('transfer TTX error', res);
+  },
+};
+
+const BatchTransactionsExample = () => {
+  const randomTransfers = async () => {
+    console.log('Doing a bunch of transfers');
+    await window.ic.plug.batchTransactions([TRANSFER_XTC_TX])
+    console.log('Done!');
+  }
+  return (
+    <div className="batch-transactions-container">
+      <h2>Batch Transactions Example</h2>
+      <button type="button" onClick={randomTransfers}>Random Transactions</button>
+    </div>
+  )
 }
-const response = await actor.transfer(transferArgs)
+export default BatchTransactionsExample;

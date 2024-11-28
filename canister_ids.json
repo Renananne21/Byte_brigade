@@ -1,4 +1,7 @@
 {
+  "icrc1_ledger_canister": {
+    "ic": "t4prj-ziaaa-aaaap-anuqa-cai"
+  },
   "sentix_backend": {
     "ic": "owm5s-oyaaa-aaaap-anrkq-cai"
   },

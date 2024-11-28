@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import Navbar from './Navbar';
 
 const ResellTicket = () => {
+  const { id } = useParams();
   const [formData, setFormData] = useState({
     price: '',
     description: '',
@@ -11,6 +12,13 @@ const ResellTicket = () => {
     location: ''
   });
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (id) {
+      // Fetch ticket details using id if needed
+      // You can add API call here to get ticket details
+    }
+  }, [id]);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -93,5 +101,4 @@ const ResellTicket = () => {
     </div>
   );
 };
-
 export default ResellTicket;

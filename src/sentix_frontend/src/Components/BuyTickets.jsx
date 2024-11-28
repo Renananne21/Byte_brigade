@@ -128,6 +128,7 @@ function BuyTickets(props)  {
             </div>
           </div>
 
+
           <div className="price-summary">
             <div className="price-row">
               <span>Subtotal</span>
