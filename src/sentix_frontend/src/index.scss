@@ -145,6 +145,10 @@ body {
       grid-template-columns: repeat(1, 1fr);
     }
 
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+
     .event-card {
       background-color: #98c5e8;
       border-radius: 10px;
