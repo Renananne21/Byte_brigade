@@ -144,5 +144,6 @@ function BuyTickets(props) {
       </div>
     </div>
   );
-};
+}
+
 export default BuyTickets;

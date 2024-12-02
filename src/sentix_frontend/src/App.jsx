@@ -234,6 +234,14 @@ function App() {
     setCart(prevCart => prevCart.filter(item => item.id !== eventId)); // Remove event from cart
   };
 
+  const handleAddToCart = (event) => {
+    setCart(prevCart => [...prevCart, event]); // Add event to the cart
+  };
+
+  const handleRemoveFromCart = (eventId) => {
+    setCart(prevCart => prevCart.filter(item => item.id !== eventId)); // Remove event from cart
+  };
+
   const handleBuyTicket = (eventId, price) => {
     const event = upcomingEvents.find(event => event.id === eventId);
     navigate(`/buy-tickets/${eventId}`, { state: { event } });
