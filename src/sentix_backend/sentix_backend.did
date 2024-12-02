@@ -34,4 +34,5 @@ service : () -> {
   resale_ticket : (principal, nat64) -> (opt Ticket);
   reward_tokens : (int) -> (text);
   spend_tokens : (int) -> (text);
+  upload_image : (text, blob) -> (text);
 }

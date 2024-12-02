@@ -1,36 +1,67 @@
-from kybra import ic, nat64, query, Record, StableBTreeMap, update, Vec, Opt
-from models import Event
-# Define the Event record
-# class Event(Record):
-#     id: nat64
-#     title: str
-#     description: str
-#     date: str
-#     price: nat64
+from kybra import ic, nat64, query, Record, StableBTreeMap, update, Vec, Opt, Principal
+from models import Event, User, CreateConcert, CreateConcertErr
 
-events = StableBTreeMap[nat64, Event](
-    memory_id=0, max_key_size=80, max_value_size=1000
+events = StableBTreeMap[Principal, Event](
+    memory_id=7, max_key_size=80, max_value_size=5_000
 )
 
+users = StableBTreeMap[Principal, User](
+    memory_id=8, max_key_size=38, max_value_size=100_000
+)
+
+
 @update
-def create_event(title: str, description: str, date: str, price: nat64) -> Event:
+def create_user(username: str) -> User:
+    id = generate_id()
+    user: User = {
+        "id": id,
+        "created_at": ic.time(),
+        "creating_ids": [],
+        "username": username,
+    }
+
+    users.insert(user["id"], user)
+
+    return user
+
+
+
+@update
+def create_event(title: str, description: str, date: str, price: nat64) -> CreateConcert:
     """
     Create a new event with the given details.
-    The event ID must be unique.
     """
-    # if events.contains(event_id):
-    #     raise ValueError(f"Event ID {event_id} already exists.")
+    user = users.get(user_id)
 
-    event: Event = {
-        "id": eventId,
+    if user is None:
+        return {"Err": {"UserDoesNotExist": user_id}}
+    
+    id = generate_id()
+
+    concert: Event = {
+        "id": id,
         "title": title,
         "description": description,
         "date": date,
         "price": price,
+        
     }
 
-    events.insert(eventId, event)
-    return event
+    events.insert(concert['id'], concert)
+
+    new_user: User = {
+        "id": user["id"],
+        "created_at": user["created_at"],
+        "username": user["username"],
+        "creating_ids": [*user["creating_ids"], recording["id"]],
+    }
+
+    users.insert(new_user["id"], new_user)
+
+    return {"Success": Event}
+
+
+
 
 @query
 def get_all_events() -> Vec[Event]:
@@ -39,18 +70,12 @@ def get_all_events() -> Vec[Event]:
     """
     return events.values()
 
-# @query
-# def get_event_by_title(title: str) -> Vec[Event]:
-#     """
-#     Search for events by their title.
-#     """
-#     matching_events = [event for event in events.values() if event.title == title]
-#     return Vec(matching_events)
+
+
 
 @query
-def get_event(eventId: nat64) -> Opt[Event]:
+def get_event_by_id(id: Principal) -> Opt[Event]:
     """
     Retrieve an event by its ID.
     """
-    return events.get(eventId)
-
+    return events.get(id)
