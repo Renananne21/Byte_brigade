@@ -1,36 +1,65 @@
-import { Principal } from '@dfinity/principal';
-import React from 'react';
-import XtcIDL from '../idls/xtc.did';
+import React, { useState } from 'react';
+import { Artemis } from 'artemis-web3-adapter';
 
-
-
-export const TTX_CANISTER_ID = 'aanaa-xaaaa-aaaah-aaeiq-cai';
-
-
-const TRANSFER_XTC_TX = {
-  idl: XtcIDL,
-  canisterId: TTX_CANISTER_ID,
-  methodName: 'transfer',
-  args: [{ to: Principal.fromText('7u5d5-3p6nl-uc7nq-wregf-tlb6e-h43zs-7uofu-fucbn-2ceeg-6dmu6-hae'), amount: BigInt(1400000), from: [] }],
-  onSuccess: async (res) => {
-    console.log('transferred TTX successfully');
-  },
-  onFail: (res) => {
-    console.log('transfer TTX error', res);
-  },
+const connectObj = {
+  whitelist: ['ryjl3-tyaaa-aaaaa-aaaba-cai'], // Adjust as needed
+  host: 'https://icp0.io/', // Ensure this URL is correct
 };
 
-const BatchTransactionsExample = () => {
-  const randomTransfers = async () => {
-    console.log('Doing a bunch of transfers');
-    await window.ic.plug.batchTransactions([TRANSFER_XTC_TX])
-    console.log('Done!');
-  }
+const artemisAdapter = new Artemis(connectObj); // Initialize the adapter
+
+const TransferICPComponent = () => {
+  const [amount, setAmount] = useState(1000); // Default amount
+  const [destinationPrincipal, setDestinationPrincipal] = useState(''); // Destination principal
+
+  const handleTransfer = async () => {
+    if (!destinationPrincipal || !amount) {
+      alert("Please enter a valid destination principal and amount.");
+      return;
+    }
+
+    try {
+      // Attempt to connect to the wallet
+      await artemisAdapter.connect();
+
+      // Use the requestICPTransfer method for the transfer
+      const response = await artemisAdapter.requestICPTransfer({
+        to: destinationPrincipal,
+        amount: amount,
+      });
+
+      console.log("Transfer successful:", response);
+      alert("Transfer successful!");
+    } catch (error) {
+      console.error("Transfer failed:", error);
+      alert("Transfer failed: " + error.message);
+    }
+  };
+
   return (
-    <div className="batch-transactions-container">
-      <h2>Batch Transactions Example</h2>
-      <button type="button" onClick={randomTransfers}>Random Transactions</button>
+    <div className="transfer-icp">
+      <h1>Transfer ICP Tokens</h1>
+      <div>
+        <label htmlFor="amount">Amount:</label>
+        <input
+          type="number"
+          id="amount"
+          value={amount}
+          onChange={e => setAmount(e.target.value)}
+        />
+      </div>
+      <div>
+        <label htmlFor="destination">Destination Principal:</label>
+        <input
+          type="text"
+          id="destination"
+          value={destinationPrincipal}
+          onChange={e => setDestinationPrincipal(e.target.value)}
+        />
+      </div>
+      <button onClick={handleTransfer}>Transfer ICP</button>
     </div>
-  )
-}
-export default BatchTransactionsExample;
+  );
+};
+
+export default TransferICPComponent;

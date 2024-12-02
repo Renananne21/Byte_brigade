@@ -164,6 +164,14 @@ function App() {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const statusRef = useRef(null);
 
+  const handleAddToCart = (event) => {
+    setCart(prevCart => [...prevCart, event]); // Add event to the cart
+  };
+
+  const handleRemoveFromCart = (eventId) => {
+    setCart(prevCart => prevCart.filter(item => item.id !== eventId)); // Remove event from cart
+  };
+
   const handleBuyTicket = (eventId, price) => {
     const event = upcomingEvents.find(event => event.id === eventId);
     navigate(`/buy-tickets/${eventId}`, { state: { event } });
@@ -271,6 +279,9 @@ function App() {
             </button>
           )}
         </section>
+        <Cart cartItems={cart} onRemove={handleRemoveFromCart} />
+
+        <section className="create-event-section"></section>
 
         <section className="create-event-section">
           <h2>Create Your Own Event</h2>
