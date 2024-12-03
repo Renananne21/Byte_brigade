@@ -1,28 +1,39 @@
+type CreateConcert = variant { Ok : Event; Err : CreateConcertErr };
+type CreateConcertErr = variant { UserDoesNotExist : principal };
 type Event = record {
-  id : nat64;
+  id : principal;
   title : text;
   date : text;
   description : text;
   price : nat64;
 };
+type Image = record { image_id : principal; image : blob };
 type Ticket = record {
-  id : nat8;
+  id : principal;
   resale : bool;
   owner : principal;
   resale_price : nat8;
-  event_id : nat8;
+  event_id : principal;
   price : nat64;
+};
+type UploadImageResult = variant { Ok : Image };
+type User = record {
+  id : principal;
+  creating_ids : vec principal;
+  username : text;
+  created_at : nat64;
 };
 service : () -> {
   buy_resale_ticket : (nat64) -> (text);
-  buy_ticket : (nat64, nat64) -> (Ticket);
-  create_event : (text, text, text, nat64) -> (Event);
+  buy_ticket : (principal, nat64) -> (Ticket);
+  create_event : (text, text, text, nat64) -> (CreateConcert);
+  create_user : (text) -> (User);
   get_all_events : () -> (vec Event) query;
-  get_event : (nat64) -> (opt Event) query;
-  get_ticket : (nat64) -> (opt Ticket) query;
+  get_event_by_id : (principal) -> (opt Event) query;
+  get_ticket : (principal) -> (opt Ticket) query;
   get_user_tokens : () -> (int);
-  resale_ticket : (nat64, nat64) -> (opt Ticket);
+  resale_ticket : (principal, nat64) -> (opt Ticket);
   reward_tokens : (int) -> (text);
   spend_tokens : (int) -> (text);
-  upload_image : (text, blob) -> (text);
+  upload_image : (blob) -> (UploadImageResult);
 }
