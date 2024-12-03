@@ -30,7 +30,7 @@ def create_user(username: str) -> User:
 
 
 @update
-def create_event(eventId: nat64, title: str, description: str, date: str, price: nat64) -> Event:
+def create_event(title: str, description: str, date: str, price: nat64) -> Event:
     """
     Create a new event with the given details.
     """

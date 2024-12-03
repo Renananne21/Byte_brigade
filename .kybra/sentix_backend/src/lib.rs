@@ -3052,7 +3052,6 @@ async fn _cdk_user_defined_buy_resale_ticket(_cdk_user_defined_ticket_id: u64) -
 #[ic_cdk_macros::update(name = "create_event")]
 #[candid::candid_method(update, rename = "create_event")]
 async fn _cdk_user_defined_create_event(
-    _cdk_user_defined_eventId: u64,
     _cdk_user_defined_title: String,
     _cdk_user_defined_description: String,
     _cdk_user_defined_date: String,
@@ -3062,9 +3061,6 @@ async fn _cdk_user_defined_create_event(
         .unwrap_or_trap("SystemError: missing python interpreter");
     let vm = &interpreter.vm;
     let params = (
-        _cdk_user_defined_eventId
-            .try_into_vm_value(vm)
-            .unwrap_or_trap(),
         _cdk_user_defined_title
             .try_into_vm_value(vm)
             .unwrap_or_trap(),
