@@ -52,6 +52,9 @@ function Cart ({ cartEvents, removeFromCart, updateQuantity })  {
           </div>
         </>
       )}
+      <div className="cart-total">
+        <p>Total Items: {cartItems.length}</p>
+      </div>
     </div>
   );
 };

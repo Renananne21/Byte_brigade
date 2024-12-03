@@ -3,6 +3,8 @@ import { sentix_backend } from 'declarations/sentix_backend';
 import Navbar from './Navbar'; 
 
 function CreateEvent() {
+    const [selectedFileContent, setSelectedFileContent] = useState(null);
+    const [showPopup, setShowPopup] = useState(false);
     const [eventImage, setEventImage] = useState(null);
     const [uploadProgress, setUploadProgress] = useState(null);
     const [createdEvent, setCreatedEvent] = useState(null);
