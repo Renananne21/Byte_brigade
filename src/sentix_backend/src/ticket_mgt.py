@@ -12,11 +12,11 @@ tickets = StableBTreeMap[Principal, Ticket](
 
 
 @update
-def buy_ticket(event_id: nat64, price: nat64) -> Ticket:
+def buy_ticket(event_id: Principal, price: nat64) -> Ticket:
     caller_principal = ic.caller()
     
     
-    ticket_id = tickets.len() + 1
+    ticket_id = generate_id()
     
     ticket: Ticket = {
         "id": ticket_id,
@@ -27,7 +27,7 @@ def buy_ticket(event_id: nat64, price: nat64) -> Ticket:
         "resale_price": 0,
     }
     
-    tickets.insert(ticket_id, ticket)
+    tickets.insert(ticket['id'], ticket)
     
     reward_tokens(amount)
 
@@ -35,7 +35,7 @@ def buy_ticket(event_id: nat64, price: nat64) -> Ticket:
 
 
 @update
-def resale_ticket(ticket_id: nat64, resale_price: nat64) -> Opt[Ticket]:
+def resale_ticket(ticket_id: Principal, resale_price: nat64) -> Opt[Ticket]:
     caller_principal = ic.caller()
     ticket_opt: Opt[Ticket] = tickets.get(ticket_id)
 
@@ -80,7 +80,7 @@ def buy_resale_ticket(ticket_id: nat64) -> str:
     return "Resale successful"
 
 @query
-def get_ticket(ticket_id: nat64) -> Opt[Ticket]:
+def get_ticket(ticket_id: Principal) -> Opt[Ticket]:
     ticket_opt: Opt[Ticket] = tickets.get(ticket_id)
     
     return ticket_opt  # Return the ticket option directly
