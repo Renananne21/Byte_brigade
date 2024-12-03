@@ -4,18 +4,30 @@ from kybra import (
     StableBTreeMap,
     blob,
     nat64,
+    Principal,
+    Vec,
+    ic,
 )
 
-# A simple storage using StableBTreeMap to persist images
-image_store = StableBTreeMap[str, blob](memory_id=6, max_key_size=100, max_value_size=1000)
+from models import Image, UploadImageResult
+
+
+image_store = StableBTreeMap[Principal, Image](memory_id=8, max_key_size=38, max_value_size=3_000_000)
+
+
+def generate_id() -> Principal:
+    return ic.caller()
 
 @update
-def upload_image(image_id: str, image_data: blob) -> str:
-    """
-    Uploads an image to the storage.
-    :param image_id: Unique identifier for the image.
-    :param image_data: The image as a binary blob.
-    :return: Confirmation message.
-    """
-    image_store.insert(image_id, image_data)
-    return f"Image with ID {image_id} uploaded successfully!"
+def upload_image(image: blob) -> UploadImageResult:
+
+    id = generate_id()
+
+    images:Image = {
+        "image_id":image_id,
+        "image":image, 
+    }
+
+    image_store.insert(images["image_id"], images)
+
+    return {"Ok":images}

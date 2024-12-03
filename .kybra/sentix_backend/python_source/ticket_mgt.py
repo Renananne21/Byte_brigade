@@ -1,18 +1,24 @@
 from kybra import Vec, Principal, update, query, ic, StableBTreeMap, nat64, Opt
-from models import Ticket
+from models import Ticket, User
 from token_mgt import reward_tokens
 
+users = StableBTreeMap[Principal, User](
+    memory_id=0, max_key_size=38, max_value_size=100_000
+)
 
-tickets = StableBTreeMap[nat64, Ticket](
+tickets = StableBTreeMap[Principal, Ticket](
     memory_id=5, max_key_size=80, max_value_size=500
 )
 
+def generate_id() -> Principal:
+    return ic.caller()
+
 @update
-def buy_ticket(event_id: nat64, price: nat64) -> Ticket:
+def buy_ticket(event_id: Principal, price: nat64) -> Ticket:
     caller_principal = ic.caller()
     
     
-    ticket_id = tickets.len() + 1
+    ticket_id = generate_id()
     
     ticket: Ticket = {
         "id": ticket_id,
@@ -23,7 +29,7 @@ def buy_ticket(event_id: nat64, price: nat64) -> Ticket:
         "resale_price": 0,
     }
     
-    tickets.insert(ticket_id, ticket)
+    tickets.insert(ticket['id'], ticket)
     
     reward_tokens(amount)
 
@@ -31,7 +37,7 @@ def buy_ticket(event_id: nat64, price: nat64) -> Ticket:
 
 
 @update
-def resale_ticket(ticket_id: nat64, resale_price: nat64) -> Opt[Ticket]:
+def resale_ticket(ticket_id: Principal, resale_price: nat64) -> Opt[Ticket]:
     caller_principal = ic.caller()
     ticket_opt: Opt[Ticket] = tickets.get(ticket_id)
 
@@ -76,7 +82,7 @@ def buy_resale_ticket(ticket_id: nat64) -> str:
     return "Resale successful"
 
 @query
-def get_ticket(ticket_id: nat64) -> Opt[Ticket]:
+def get_ticket(ticket_id: Principal) -> Opt[Ticket]:
     ticket_opt: Opt[Ticket] = tickets.get(ticket_id)
     
     return ticket_opt  # Return the ticket option directly

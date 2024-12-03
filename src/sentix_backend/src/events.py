@@ -6,9 +6,12 @@ events = StableBTreeMap[Principal, Event](
 )
 
 users = StableBTreeMap[Principal, User](
-    memory_id=8, max_key_size=38, max_value_size=100_000
+    memory_id=3, max_key_size=38, max_value_size=100_000
 )
 
+
+def generate_id() -> Principal:
+    return ic.caller()
 
 @update
 def create_user(username: str) -> User:
@@ -25,12 +28,13 @@ def create_user(username: str) -> User:
     return user
 
 
-
 @update
 def create_event(title: str, description: str, date: str, price: nat64) -> CreateConcert:
     """
     Create a new event with the given details.
     """
+    user_id = ic.caller()
+
     user = users.get(user_id)
 
     if user is None:
@@ -53,12 +57,12 @@ def create_event(title: str, description: str, date: str, price: nat64) -> Creat
         "id": user["id"],
         "created_at": user["created_at"],
         "username": user["username"],
-        "creating_ids": [*user["creating_ids"], recording["id"]],
+        "creating_ids": [*user["creating_ids"], concert["id"]],
     }
 
     users.insert(new_user["id"], new_user)
 
-    return {"Success": Event}
+    return {"Ok": concert}
 
 
 
