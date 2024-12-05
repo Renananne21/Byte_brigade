@@ -39,7 +39,7 @@ function BuyTickets(props) {
   };
 
   function main() {
-    const button = document.querySelector('#buy-me-coffee');
+    const button = document.querySelector('#connect-plug');
     button.addEventListener("click", connectToPlug);
   }
 
