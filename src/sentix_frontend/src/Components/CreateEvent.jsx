@@ -1,119 +1,153 @@
 import React, { useState } from 'react';
 import { sentix_backend } from 'declarations/sentix_backend';
-import Navbar from './Navbar'; 
+import Navbar from './Navbar';
+import ImagesUpload from './ImageUpload';
+import { Actor } from '@dfinity/agent';
+
+const handleCreateEventbtn = async (title, description, date, price) => {
+    try {
+      const response = await sentix_backend.create_event(title, description, date, parseInt(price));
+      alert("Event created successfully!");
+    } catch (error) {
+      alert("Failed to create event.");
+      console.error("Create Event Error:", error);
+    }
+  };
 
 function CreateEvent() {
-    const [selectedFileContent, setSelectedFileContent] = useState(null);
-    const [showPopup, setShowPopup] = useState(false);
     const [eventImage, setEventImage] = useState(null);
     const [uploadProgress, setUploadProgress] = useState(null);
-    const [createdEvent, setCreatedEvent] = useState(null);
-    const [formData, setFormData] = useState({
-        title: '',
-        description: '',
-        date: '',
-        price: '',
-        eventId: ''
-    });
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [date, setDate] = useState('');
+    const [price, setPrice] = useState(0);
+    const [image, setImage] = useState('');
+    const [uploads, setUploads] = useState([]); 
+    const [isLoadingImage, setIsLoadingImage] = useState(false); 
+    const [progress, setProgress] = useState(null); 
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [ actor, setActor ] = useState(null);
+
+        const loadImages = async () => {
+            try {
+                const images = await sentix_backend.get_images();
+                setUploads(images);
+                alert('Image loaded successfully!');
+            } catch (error) {
+                alert('Error loading images. Please try again.');
+                console.error('Error loading images:', error);
+            }
+        };
+
+        const handleImageUpload = async () => {
+            if (!selectedImage) return;
     
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
-    };
-    
+            setIsLoadingImage(true);
+            const file = selectedImage.target.files[0];
+            const reader = new FileReader();
+        
+            reader.onload = async () => {
+              try {
+                const imageData = new Uint8Array(reader.result);
+                const chunks = [...imageData];
+                const id = await sentix_backend.upload_image(chunks);
+                loadImages();
+                setSelectedImage(null);
+              } catch (error) {
+                console.error('Error uploading image:', error);
+              } finally {
+                setIsLoadingImage(false);
+              }
+            };
+        
+            reader.readAsArrayBuffer(file);
+          };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const newEvent = {
-            title: formData.title,
-            date: formData.date,
-            price: formData.price,
-            description: formData.description,
-            image: eventImage
-        };
-        try {
-            const result = await sentix_backend.create_event(newEvent);
-            setCreatedEvent(result);
-        } catch (error) {
-            console.error("Failed to create event:", error);
-        }
-    };
-    const uploadEventPhotos = () => {
-        const input = document.createElement('input');
-        input.type = 'file';
-        input.accept = 'image/*';
-        input.multiple = true;
-        
-        input.onchange = async () => {
-            setUploadProgress(0);
-            try {
-                const file = input.files[0];
-                const batch = assetManager.batch();
-                const {width, height} = await detailsFromFile(file);
+
+    const newEvent = {
+        title: title,
+        date: date,
+        description: description,
+        price: parseInt(price),
     
-                    // Create event-specific path
-                    const fileName = `event-${Date.now()}-${file.name}`;
-                    const key = await batch.store(file, {
-                        path: '/events/images',
-                        fileName
-                    });
-
-                    await batch.commit({
-                        onProgress: ({current, total}) => setUploadProgress(current / total)
-                    });
-
-                    setEventImage({key, fileName, width, height});
-                        
-            } catch (error) {
-                toast.error("Failed to upload event image");
-                console.error(error);
-            }
-            setUploadProgress(null);
-        };
-
-        input.click();
     };
-   
-    
-               
 
+    
+    await handleCreateEventbtn(title, description, date, parseInt(price));
+};
+    
     return (
         <div className="createEventPage">
-            <Navbar></Navbar>
+        <Navbar></Navbar>
         <div className="create-event-container">
             <h1>Create Event</h1>
-
             <form onSubmit={handleSubmit}>
-            <div className="form-group">
-                <label htmlFor="event ID">Event ID</label>
-                <input type="text" name="eventId" value={formData.eventId}
-                            onChange={handleInputChange}
-                            required  />
-            </div>
-              <div className="form-group">
-                <label htmlFor="Title"> Title</label>
-                <input type="text" name="title" value={formData.title} onChange={handleInputChange}required />
-              </div>
-              <div className="form-group">
-                <label htmlFor="Description">Description</label>
-                <textarea name="description" value={formData.description} required />
-              </div>
-              <div className="form-group">
-                <label htmlFor="Date">Date</label>
-                <input type="date" name="date" value={formData.date} onChange={handleInputChange} required />
-              </div>
-              <div className="form-group">
-                <label htmlFor="Price">Price</label>
-                <input type="number" name="price" value={formData.price} onChange={handleInputChange}required />
-              </div>
-
-                             
                 <div className="form-group">
-                <label htmlFor="EventImage">Upload Event Image</label>
-                <button type="button" className='upload-button'onClick={uploadEventPhotos}>
-                📤 Add file
+                    <label htmlFor="title">Event Title</label>
+                    <input
+                        type="text"
+                        id="title"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        required
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="description">Description</label>
+                    <textarea
+                        id="description"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        required
+                    ></textarea>
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="date">Event Date</label>
+                    <input
+                        type="date"
+                        id="date"
+                        value={date}
+                        onChange={(e) => setDate(e.target.value)}
+                        required
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="price">Price</label>
+                    <input
+                        type="number"
+                        id="price"
+                        value={price}
+                        onChange={(e) => setPrice(parseInt(e.target.value) || 0)}
+                        required
+                    />
+                </div>
+
+              
+                <div className="image-upload-section">
+                <input 
+                    type="file" 
+                    onChange={(e) => setSelectedImage(e)} 
+                    accept='image/*'
+                    style={{ display: 'none' }}
+                    id="imageInput"
+                />
+                <button 
+                    type="button" 
+                    onClick={() => document.getElementById('imageInput').click()}
+                >
+                    Select Image
+                </button>
+                <button 
+                    type="button" 
+                    onClick={handleImageUpload}
+                    disabled={!selectedImage}
+                >
+                    Upload Image
                 </button>
                 {eventImage && (
                     <img 
@@ -129,22 +163,11 @@ function CreateEvent() {
                 )}
             </div>
 
-                <button type="submit" className='submit-event'>Create Event</button>
+                <button type="submit" >Create Event</button>
             </form>
-            {createdEvent && (
-        <div>
-          <h3>Event Created Successfully!</h3>
-        </div>
-      )}
-  
             </div>
         </div>
     );
-
-
-      
-      
-  
-}
+};
 
 export default CreateEvent;

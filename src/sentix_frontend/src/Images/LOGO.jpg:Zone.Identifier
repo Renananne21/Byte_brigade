@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 [ZoneTransfer]
 ZoneId=3
 <<<<<<< HEAD
 HostUrl=https://github.com/
 =======
+>>>>>>> origin/master
+=======
+[ZoneTransfer]
+ZoneId=3
 >>>>>>> origin/master

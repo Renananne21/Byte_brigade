@@ -4,9 +4,9 @@ import React from 'react';
 const Cart = ({ cartItems, onRemove }) => {
   return (
     <div className="cart-container">
-      <h3>Your Cart</h3>
+      {/* <h3>Your Cart</h3>
       {cartItems.length === 0 ? (
-        <p>Your cart is empty.</p>
+
       ) : (
         <ul>
           {cartItems.map((item) => (
@@ -19,9 +19,9 @@ const Cart = ({ cartItems, onRemove }) => {
             </li>
           ))}
         </ul>
-      )}
+      )} */}
       <div className="cart-total">
-        <p>Total Items: {cartItems.length}</p>
+        {/* <p>Total Items: {cartItems.length}</p> */}
       </div>
     </div>
   );

@@ -1,35 +1,36 @@
 from kybra import Vec, Principal, update, query, ic, StableBTreeMap, nat64, Opt
-from models import Ticket, User, Event
+from models import Ticket, User, Event, TicketResult
+from create_events import get_events, get_users 
+import secrets 
 # from token_mgt import reward_tokens
-
-users = StableBTreeMap[Principal, User](
-    memory_id=0, max_key_size=38, max_value_size=100_000
-)
 
 tickets = StableBTreeMap[Principal, Ticket](
     memory_id=5, max_key_size=80, max_value_size=500
 )
 
-events = StableBTreeMap[Principal, Event](memory_id=1, max_key_size=38, max_value_size=5_000)
 
 def generate_id() -> Principal:
-    return Principal.from_str(str(ic.id()))
+    random_bytes = secrets.token_bytes(29)
+
+    return Principal.from_hex(random_bytes.hex())
 
 @update
 def buy_ticket(event_id: Principal, price: nat64) -> TicketResult:
-    user_id = ic.caller()
+    # user_id = ic.caller()
 
-    user = users.get(user_id)
+    # users = get_users()
+    # user = next((u for u in users if u["id"] == user_id), None)
     
-    if user is None:
-        return {"Err": "User does not exist"}
+    # if user is None:
+    #     return {"Err": "User does not exist"}
 
-    event = events.get(event_id)
+    event = get_events()
+    event = next((e for e in events if e["id"] == event_id), None)
     if event is None:
         return {"Err": "Event does not exist"}
 
-    if payment_amount < event["price"]:
-        return {"Err": f"Insufficient payment. Required: {event['price']}, Provided: {payment_amount}"}
+    if price < event.price:
+        return {"Err": f"Insufficient payment. Required: {event.price}, Provided: {price}"}
 
     for ticket in tickets.values():
         if ticket["user_id"] == user_id and ticket["event_id"] == event_id:
@@ -44,9 +45,9 @@ def buy_ticket(event_id: Principal, price: nat64) -> TicketResult:
         "timestamp": ic.time(),
     }
     
-    tickets.insert(ticket['id'], ticket)
+    tickets.insert(ticket["id"], ticket)
 
-    #Keep track of a users tickets
+    #Track a users tickets 
     new_user: User = {
         **user,
         "booking_ids": [*user["booking_ids"], ticket_id],

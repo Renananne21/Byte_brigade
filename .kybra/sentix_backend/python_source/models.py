@@ -11,11 +11,14 @@ class Event(Record):
 
 class Ticket(Record):
     id: Principal
-    event_id: Principal 
-    owner: Principal
+    user_id: Principal
+    event_id: Principal
+    timestamp: nat64
     price: nat64
-    resale: bool
-    resale_price: nat8
+
+class TicketResult(Variant, total=False):
+    Ok: Ticket
+    Err: str
 
 class UserTokens(Record):
     user: Principal
