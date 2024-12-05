@@ -387,9 +387,6 @@ function App() {
             </button>
           )}
         </section>
-        <Cart cartItems={cart} onRemove={handleRemoveFromCart} />
-
-        <section className="create-event-section"></section>
 
         <section className="create-event-section">
           <h2>Create Your Own Event</h2>

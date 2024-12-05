@@ -3,12 +3,12 @@
     "sentix_backend": {
       "build": "python -m kybra sentix_backend src/sentix_backend/src/main.py",
       "candid": "src/sentix_backend/sentix_backend.did",
-      "gzip": true,
       "metadata": [
-        {
-          "name": "candid:service"
-        }
-      ],
+               {
+     "name": "candid:service"
+               }
+],
+      "gzip": true,
       "tech_stack": {
         "cdk": {
           "kybra": {}
@@ -49,8 +49,8 @@
         "sentix_backend"
       ],
       "frontend": {
-        "entrypoint": "src/sentix_frontend"
-      },
+          "entrypoint": "src/sentix_frontend"
+        },
       "source": [
         "src/sentix_frontend/dist"
       ],
@@ -64,11 +64,12 @@
       "packtool": ""
     }
   },
-  "metadata": [
-    {
-      "name": "candid:service"
-    }
-  ],
   "output_env_file": ".env",
-  "version": 1
+  "version": 1,
+
+  "metadata": [
+   {
+     "name": "candid:service"
+   }
+]
 }
