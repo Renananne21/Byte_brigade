@@ -14,7 +14,8 @@ function BuyTickets(props) {
   const [selectedPayment, setSelectedPayment] = useState('credit');
   const [showTransferComponent, setShowTransferComponent] = useState(false);
   
-  const totalPrice = quantity * parseFloat(event.price.replace('$', ''));
+
+  const totalPrice = quantity * parseFloat(event.price.replace('$' , ''));
 
   useEffect(() => {
     if (selectedPayment === 'icp') {
@@ -35,6 +36,74 @@ function BuyTickets(props) {
 
   const handleToggleTransfer = () => {
     setShowTransferComponent(prev => !prev);
+  };
+
+  function main() {
+    const button = document.querySelector('#buy-me-coffee');
+    button.addEventListener("click", connectToPlug);
+  }
+
+  async function connectToPlug(el) {
+
+    el.target.disabled = true;
+  
+    const hasAllowed = await window.ic?.plug?.requestConnect();
+    if (hasAllowed) {
+      
+      el.target.textContent = "Plug wallet is connected";
+  
+      // Assigns the request balance result value to balance
+      const requestBalanceResponse = await window.ic?.plug?.requestBalance();
+  
+      // Pick the balance value for the first account
+      const balance = requestBalanceResponse[0]?.value;
+  
+      if (balance > 0) {
+        // Updates the button text
+        el.target.textContent = "Plug wallet has enough balance";
+        setTimeout(() => {
+          el.target.textContent = "Requesting transfer...";
+        }, 3000);
+  
+        const requestTransferArg = {
+          to: receiverAccountId,
+          amount: coffeeAmount,
+        };
+  
+        if (transferStatus === 'COMPLETED') {
+          el.target.textContent = `Plug wallet transferred ${coffeeAmount} e8s`;
+        } else if (transferStatus === 'PENDING') {
+          el.target.textContent = "Plug wallet is pending.";
+        } else {
+          el.target.textContent = "Plug wallet failed to transfer";
+        }
+      } else {
+        el.target.textContent = "Plug wallet doesn't have enough balance";
+      }
+    } else {
+      el.target.textContent = "Plug wallet connection was refused";
+    }
+  
+    setTimeout(() => {
+      el.target.disabled = false;
+      el.target.textContent = "Buy me a coffee"
+    }, 8000);
+  }
+  
+  document.addEventListener("DOMContentLoaded", main);
+  
+
+
+
+  const connectToNFID = async () => {
+    try {
+      const authClient = await window.ic.nfid.authorize({
+        maxTimeToLive: BigInt(7 * 24 * 60 * 60 * 1000 * 1000 * 1000)
+      });
+      console.log('Connected to NFID wallet:', authClient);
+    } catch (error) {
+      console.error('Failed to connect to NFID wallet:', error);
+    }
   };
 
   return (
@@ -142,12 +211,18 @@ function BuyTickets(props) {
               Complete Purchase
             </button>
 
-            {/* Button to toggle the Transfer ICP component */}
+            <button onClick={connectToPlug} className="connect-plug-button">
+              Connect to Plug Wallet
+            </button>
+
+            <button onClick={connectToNFID} className="connect-nfid-button">
+              Connect to NFID Wallet
+            </button>
+
             <button onClick={handleToggleTransfer}>
               {showTransferComponent ? "Hide Transfer ICP" : "Transfer ICP"}
             </button>
 
-            {/* Conditionally render the TransferICPComponent */}
             {showTransferComponent && <TransferICPComponent />}
           </div>        
         </div>

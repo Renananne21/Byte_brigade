@@ -12,6 +12,8 @@ import Image2 from './Images/Img2.jpg';
 import Image3 from './Images/Img3.jpg';
 import Image4 from './Images/Img4.jpg';
 import ticketImage from './Images/ticketImage.jpg'
+import CreateEvent from './Components/CreateEvent';
+
 
 
 
