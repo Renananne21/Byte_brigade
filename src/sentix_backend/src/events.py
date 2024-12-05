@@ -1,12 +1,8 @@
-from kybra import ic, nat64, query, Record, StableBTreeMap, update, Vec, Opt, Principal
-from models import Event, User, CreateConcert, CreateConcertErr
+from kybra import ic, nat64, query, Record, StableBTreeMap, update, Vec, Opt
+from models import Event
 
-events = StableBTreeMap[Principal, Event](
-    memory_id=7, max_key_size=80, max_value_size=5_000
-)
-
-users = StableBTreeMap[Principal, User](
-    memory_id=8, max_key_size=38, max_value_size=100_000
+events = StableBTreeMap[nat64, Event](
+    memory_id=0, max_key_size=80, max_value_size=1000
 )
 
 
@@ -27,16 +23,11 @@ def create_user(username: str) -> User:
 
 
 @update
-def create_event(title: str, description: str, date: str, price: nat64) -> CreateConcert:
+def create_event(eventId: nat64, title: str, description: str, date: str, price: nat64) -> Event:
     """
     Create a new event with the given details.
     """
-    user = users.get(user_id)
-
-    if user is None:
-        return {"Err": {"UserDoesNotExist": user_id}}
     
-    id = generate_id()
 
     concert: Event = {
         "id": id,
