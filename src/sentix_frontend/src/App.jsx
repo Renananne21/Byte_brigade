@@ -4,14 +4,13 @@ import { AuthClient } from '@dfinity/auth-client';
 import { sentix_backend } from 'declarations/sentix_backend';
 import { Link, useNavigate } from 'react-router-dom';
 import Navbar from './Components/Navbar';
+import BuyTickets from './Components/BuyTickets';
 import EventImage from './Images/EventImage.jpg'
 import Image1 from './Images/Img1.jpg';
 import Image2 from './Images/Img2.jpg';
 import Image3 from './Images/Img3.jpg';
 import Image4 from './Images/Img4.jpg';
 import ticketImage from './Images/ticketImage.jpg'
-import CreateEvent from './Components/CreateEvent';
-
 
 
 
@@ -157,10 +156,51 @@ function App() {
   const [selectedEventType, setSelectedEventType] = useState('All Events');
   const [visibleCount, setVisibleCount] = useState(4);
   const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
   const [showToast, setShowToast] = useState(false);
   const [showBuyTicket, setShowBuyTicket] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const statusRef = useRef(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState('');
+  const [cartEvents, setCartEvents] = useState([]);
+
+
+
+
+  useEffect(() => {
+    if (showPopup) {
+      const timer = setTimeout(() => {
+        setShowPopup(false);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [showPopup]);
+  const login = async () => {
+    try {
+      const authClient = await AuthClient.create({
+        idleOptions: { disableIdle: true }
+      });
+
+      if (await authClient.isAuthenticated()) {
+        handleAuthenticated(authClient);
+        return;
+      }
+
+      await authClient.login({
+        identityProvider: "https://identity.ic0.app/#authorize",
+        onSuccess: () => handleAuthenticated(authClient),
+        onError: (error) => {
+          console.error("Login failed:", error);
+          setIsAuthenticated(false);
+        },
+        maxTimeToLive: BigInt(7 * 24 * 60 * 60 * 1000 * 1000 * 1000)
+      });
+    } catch (error) {
+      console.error("Authentication error:", error);
+      setIsAuthenticated(false);
+    }
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState('');
@@ -226,6 +266,29 @@ function App() {
   }, []);
 
 
+  const handleAuthenticated = async (authClient) => {
+    const identity = await authClient.getIdentity();
+    if (identity) {
+      setIsAuthenticated(true);
+      setShowToast(true);
+    } else {
+      setIsAuthenticated(false);
+    }
+  };
+
+  React.useEffect(() => {
+    async function checkAuth() {
+      const authClient = await AuthClient.create({
+        idleOptions: { disableIdle: true }
+      });
+      if (await authClient.isAuthenticated()) {
+        handleAuthenticated(authClient);
+      }
+    }
+    checkAuth();
+  }, []);
+
+
 
   const handleBuyTicket = (eventId, price) => {
     const event = upcomingEvents.find(event => event.id === eventId);
@@ -241,11 +304,13 @@ function App() {
 
   const [currentSlide, setCurrentSlide] = useState(0);
 
+
   useEffect(() => {
     const slideInterval = setInterval(() => {
       setCurrentSlide((prevSlide) =>
         prevSlide === 3 ? 0 : prevSlide + 1
       );
+    }, 5000);
     }, 5000);
 
     return () => clearInterval(slideInterval);
@@ -264,14 +329,32 @@ function App() {
   
 
  
+
+  const handleLoginClick = (e) => {
+    e.preventDefault()
+    setShowPopup(true);
+    setPopupMessage('Please log in');
+    setTimeout(() => {
+      login();
+    }, 2000);
+  };
+
+
+  
+
+ 
   return (
     <div className="app-container" >
+      <Navbar upcomingEvents={upcomingEvents}
       <Navbar upcomingEvents={upcomingEvents}
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
         cartEvents={cartEvents} 
         
+        cartEvents={cartEvents} 
+        
       />
+      
       
       <main>
         <div className="welcome-section" >
@@ -294,12 +377,34 @@ function App() {
             ))}
           </div>
         </div>
+        <div className="welcome-section" >
+          <div className="featured-slider">
+            {upcomingEvents.slice(currentSlide, currentSlide + 1).map((event, index) => (
+              <div
+                className="slider-card"
+                key={index}
+                onClick={isAuthenticated? () => handleBuyTicket(event.id, event.price):handleLoginClick}
+              >
+                <img src={event.image} alt={event.title} />
+                <div className="slider-content">
+                  <h2>{event.title}</h2>
+                  <div className="slider-info">
+                    <p className="slider-date">{event.date} at {event.time}</p>
+                    <p className="slider-location">{event.location}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
 
 
         <section className="events-section" >
           <div className="events-header" >
             <h2>Upcoming Events</h2>
             <div className="search-filters" >
+
 
               <select
                 value={selectedEventType}
@@ -316,6 +421,7 @@ function App() {
 
           <div className="events-grid" >
             {filteredEvents.slice(0, visibleCount).map((event, index) => (
+              <div className="event-card" key={index} onClick={isAuthenticated ? () => handleBuyTicket(event.id, event.price) : handleLoginClick}>
               <div className="event-card" key={index} onClick={isAuthenticated ? () => handleBuyTicket(event.id, event.price) : handleLoginClick}>
                 <div className="event-image-container" >
                   <img src={event.image} alt={event.title} className="event-image" />
@@ -334,14 +440,17 @@ function App() {
                   </div>
                 </div>
                 </div>
+                </div>
             ))}
           </div>
           {visibleCount < filteredEvents.length && (
             <button className="load-more-button" onClick={() => setVisibleCount(upcomingEvents.length)}>
               More Events
+              More Events
             </button>
           )}
         </section>
+      
       
 
         <section className="create-event-section"></section>
@@ -352,7 +461,17 @@ function App() {
             <div className="create-event-text" >
               <p style={{ fontSize: '24px', marginBottom: '20px', color: 'black' }}>Sell it All with TockenTix!</p>
               <p>Concerts. Workshops. Festivals<br />Fashion shows</p>
+              <p style={{ fontSize: '24px', marginBottom: '20px', color: 'black' }}>Sell it All with TockenTix!</p>
+              <p>Concerts. Workshops. Festivals<br />Fashion shows</p>
               <p>Food and Drink Events. You name it!</p>
+              <p style={{ marginBottom: '25px' }}>Our platform is designed to help creators and organizers <br />reach their perfect audience.</p>
+              <p>Ready to explore your potential?<br /> Lets's TockenTix!</p>
+              {isAuthenticated ? (
+                <Link to="createEvent" className="create-event-button">Create Event</Link>
+              ) : (
+                <Link onClick={handleLoginClick} className='create-event-button'>Create Event</Link>
+              )
+              }
               <p style={{ marginBottom: '25px' }}>Our platform is designed to help creators and organizers <br />reach their perfect audience.</p>
               <p>Ready to explore your potential?<br /> Lets's TockenTix!</p>
               {isAuthenticated ? (
@@ -372,8 +491,14 @@ function App() {
             <img src={ticketImage} alt="Resell Tickets" className="resell-image" />
             <div className="resell-text" >
               <p style={{ fontSize: '24px', marginBottom: '20px', color: 'black' }}>Can't make it to an event?</p>
+              <p style={{ fontSize: '24px', marginBottom: '20px', color: 'black' }}>Can't make it to an event?</p>
               <p >Resell your tickets safely and easily on TockenTix!</p>
               <p style={{ marginBottom: '25px' }}>The #1 trusted platform for secure ticket resales</p>
+              {isAuthenticated ? (
+                <Link to="resell-ticket" className="resell-button">Start Reselling</Link>
+              ) : (
+                <Link onClick={handleLoginClick} className="resell-button">Start Reselling</Link>
+              )}
               {isAuthenticated ? (
                 <Link to="resell-ticket" className="resell-button">Start Reselling</Link>
               ) : (
@@ -387,6 +512,7 @@ function App() {
             <div className="footer-section" >
               <h3>Events</h3>
               <ul >
+
 
                 <li><a href='.events-section'>Upcoming Events</a></li>
                 <li>Resell Tickets</li>
@@ -423,14 +549,28 @@ function App() {
             </div>
           </div>
         )}
+        {showPopup && (
+          <div className="popup">
+            <div className="popup-content">
+              <p>{popupMessage}</p>
+              <button onClick={() => setShowPopup(false)}>Close</button>
+            </div>
+          </div>
+        )}
 
       </main>
     </div>
 
+
   );
+
 
 }
 
+
 export default App;
+
+
+
 
 
