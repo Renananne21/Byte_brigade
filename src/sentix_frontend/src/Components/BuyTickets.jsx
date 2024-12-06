@@ -86,7 +86,6 @@ function BuyTickets(props) {
   
     setTimeout(() => {
       el.target.disabled = false;
-      el.target.textContent = "Buy me a coffee"
     }, 8000);
   }
   
