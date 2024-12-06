@@ -92,12 +92,12 @@ function App() {
 
   const handleRemoveFromCart = (eventId) => {
     setCart(prevCart => prevCart.filter(item => item.id !== eventId));
-  };
+  };*/
 
   const handleBuyTicket = (eventId, price) => {
     const event = upcomingEvents.find(event => event.id === eventId);
     navigate(`/buy-tickets/${eventId}`, { state: { event } });
-  };*/
+  };
 
   const filteredEvents = upcomingEvents.filter(event => {
     const matchesSearch = event.title && event.description ? 
