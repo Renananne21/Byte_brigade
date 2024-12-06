@@ -10,7 +10,6 @@ import TicketPurchase from './Components/BuyTickets';
 import ContactUs from './Components/Contact';
 import ResellTicket from './Components/ResellTicket';
 import Confirmation from './Components/confirmation';
-import Cart from './Components/Cart';
 import './index.scss';
 
 const router = createBrowserRouter([
@@ -46,10 +45,8 @@ const router = createBrowserRouter([
     path: "confirmation",
     element: <Confirmation />,
   },
-  {
-    path: "cart",
-    element: <Cart />,
-  },
+  
+  
 ]);
 
 

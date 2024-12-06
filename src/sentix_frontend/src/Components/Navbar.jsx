@@ -2,13 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import logo from '../Images/LOGO.jpg';
 import { useState } from 'react';
-import Cart from "./Cart";
 import { AuthClient } from "@dfinity/auth-client";
 
-function Navbar({ searchTerm, setSearchTerm, cartEvents, upcomingEvents }) {
+function Navbar({ searchTerm, setSearchTerm }) {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [showToast, setShowToast] = useState(false);
-    const [isCartOpen, setIsCartOpen] = useState(false);
+    
 
 
    
@@ -81,17 +80,18 @@ function Navbar({ searchTerm, setSearchTerm, cartEvents, upcomingEvents }) {
                 <input className='search-input' type ='text' placeholder="Search events..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
             <ul>
                 <li><Link to="/">Home</Link></li>
+                <li><Link to="">Events</Link></li> 
                 <li><Link to="/about">About</Link></li>
-                <li><Link to="/contactUs">Contact</Link></li>          
+                         
                   </ul>
-           <Link to='cart'> <span style={{ fontSize: '2rem' }} className="cart-icon" onClick={() => setIsCartOpen(!isCartOpen)}>🛒{Array.isArray(cartEvents) && cartEvents.length > 0 && (
-    <span className="cart-count">{cartEvents.length}</span>
-  )}</span></Link>
-            {isCartOpen && <Cart cart={cartEvents} removeFromCart={removeFromCart} updateQuantity={updateQuantity}/>}
+            <span style={{ fontSize: '2rem' }} className="cart-icon" >🛒</span>
+            <div>
+            <Link to='/contactUs'><button className="contact-button">Contact US</button></Link>
+            
                 {!isAuthenticated && (
                     <button onClick={login} className="login-button">Log In</button>
                 )}
-            
+            </div>
             </nav>
            
         </div> 

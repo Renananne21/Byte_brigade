@@ -4,7 +4,6 @@ import { AuthClient } from '@dfinity/auth-client';
 import { sentix_backend } from 'declarations/sentix_backend';
 import { Link, useNavigate } from 'react-router-dom';
 import Navbar from './Components/Navbar';
-import Cart from './Components/Cart';
 import BuyTickets from './Components/BuyTickets';
 import EventImage from './Images/EventImage.jpg'
 import Image1 from './Images/Img1.jpg';
@@ -18,7 +17,6 @@ import ticketImage from './Images/ticketImage.jpg'
 
 
 function App() {
-  const [cart, setCart] = useState([]);
   const navigate = useNavigate();
   const [upcomingEvents, setUpcomingEvents] = useState([
     {
@@ -226,21 +224,7 @@ function App() {
     checkAuth();
   }, []);
 
-  const handleAddToCart = (event) => {
-    setCart(prevCart => [...prevCart, event]); // Add event to the cart
-  };
 
-  const handleRemoveFromCart = (eventId) => {
-    setCart(prevCart => prevCart.filter(item => item.id !== eventId)); // Remove event from cart
-  };
-
-  const handleAddToCart = (event) => {
-    setCart(prevCart => [...prevCart, event]); // Add event to the cart
-  };
-
-  const handleRemoveFromCart = (eventId) => {
-    setCart(prevCart => prevCart.filter(item => item.id !== eventId)); // Remove event from cart
-  };
 
   const handleBuyTicket = (eventId, price) => {
     const event = upcomingEvents.find(event => event.id === eventId);
@@ -275,36 +259,10 @@ function App() {
     }, 2000);
   };
 
-  const addToCart = (event) => {
-    const existingItem = cartEvents.find(item => item.id === event.id);
-    
-    
-      if (existingItem) {
-        setCartEvents(cartEvents.map(item => 
-          item.id === event.id 
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        ));
-      } else {
-        setCartEvents([...cartEvents, { ...event, quantity: 1 }]);
-      }
-      
-      // Show success notification
-      setShowPopup(true);
-      setPopupMessage('Item added to cart successfully!');
-    };
+
   
 
-  const removeFromCart = (id) => {
-    setCartItems(cartItems.filter(item => item.id !== id));
-  };
-  
-  const updateQuantity = (id, newQuantity) => {
-    if (newQuantity < 1) return;
-    setCartItems(cartItems.map(item => 
-      item.id === id ? { ...item, quantity: newQuantity } : item
-    ));
-  };
+ 
   return (
     <div className="app-container" >
       <Navbar upcomingEvents={upcomingEvents}
@@ -315,10 +273,7 @@ function App() {
       />
       
       <main>
-
-
         <div className="welcome-section" >
-
           <div className="featured-slider">
             {upcomingEvents.slice(currentSlide, currentSlide + 1).map((event, index) => (
               <div
@@ -360,7 +315,7 @@ function App() {
 
           <div className="events-grid" >
             {filteredEvents.slice(0, visibleCount).map((event, index) => (
-              <div className="event-card" key={index} /*onClick={isAuthenticated ? () => handleBuyTicket(event.id, event.price) : handleLoginClick}*/>
+              <div className="event-card" key={index} onClick={isAuthenticated ? () => handleBuyTicket(event.id, event.price) : handleLoginClick}>
                 <div className="event-image-container" >
                   <img src={event.image} alt={event.title} className="event-image" />
                   <div className="event-type-badge">{event.eventType}</div>
@@ -377,8 +332,7 @@ function App() {
                     </p>
                   </div>
                 </div>
-                <button onClick={() => addToCart(event)} className='add-to-cart'>Add to Cart</button>
-              </div>
+                </div>
             ))}
           </div>
           {visibleCount < filteredEvents.length && (
@@ -387,7 +341,7 @@ function App() {
             </button>
           )}
         </section>
-        <Cart cartItems={cart} onRemove={handleRemoveFromCart} />
+      
 
         <section className="create-event-section"></section>
 

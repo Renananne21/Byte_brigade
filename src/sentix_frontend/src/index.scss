@@ -497,12 +497,12 @@ a:hover {
   }
 
   img {
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
   }
 
   h1 {
-    font-size: 16px;
+    font-size: 18px;
     margin: 0 8px;
 
     @media (max-width: 768px) {
@@ -512,10 +512,12 @@ a:hover {
   }
   .search-input {
     border-radius: 5px;
-    border: 1px solid #ddd;
+    border: none;
+    background-color: #efeceb;
     width: 100%;
-    max-width: 300px;
-    font-size: 14px;
+    max-width: 330px;
+    height: 34px;
+    font-size: 16px;
     padding: 8px;
     height: 16px;
 
@@ -541,19 +543,45 @@ a:hover {
     text-decoration: none;
     color: black;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 18px;
+    margin: 0 8px;
 
     @media (max-width: 768px) {
       font-size: 12px;
     }
   }
 
-  .login-button {
+  .contact-button{
     background-color: #1d275f;
     border: none;
     border-radius: 8px;
+    height: 34px;
+    margin: 0 10px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 16px;
+    color: white;
+    padding: 8px 10px;
+
+    @media (max-width: 768px) {
+      font-size: 12px;
+      padding: 8px 10px;
+      height: 36px;
+      margin: 0 5px
+    }
+
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+  .login-button {
+    background-color: #1d275f;
+    border: none;
+    width: 100px;
+    height: 34px;
+    margin: 0 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
     color: white;
     padding: 8px 10px;
 
@@ -786,31 +814,21 @@ padding-top: 80px;
       resize: none;
     }
   }
-  .upload-button{
-    background-color: white;
-  color: black;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
-  .upload-button:hover {
-    background-color: #45a049;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+
+  .file-upload {
+    border: 2px dashed #007BFF;
+    border-radius: 6px;
+    padding: 20px;
+    background: #f8f9fa;
+    cursor: pointer;
+    margin-bottom: 20px;
   }
   
-  .upload-button:active {
-    transform: translateY(0);
+  
+  
+  .upload-text {
+    font-size: 16px;
   }
-
 
   .submit-event {
     width: 100%;
