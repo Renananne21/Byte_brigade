@@ -69,3 +69,4 @@ const EventImage = ({ imageName, eventId, onBookEvent }) => {
     />
   );
 };
+export default EventImage;

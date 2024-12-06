@@ -1,71 +1,34 @@
-import React, { useState } from "react";
-import { sentix_backend } from 'declarations/sentix_backend';
-import Navbar from "./Navbar";
-
-
-
-function TicketPurchase(){
-  const [ticket, setTicket] = useState("");
-
-  function handleSubmit(event){
-    event.preventDefault();
-
-    const eventID = Number(event.target.elements.eventID.value);
-    const price = Number(event.target.elements.price.value);
-
-    sentix_backend.buy_ticket(eventID, price)
-    .then((ticket) => {
-      setTicket(ticket);
-      console.log('Ticket bought successfully!');
-    })
-    .catch((error) => {
-      console.error('Failed to buy ticket, please try again later:', error);
-    });
-
-  return false; 
-
-  }
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
-import MpesaIcon from '/home/isaack/sentix/src/sentix_frontend/src/Images/mpesa icon.jpg';
-import CreditCardIcon from '/home/isaack/sentix/src/sentix_frontend/src/Images/credit card icon.png';
-import ICPIcon from '/home/isaack/sentix/src/sentix_frontend/src/Images/ICP icon.jpg';
+import MpesaIcon from '/home/renan/Byte_brigade/src/sentix_frontend/src/Images/mpesa icon.jpg';
+import CreditCardIcon from '/home/renan/Byte_brigade/src/sentix_frontend/src/Images/credit card icon.png';
+import ICPIcon from '/home/renan/Byte_brigade/src/sentix_frontend/src/Images/ICP icon.jpg';
 import TransferICPComponent from './Pay' // Adjust the path as needed
 
-function BuyTickets() {
+function BuyTickets(props) {
   const navigate = useNavigate();
   const { state } = useLocation();
   const event = state?.event;
   const [quantity, setQuantity] = useState(1);
   const [selectedPayment, setSelectedPayment] = useState('credit');
-const [isLoading, setIsLoading] = useState(false);
-const [error, setError] = useState(null);
+  const [showTransferComponent, setShowTransferComponent] = useState(false);
+  
 
-  const totalPrice = quantity * parseFloat(event.price.replace('$', ''));
+  // const totalPrice = quantity * parseFloat(event.price.replace(''));
 
   useEffect(() => {
     if (selectedPayment === 'icp') {
-      const initializeICPConnection = async () => {
-        const connected = await window?.ic?.plug?.isConnected();
-        if (!connected) {
-          try {
-            await window?.ic?.plug?.requestConnect();
-          } catch (error) {
-            setError('Failed to connect to Internet Computer');
-          }
-        }
-      };
-      
-      initializeICPConnection();
+      // Handle ICP-specific logic if needed
     }
   }, [selectedPayment]);
+
   const handlePurchase = async () => {
     navigate("/confirmation", { 
       state: { 
         event,
         quantity,
-        totalPrice,
+        // totalPrice,
         paymentMethod: selectedPayment 
       }
     });
@@ -75,40 +38,61 @@ const [error, setError] = useState(null);
     setShowTransferComponent(prev => !prev);
   };
 
- 
+  function main() {
+    const button = document.querySelector('#connect-plug');
+    button.addEventListener("click", connectToPlug);
+  }
 
   async function connectToPlug(el) {
-     setIsLoading(true);
-     try{
-      const hasAllowed = await window.ic?.plug?.requestConnect();
-      if (hasAllowed) {
-        const balance = await window.ic?.plug?.requestBalance();
-        if (balance[0]?.value >= totalPrice * 1.10) {
-          // Proceed with transfer
-          
+
+    el.target.disabled = true;
+  
+    const hasAllowed = await window.ic?.plug?.requestConnect();
+    if (hasAllowed) {
+      
+      el.target.textContent = "Plug wallet is connected";
+  
+      // Assigns the request balance result value to balance
+      const requestBalanceResponse = await window.ic?.plug?.requestBalance();
+  
+      // Pick the balance value for the first account
+      const balance = requestBalanceResponse[0]?.value;
+  
+      if (balance > 0) {
+        // Updates the button text
+        el.target.textContent = "Plug wallet has enough balance";
+        setTimeout(() => {
+          el.target.textContent = "Requesting transfer...";
+        }, 3000);
+  
+        const requestTransferArg = {
+          to: receiverAccountId,
+          amount: coffeeAmount,
+        };
+  
+        if (transferStatus === 'COMPLETED') {
+          el.target.textContent = `Plug wallet transferred ${coffeeAmount} e8s`;
+        } else if (transferStatus === 'PENDING') {
+          el.target.textContent = "Plug wallet is pending.";
         } else {
-          setError('Insufficient balance');
+          el.target.textContent = "Plug wallet failed to transfer";
         }
-        const transferResult = await handleICPTransfer(totalPrice * 1.10);
-          if (transferResult.success) {
-            handlePurchase();
-          }
+      } else {
+        el.target.textContent = "Plug wallet doesn't have enough balance";
       }
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setIsLoading(false);
-     }
-    
-          
+    } else {
+      el.target.textContent = "Plug wallet connection was refused";
+    }
   
     setTimeout(() => {
       el.target.disabled = false;
+      el.target.textContent = "Buy me a coffee"
     }, 8000);
   }
   
+  document.addEventListener("DOMContentLoaded", main);
   
-  
+
 
 
   const connectToNFID = async () => {
@@ -122,29 +106,92 @@ const [error, setError] = useState(null);
     }
   };
 
+
+
   return (
-    <div>
+    <div className="buyTicketsPage">
       <Navbar />
+      <div className="buy-tickets-container">
+        <div className="ticket-details">
+          <div className="event-header">
+            <h1>{event.title}</h1>
+          </div>        
+          <div className="details-grid">
+            <img src={event.image} alt={event.title} className="event-image" />
+            <div className="details">
+              <div className="detail-item">
+                <h3>Date & Time</h3>
+                <p>{event.date} at {event.time}</p>
+              </div>
+              <div className="detail-item">
+                <h3>Location</h3>
+                <p>{event.location}</p>
+              </div>
+              <div className="detail-item">
+                <h3>Base Price</h3>
+                <p>{event.price}</p>
+              </div>
+              <div className="detail-item">
+                <h3>Availability</h3>
+                <p>{event.capacity - event.ticketsSold} tickets remaining</p>
+              </div>
+            </div>
+          </div>
+          <div className="event-description">
+            <h3>Event Description</h3>
+            <p>{event.description}</p>
+          </div>
+          
+          <div className="purchase-section">
+            <div className="quantity-selector">
+              <label>Number of Tickets:</label>
+              <select 
+                value={quantity} 
+                onChange={(e) => setQuantity(parseInt(e.target.value))}
+              >
+                {[1, 2, 3, 4, 5].map(num => (
+                  <option key={num} value={num}>{num}</option>
+                ))}
+              </select>
+            </div>
 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Event ID</label>
-          <input type="text" name="eventID" required />
-        </div>
-        
-        <div>
-          <label>Price</label>
-          <input type="number" name="price" required />
-        </div>
+            <div className="payment-method">
+              <h3>Payment Method</h3>
+              <div className="payment-options">
+                <label>
+                  <input
+                    type="radio"
+                    value="credit"
+                    checked={selectedPayment === 'credit'}
+                    onChange={(e) => setSelectedPayment(e.target.value)}
+                  />
+                  <img src={CreditCardIcon} alt="" />
+                  Credit Card
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    value="mpesa"
+                    checked={selectedPayment === 'mpesa'}
+                    onChange={(e) => setSelectedPayment(e.target.value)}
+                  />
+                  <img src={MpesaIcon} alt="" />
+                  Mpesa
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    value="icpToken"
+                    checked={selectedPayment === 'icpToken'}
+                    onChange={(e) => setSelectedPayment(e.target.value)}
+                  />
+                  <img src={ICPIcon} alt="" />
+                  ICP token
+                </label>
+              </div>
+            </div>
 
-        <button type="submit">Purchase ticket</button>
-      </form>
-
-      {/* Display the created event data */}
-      {ticket && (
-        <div>
-          <h3>Ticket purchased Successfully!</h3>
-            <div className="price-summary">
+            {/* <div className="price-summary">
               <div className="price-row">
                 <span>Subtotal</span>
                 <span>${totalPrice.toFixed(2)}</span>
@@ -157,14 +204,33 @@ const [error, setError] = useState(null);
                 <span>Total</span>
                 <span>${(totalPrice * 1.10).toFixed(2)}</span>
               </div>
-            </div>
-          
-          <button className="purchase-button" onClick={selectedPayment === 'icpToken'?  connectToPlug :handlePurchase}>Complete Purchase </button>
-        </div>        
+            </div> */}
+
+            <button 
+              className="purchase-button"
+              onClick={handlePurchase}
+            >
+              Complete Purchase
+            </button>
+
+            <button onClick={connectToPlug} className="connect-plug-button">
+              Connect to Plug Wallet
+            </button>
+
+            <button onClick={connectToNFID} className="connect-nfid-button">
+              Connect to NFID Wallet
+            </button>
+
+            <button  onClick={handleToggleTransfer}>
+              {showTransferComponent ? "Hide Transfer ICP" : "Transfer ICP"}
+            </button>
+
+            {showTransferComponent && <TransferICPComponent />}
+          </div>        
         </div>
-      )}
+      </div>
     </div>
   );
 }
 
-export default TicketPurchase;
+export default BuyTickets;

@@ -1932,9 +1932,9 @@ impl Ic {
     ) -> rustpython_vm::PyResult {
         let memory_id: u8 = memory_id_py_object_ref.try_from_vm_value(vm)?;
         match memory_id {
-            6u8 => {
-                let key = StableBTreeMap6KeyType(key_py_object_ref.try_from_vm_value(vm)?);
-                STABLE_B_TREE_MAP_6_REF_CELL
+            8u8 => {
+                let key = StableBTreeMap8KeyType(key_py_object_ref.try_from_vm_value(vm)?);
+                STABLE_B_TREE_MAP_8_REF_CELL
                     .with(|map_ref_cell| map_ref_cell.borrow().contains_key(&key))
                     .try_into_vm_value(vm)
                     .map_err(|vmc_err| vm.new_type_error(vmc_err.0))
@@ -1975,9 +1975,9 @@ impl Ic {
     ) -> rustpython_vm::PyResult {
         let memory_id: u8 = memory_id_py_object_ref.try_from_vm_value(vm)?;
         match memory_id {
-            6u8 => {
-                let key = StableBTreeMap6KeyType(key_py_object_ref.try_from_vm_value(vm)?);
-                STABLE_B_TREE_MAP_6_REF_CELL
+            8u8 => {
+                let key = StableBTreeMap8KeyType(key_py_object_ref.try_from_vm_value(vm)?);
+                STABLE_B_TREE_MAP_8_REF_CELL
                     .with(|map_ref_cell| map_ref_cell.borrow().get(&key))
                     .try_into_vm_value(vm)
                     .map_err(|vmc_err| vm.new_type_error(vmc_err.0))
@@ -2019,10 +2019,10 @@ impl Ic {
     ) -> rustpython_vm::PyResult {
         let memory_id: u8 = memory_id_py_object_ref.try_from_vm_value(vm)?;
         match memory_id {
-            6u8 => {
-                let key = StableBTreeMap6KeyType(key_py_object_ref.try_from_vm_value(vm)?);
-                let value = StableBTreeMap6ValueType(value_py_object_ref.try_from_vm_value(vm)?);
-                STABLE_B_TREE_MAP_6_REF_CELL
+            8u8 => {
+                let key = StableBTreeMap8KeyType(key_py_object_ref.try_from_vm_value(vm)?);
+                let value = StableBTreeMap8ValueType(value_py_object_ref.try_from_vm_value(vm)?);
+                STABLE_B_TREE_MAP_8_REF_CELL
                     .with(|map_ref_cell| map_ref_cell.borrow_mut().insert(key, value))
                     .try_into_vm_value(vm)
                     .map_err(|vmc_err| vm.new_type_error(vmc_err.0))
@@ -2065,7 +2065,7 @@ impl Ic {
     ) -> rustpython_vm::PyResult {
         let memory_id: u8 = memory_id_py_object_ref.try_from_vm_value(vm)?;
         match memory_id {
-            6u8 => STABLE_B_TREE_MAP_6_REF_CELL
+            8u8 => STABLE_B_TREE_MAP_8_REF_CELL
                 .with(|map_ref_cell| map_ref_cell.borrow().is_empty())
                 .try_into_vm_value(vm)
                 .map_err(|vmc_err| vm.new_type_error(vmc_err.0)),
@@ -2095,7 +2095,7 @@ impl Ic {
     ) -> rustpython_vm::PyResult {
         let memory_id: u8 = memory_id_py_object_ref.try_from_vm_value(vm)?;
         match memory_id {
-            6u8 => STABLE_B_TREE_MAP_6_REF_CELL.with(|map_ref_cell| {
+            8u8 => STABLE_B_TREE_MAP_8_REF_CELL.with(|map_ref_cell| {
                 let (key_value_pairs, type_errors) = map_ref_cell
                     .borrow()
                     .iter()
@@ -2237,7 +2237,7 @@ impl Ic {
     ) -> rustpython_vm::PyResult {
         let memory_id: u8 = memory_id_py_object_ref.try_from_vm_value(vm)?;
         match memory_id {
-            6u8 => STABLE_B_TREE_MAP_6_REF_CELL.with(|map_ref_cell| {
+            8u8 => STABLE_B_TREE_MAP_8_REF_CELL.with(|map_ref_cell| {
                 let (keys, type_errors) = map_ref_cell
                     .borrow()
                     .iter()
@@ -2339,7 +2339,7 @@ impl Ic {
     ) -> rustpython_vm::PyResult {
         let memory_id: u8 = memory_id_py_object_ref.try_from_vm_value(vm)?;
         match memory_id {
-            6u8 => STABLE_B_TREE_MAP_6_REF_CELL
+            8u8 => STABLE_B_TREE_MAP_8_REF_CELL
                 .with(|map_ref_cell| map_ref_cell.borrow().len())
                 .try_into_vm_value(vm)
                 .map_err(|vmc_err| vm.new_type_error(vmc_err.0)),
@@ -2370,9 +2370,9 @@ impl Ic {
     ) -> rustpython_vm::PyResult {
         let memory_id: u8 = memory_id_py_object_ref.try_from_vm_value(vm)?;
         match memory_id {
-            6u8 => {
-                let key = StableBTreeMap6KeyType(key_py_object_ref.try_from_vm_value(vm)?);
-                match STABLE_B_TREE_MAP_6_REF_CELL
+            8u8 => {
+                let key = StableBTreeMap8KeyType(key_py_object_ref.try_from_vm_value(vm)?);
+                match STABLE_B_TREE_MAP_8_REF_CELL
                     .with(|map_ref_cell| map_ref_cell.borrow_mut().remove(&key))
                 {
                     Some(value) => value
@@ -2432,7 +2432,7 @@ impl Ic {
     ) -> rustpython_vm::PyResult {
         let memory_id: u8 = memory_id_py_object_ref.try_from_vm_value(vm)?;
         match memory_id {
-            6u8 => STABLE_B_TREE_MAP_6_REF_CELL.with(|map_ref_cell| {
+            8u8 => STABLE_B_TREE_MAP_8_REF_CELL.with(|map_ref_cell| {
                 let (values, type_errors) = map_ref_cell
                     .borrow()
                     .iter()
@@ -2587,7 +2587,7 @@ impl Ic {
         ic_cdk::api::trap(&message)
     }
 }
-thread_local! { static MEMORY_MANAGER_REF_CELL : std :: cell :: RefCell < ic_stable_structures :: memory_manager :: MemoryManager < ic_stable_structures :: DefaultMemoryImpl > > = std :: cell :: RefCell :: new (ic_stable_structures :: memory_manager :: MemoryManager :: init (ic_stable_structures :: DefaultMemoryImpl :: default ())) ; static STABLE_B_TREE_MAP_6_REF_CELL : std :: cell :: RefCell < ic_stable_structures :: StableBTreeMap < StableBTreeMap6KeyType , StableBTreeMap6ValueType , ic_stable_structures :: memory_manager :: VirtualMemory < ic_stable_structures :: DefaultMemoryImpl > > > = std :: cell :: RefCell :: new (ic_stable_structures :: StableBTreeMap :: init (MEMORY_MANAGER_REF_CELL . with (| m | { m . borrow () . get (ic_stable_structures :: memory_manager :: MemoryId :: new (6u8)) }) ,)) ; static STABLE_B_TREE_MAP_5_REF_CELL : std :: cell :: RefCell < ic_stable_structures :: StableBTreeMap < StableBTreeMap5KeyType , StableBTreeMap5ValueType , ic_stable_structures :: memory_manager :: VirtualMemory < ic_stable_structures :: DefaultMemoryImpl > > > = std :: cell :: RefCell :: new (ic_stable_structures :: StableBTreeMap :: init (MEMORY_MANAGER_REF_CELL . with (| m | { m . borrow () . get (ic_stable_structures :: memory_manager :: MemoryId :: new (5u8)) }) ,)) ; static STABLE_B_TREE_MAP_0_REF_CELL : std :: cell :: RefCell < ic_stable_structures :: StableBTreeMap < StableBTreeMap0KeyType , StableBTreeMap0ValueType , ic_stable_structures :: memory_manager :: VirtualMemory < ic_stable_structures :: DefaultMemoryImpl > > > = std :: cell :: RefCell :: new (ic_stable_structures :: StableBTreeMap :: init (MEMORY_MANAGER_REF_CELL . with (| m | { m . borrow () . get (ic_stable_structures :: memory_manager :: MemoryId :: new (0u8)) }) ,)) ; }
+thread_local! { static MEMORY_MANAGER_REF_CELL : std :: cell :: RefCell < ic_stable_structures :: memory_manager :: MemoryManager < ic_stable_structures :: DefaultMemoryImpl > > = std :: cell :: RefCell :: new (ic_stable_structures :: memory_manager :: MemoryManager :: init (ic_stable_structures :: DefaultMemoryImpl :: default ())) ; static STABLE_B_TREE_MAP_8_REF_CELL : std :: cell :: RefCell < ic_stable_structures :: StableBTreeMap < StableBTreeMap8KeyType , StableBTreeMap8ValueType , ic_stable_structures :: memory_manager :: VirtualMemory < ic_stable_structures :: DefaultMemoryImpl > > > = std :: cell :: RefCell :: new (ic_stable_structures :: StableBTreeMap :: init (MEMORY_MANAGER_REF_CELL . with (| m | { m . borrow () . get (ic_stable_structures :: memory_manager :: MemoryId :: new (8u8)) }) ,)) ; static STABLE_B_TREE_MAP_5_REF_CELL : std :: cell :: RefCell < ic_stable_structures :: StableBTreeMap < StableBTreeMap5KeyType , StableBTreeMap5ValueType , ic_stable_structures :: memory_manager :: VirtualMemory < ic_stable_structures :: DefaultMemoryImpl > > > = std :: cell :: RefCell :: new (ic_stable_structures :: StableBTreeMap :: init (MEMORY_MANAGER_REF_CELL . with (| m | { m . borrow () . get (ic_stable_structures :: memory_manager :: MemoryId :: new (5u8)) }) ,)) ; static STABLE_B_TREE_MAP_7_REF_CELL : std :: cell :: RefCell < ic_stable_structures :: StableBTreeMap < StableBTreeMap7KeyType , StableBTreeMap7ValueType , ic_stable_structures :: memory_manager :: VirtualMemory < ic_stable_structures :: DefaultMemoryImpl > > > = std :: cell :: RefCell :: new (ic_stable_structures :: StableBTreeMap :: init (MEMORY_MANAGER_REF_CELL . with (| m | { m . borrow () . get (ic_stable_structures :: memory_manager :: MemoryId :: new (7u8)) }) ,)) ; static STABLE_B_TREE_MAP_3_REF_CELL : std :: cell :: RefCell < ic_stable_structures :: StableBTreeMap < StableBTreeMap3KeyType , StableBTreeMap3ValueType , ic_stable_structures :: memory_manager :: VirtualMemory < ic_stable_structures :: DefaultMemoryImpl > > > = std :: cell :: RefCell :: new (ic_stable_structures :: StableBTreeMap :: init (MEMORY_MANAGER_REF_CELL . with (| m | { m . borrow () . get (ic_stable_structures :: memory_manager :: MemoryId :: new (3u8)) }) ,)) ; }
 #[derive(
     candid :: CandidType,
     candid :: Deserialize,
@@ -2598,9 +2598,9 @@ thread_local! { static MEMORY_MANAGER_REF_CELL : std :: cell :: RefCell < ic_sta
     PartialEq,
     Clone,
 )]
-struct StableBTreeMap6KeyType((String));
+struct StableBTreeMap8KeyType((candid::Principal));
 impl CdkActTryIntoVmValue<&rustpython::vm::VirtualMachine, rustpython::vm::PyObjectRef>
-    for StableBTreeMap6KeyType
+    for StableBTreeMap8KeyType
 {
     fn try_into_vm_value(
         self,
@@ -2609,7 +2609,7 @@ impl CdkActTryIntoVmValue<&rustpython::vm::VirtualMachine, rustpython::vm::PyObj
         Ok(self.0.try_into_vm_value(vm)?)
     }
 }
-impl ic_stable_structures::Storable for StableBTreeMap6KeyType {
+impl ic_stable_structures::Storable for StableBTreeMap8KeyType {
     fn to_bytes(&self) -> std::borrow::Cow<[u8]> {
         std::borrow::Cow::Owned(candid::Encode!(self).unwrap_or_trap())
     }
@@ -2617,8 +2617,8 @@ impl ic_stable_structures::Storable for StableBTreeMap6KeyType {
         candid::Decode!(&bytes, Self).unwrap_or_trap()
     }
 }
-impl ic_stable_structures::BoundedStorable for StableBTreeMap6KeyType {
-    const MAX_SIZE: u32 = 100u32;
+impl ic_stable_structures::BoundedStorable for StableBTreeMap8KeyType {
+    const MAX_SIZE: u32 = 38u32;
     const IS_FIXED_SIZE: bool = false;
 }
 #[derive(
@@ -2631,9 +2631,9 @@ impl ic_stable_structures::BoundedStorable for StableBTreeMap6KeyType {
     PartialEq,
     Clone,
 )]
-struct StableBTreeMap6ValueType((Vec<u8>));
+struct StableBTreeMap8ValueType((Image));
 impl CdkActTryIntoVmValue<&rustpython::vm::VirtualMachine, rustpython::vm::PyObjectRef>
-    for StableBTreeMap6ValueType
+    for StableBTreeMap8ValueType
 {
     fn try_into_vm_value(
         self,
@@ -2642,7 +2642,7 @@ impl CdkActTryIntoVmValue<&rustpython::vm::VirtualMachine, rustpython::vm::PyObj
         Ok(self.0.try_into_vm_value(vm)?)
     }
 }
-impl ic_stable_structures::Storable for StableBTreeMap6ValueType {
+impl ic_stable_structures::Storable for StableBTreeMap8ValueType {
     fn to_bytes(&self) -> std::borrow::Cow<[u8]> {
         std::borrow::Cow::Owned(candid::Encode!(self).unwrap_or_trap())
     }
@@ -2650,8 +2650,8 @@ impl ic_stable_structures::Storable for StableBTreeMap6ValueType {
         candid::Decode!(&bytes, Self).unwrap_or_trap()
     }
 }
-impl ic_stable_structures::BoundedStorable for StableBTreeMap6ValueType {
-    const MAX_SIZE: u32 = 1000u32;
+impl ic_stable_structures::BoundedStorable for StableBTreeMap8ValueType {
+    const MAX_SIZE: u32 = 5000000u32;
     const IS_FIXED_SIZE: bool = false;
 }
 #[derive(
@@ -3083,9 +3083,22 @@ fn post_upgrade() {
         });
     });
 }
+#[ic_cdk_macros::query(name = "get_images")]
+#[candid::candid_method(query, rename = "get_images")]
+async fn _cdk_user_defined_get_images() -> (Vec<Image>) {
+    let interpreter = unsafe { INTERPRETER_OPTION.as_mut() }
+        .unwrap_or_trap("SystemError: missing python interpreter");
+    let vm = &interpreter.vm;
+    let params = ();
+    call_global_python_function("get_images", params)
+        .await
+        .unwrap_or_trap()
+}
 #[ic_cdk_macros::query(name = "get_ticket")]
 #[candid::candid_method(query, rename = "get_ticket")]
-async fn _cdk_user_defined_get_ticket(_cdk_user_defined_ticket_id: u64) -> (Option<Ticket>) {
+async fn _cdk_user_defined_get_ticket(
+    _cdk_user_defined_ticket_id: candid::Principal,
+) -> (Option<Ticket>) {
     let interpreter = unsafe { INTERPRETER_OPTION.as_mut() }
         .unwrap_or_trap("SystemError: missing python interpreter");
     let vm = &interpreter.vm;
@@ -3093,6 +3106,28 @@ async fn _cdk_user_defined_get_ticket(_cdk_user_defined_ticket_id: u64) -> (Opti
         .try_into_vm_value(vm)
         .unwrap_or_trap(),);
     call_global_python_function("get_ticket", params)
+        .await
+        .unwrap_or_trap()
+}
+#[ic_cdk_macros::query(name = "get_events")]
+#[candid::candid_method(query, rename = "get_events")]
+async fn _cdk_user_defined_get_events() -> (Vec<Event>) {
+    let interpreter = unsafe { INTERPRETER_OPTION.as_mut() }
+        .unwrap_or_trap("SystemError: missing python interpreter");
+    let vm = &interpreter.vm;
+    let params = ();
+    call_global_python_function("get_events", params)
+        .await
+        .unwrap_or_trap()
+}
+#[ic_cdk_macros::query(name = "get_users")]
+#[candid::candid_method(query, rename = "get_users")]
+async fn _cdk_user_defined_get_users() -> (Vec<User>) {
+    let interpreter = unsafe { INTERPRETER_OPTION.as_mut() }
+        .unwrap_or_trap("SystemError: missing python interpreter");
+    let vm = &interpreter.vm;
+    let params = ();
+    call_global_python_function("get_users", params)
         .await
         .unwrap_or_trap()
 }
@@ -3107,36 +3142,28 @@ async fn _cdk_user_defined_get_all_events() -> (Vec<Event>) {
         .await
         .unwrap_or_trap()
 }
-#[ic_cdk_macros::query(name = "get_event")]
-#[candid::candid_method(query, rename = "get_event")]
-async fn _cdk_user_defined_get_event(_cdk_user_defined_eventId: u64) -> (Option<Event>) {
+#[ic_cdk_macros::query(name = "get_event_by_id")]
+#[candid::candid_method(query, rename = "get_event_by_id")]
+async fn _cdk_user_defined_get_event_by_id(
+    _cdk_user_defined_id: candid::Principal,
+) -> (Option<Event>) {
     let interpreter = unsafe { INTERPRETER_OPTION.as_mut() }
         .unwrap_or_trap("SystemError: missing python interpreter");
     let vm = &interpreter.vm;
-    let params = (_cdk_user_defined_eventId
-        .try_into_vm_value(vm)
-        .unwrap_or_trap(),);
-    call_global_python_function("get_event", params)
+    let params = (_cdk_user_defined_id.try_into_vm_value(vm).unwrap_or_trap(),);
+    call_global_python_function("get_event_by_id", params)
         .await
         .unwrap_or_trap()
 }
 #[ic_cdk_macros::update(name = "upload_image")]
 #[candid::candid_method(update, rename = "upload_image")]
-async fn _cdk_user_defined_upload_image(
-    _cdk_user_defined_image_id: String,
-    _cdk_user_defined_image_data: Vec<u8>,
-) -> (String) {
+async fn _cdk_user_defined_upload_image(_cdk_user_defined_image: Vec<u8>) -> (UploadImageResult) {
     let interpreter = unsafe { INTERPRETER_OPTION.as_mut() }
         .unwrap_or_trap("SystemError: missing python interpreter");
     let vm = &interpreter.vm;
-    let params = (
-        _cdk_user_defined_image_id
-            .try_into_vm_value(vm)
-            .unwrap_or_trap(),
-        _cdk_user_defined_image_data
-            .try_into_vm_value(vm)
-            .unwrap_or_trap(),
-    );
+    let params = (_cdk_user_defined_image
+        .try_into_vm_value(vm)
+        .unwrap_or_trap(),);
     call_global_python_function("upload_image", params)
         .await
         .unwrap_or_trap()
@@ -3181,9 +3208,9 @@ async fn _cdk_user_defined_spend_tokens(_cdk_user_defined_amount: candid::Int) -
 #[ic_cdk_macros::update(name = "buy_ticket")]
 #[candid::candid_method(update, rename = "buy_ticket")]
 async fn _cdk_user_defined_buy_ticket(
-    _cdk_user_defined_event_id: u64,
+    _cdk_user_defined_event_id: candid::Principal,
     _cdk_user_defined_price: u64,
-) -> (Ticket) {
+) -> (TicketResult) {
     let interpreter = unsafe { INTERPRETER_OPTION.as_mut() }
         .unwrap_or_trap("SystemError: missing python interpreter");
     let vm = &interpreter.vm;
@@ -3202,7 +3229,7 @@ async fn _cdk_user_defined_buy_ticket(
 #[ic_cdk_macros::update(name = "resale_ticket")]
 #[candid::candid_method(update, rename = "resale_ticket")]
 async fn _cdk_user_defined_resale_ticket(
-    _cdk_user_defined_ticket_id: u64,
+    _cdk_user_defined_ticket_id: candid::Principal,
     _cdk_user_defined_resale_price: u64,
 ) -> (Option<Ticket>) {
     let interpreter = unsafe { INTERPRETER_OPTION.as_mut() }
@@ -3253,6 +3280,7 @@ async fn _cdk_user_defined_create_event(
     _cdk_user_defined_description: String,
     _cdk_user_defined_date: String,
     _cdk_user_defined_price: u64,
+    _cdk_user_defined_image: Vec<u8>,
 ) -> (CreateConcert) {
     let interpreter = unsafe { INTERPRETER_OPTION.as_mut() }
         .unwrap_or_trap("SystemError: missing python interpreter");
@@ -3268,6 +3296,9 @@ async fn _cdk_user_defined_create_event(
             .try_into_vm_value(vm)
             .unwrap_or_trap(),
         _cdk_user_defined_price
+            .try_into_vm_value(vm)
+            .unwrap_or_trap(),
+        _cdk_user_defined_image
             .try_into_vm_value(vm)
             .unwrap_or_trap(),
     );
@@ -3293,6 +3324,7 @@ struct Event {
     description: Box<String>,
     date: Box<String>,
     price: Box<u64>,
+    image: Box<Vec<u8>>,
 }
 #[derive(
     serde :: Deserialize,
@@ -3308,11 +3340,10 @@ struct Event {
 )]
 struct Ticket {
     id: Box<candid::Principal>,
+    user_id: Box<candid::Principal>,
     event_id: Box<candid::Principal>,
-    owner: Box<candid::Principal>,
+    timestamp: Box<u64>,
     price: Box<u64>,
-    resale: Box<bool>,
-    resale_price: Box<u8>,
 }
 #[derive(
     serde :: Deserialize,
@@ -3413,6 +3444,22 @@ struct ValueTooLarge {
 }
 type TimerId = (u64);
 type Duration = (u64);
+#[derive(
+    serde :: Deserialize,
+    Debug,
+    candid :: CandidType,
+    Clone,
+    CdkActTryIntoVmValue,
+    CdkActTryFromVmValue,
+    Ord,
+    PartialOrd,
+    Eq,
+    PartialEq,
+)]
+enum TicketResult {
+    Ok(Box<Ticket>),
+    Err(String),
+}
 #[derive(
     serde :: Deserialize,
     Debug,

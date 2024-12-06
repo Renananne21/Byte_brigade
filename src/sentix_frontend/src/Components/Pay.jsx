@@ -1,4 +1,4 @@
-/*import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { AuthClient } from "@dfinity/auth-client";
 import { Actor } from "@dfinity/agent"; // Actor to call canister functions
 import { sentix_backend } from "declarations/sentix_backend"; // Auto-generated canister interface
@@ -87,4 +87,4 @@ const Pay = ({ onSuccess }) => {
   );
 };
 
-export default Pay;*/
+export default Pay;

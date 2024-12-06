@@ -1,4 +1,4 @@
-from kybra import Record, Principal, nat64, nat8, blob 
+from kybra import Record, Principal, nat64, nat8, blob, Vec, Variant
 
 class Event(Record):
     id: Principal 
@@ -6,13 +6,15 @@ class Event(Record):
     description: str
     date: str
     price: nat64 
+    image: blob 
     
 
 
 class Ticket(Record):
     id: Principal
-    event_id: Principal 
-    owner: Principal
+    user_id: Principal
+    event_id: Principal
+    timestamp: nat64
     price: nat64
 
 class TicketResult(Variant, total=False):
@@ -32,13 +34,15 @@ class User(Record):
     creating_ids: Vec[Principal]
     username: str
 
-class CreateConcert(Variant, total=False):
-    Ok: Event
-    Err: "CreateEventErr"
-
 
 class CreateConcertErr(Variant, total=False):
     UserDoesNotExist: Principal
+
+
+class CreateConcert(Variant, total=False):
+    Ok: Event
+    Err: CreateConcertErr
+
 
 class Image(Record):
     image_id: Principal
@@ -46,5 +50,4 @@ class Image(Record):
 
 class UploadImageResult(Variant, total=False):
     Ok: Image
-    Err: "UploadImageErr"
-
+    
