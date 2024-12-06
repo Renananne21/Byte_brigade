@@ -15,7 +15,7 @@ function BuyTickets(props) {
   const [showTransferComponent, setShowTransferComponent] = useState(false);
   
 
-  const totalPrice = quantity * parseFloat(event.price.replace('$' , ''));
+  // const totalPrice = quantity * parseFloat(event.price.replace(''));
 
   useEffect(() => {
     if (selectedPayment === 'icp') {
@@ -28,7 +28,7 @@ function BuyTickets(props) {
       state: { 
         event,
         quantity,
-        totalPrice,
+        // totalPrice,
         paymentMethod: selectedPayment 
       }
     });
@@ -189,7 +189,7 @@ function BuyTickets(props) {
               </div>
             </div>
 
-            <div className="price-summary">
+            {/* <div className="price-summary">
               <div className="price-row">
                 <span>Subtotal</span>
                 <span>${totalPrice.toFixed(2)}</span>
@@ -202,7 +202,7 @@ function BuyTickets(props) {
                 <span>Total</span>
                 <span>${(totalPrice * 1.10).toFixed(2)}</span>
               </div>
-            </div>
+            </div> */}
 
             <button 
               className="purchase-button"

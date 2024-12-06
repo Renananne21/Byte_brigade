@@ -6,6 +6,7 @@ class Event(Record):
     description: str
     date: str
     price: nat64 
+    image: blob 
     
 
 

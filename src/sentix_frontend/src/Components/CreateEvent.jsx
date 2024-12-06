@@ -4,9 +4,9 @@ import Navbar from './Navbar';
 import ImagesUpload from './ImageUpload';
 import { Actor } from '@dfinity/agent';
 
-const handleCreateEventbtn = async (title, description, date, price) => {
+const handleCreateEventbtn = async (title, description, date, price, image) => {
     try {
-      const response = await sentix_backend.create_event(title, description, date, parseInt(price));
+      const response = await sentix_backend.create_event(title, description, date, parseInt(price), image);
       alert("Event created successfully!");
     } catch (error) {
       alert("Failed to create event.");
@@ -21,7 +21,7 @@ function CreateEvent() {
     const [description, setDescription] = useState('');
     const [date, setDate] = useState('');
     const [price, setPrice] = useState(0);
-    const [image, setImage] = useState('');
+    const [image, setImage] = useState([]);
     const [uploads, setUploads] = useState([]); 
     const [isLoadingImage, setIsLoadingImage] = useState(false); 
     const [progress, setProgress] = useState(null); 
@@ -32,6 +32,7 @@ function CreateEvent() {
             try {
                 const images = await sentix_backend.get_images();
                 setUploads(images);
+                console.log('Uploaded images:', images);
                 alert('Image loaded successfully!');
             } catch (error) {
                 alert('Error loading images. Please try again.');
@@ -49,8 +50,9 @@ function CreateEvent() {
             reader.onload = async () => {
               try {
                 const imageData = new Uint8Array(reader.result);
-                const chunks = [...imageData];
+                const chunks = Array.from(imageData);
                 const id = await sentix_backend.upload_image(chunks);
+                setImage(chunks);
                 loadImages();
                 setSelectedImage(null);
               } catch (error) {
@@ -65,18 +67,13 @@ function CreateEvent() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-    const newEvent = {
-        title: title,
-        date: date,
-        description: description,
-        price: parseInt(price),
-    
+        if (!selectedImage) {
+            alert("Please upload an image first");
+            return;
+        }
+        await handleImageUpload();
+        await handleCreateEventbtn(title, description, date, parseInt(price), image);
     };
-
-    
-    await handleCreateEventbtn(title, description, date, parseInt(price));
-};
     
     return (
         <div className="createEventPage">
@@ -142,13 +139,10 @@ function CreateEvent() {
                 >
                     Select Image
                 </button>
-                <button 
-                    type="button" 
-                    onClick={handleImageUpload}
-                    disabled={!selectedImage}
-                >
-                    Upload Image
-                </button>
+                {selectedImage && (
+                    <span>{selectedImage.target.files[0].name}</span>
+                )}
+                {isLoadingImage && <p>Uploading image...</p>}
                 {eventImage && (
                     <img 
                         src={eventImage.key} 
@@ -163,7 +157,7 @@ function CreateEvent() {
                 )}
             </div>
 
-                <button type="submit" >Create Event</button>
+                <button type="submit" disabled={isLoadingImage}>Create Event</button>
             </form>
             </div>
         </div>

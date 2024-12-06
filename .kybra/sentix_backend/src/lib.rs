@@ -2651,7 +2651,7 @@ impl ic_stable_structures::Storable for StableBTreeMap8ValueType {
     }
 }
 impl ic_stable_structures::BoundedStorable for StableBTreeMap8ValueType {
-    const MAX_SIZE: u32 = 3000000u32;
+    const MAX_SIZE: u32 = 5000000u32;
     const IS_FIXED_SIZE: bool = false;
 }
 #[derive(
@@ -3280,6 +3280,7 @@ async fn _cdk_user_defined_create_event(
     _cdk_user_defined_description: String,
     _cdk_user_defined_date: String,
     _cdk_user_defined_price: u64,
+    _cdk_user_defined_image: Vec<u8>,
 ) -> (CreateConcert) {
     let interpreter = unsafe { INTERPRETER_OPTION.as_mut() }
         .unwrap_or_trap("SystemError: missing python interpreter");
@@ -3295,6 +3296,9 @@ async fn _cdk_user_defined_create_event(
             .try_into_vm_value(vm)
             .unwrap_or_trap(),
         _cdk_user_defined_price
+            .try_into_vm_value(vm)
+            .unwrap_or_trap(),
+        _cdk_user_defined_image
             .try_into_vm_value(vm)
             .unwrap_or_trap(),
     );
@@ -3320,6 +3324,7 @@ struct Event {
     description: Box<String>,
     date: Box<String>,
     price: Box<u64>,
+    image: Box<Vec<u8>>,
 }
 #[derive(
     serde :: Deserialize,

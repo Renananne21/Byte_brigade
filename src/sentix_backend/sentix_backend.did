@@ -5,6 +5,7 @@ type Event = record {
   title : text;
   date : text;
   description : text;
+  image : blob;
   price : nat64;
 };
 type Image = record { image_id : principal; image : blob };
@@ -26,7 +27,7 @@ type User = record {
 service : () -> {
   buy_resale_ticket : (nat64) -> (text);
   buy_ticket : (principal, nat64) -> (TicketResult);
-  create_event : (text, text, text, nat64) -> (CreateConcert);
+  create_event : (text, text, text, nat64, blob) -> (CreateConcert);
   create_user : (text) -> (User);
   get_all_events : () -> (vec Event) query;
   get_event_by_id : (principal) -> (opt Event) query;

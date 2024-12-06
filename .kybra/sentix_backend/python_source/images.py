@@ -3,7 +3,7 @@ import secrets
 from models import Image, UploadImageResult
 
 
-image_store = StableBTreeMap[Principal, Image](memory_id=8, max_key_size=38, max_value_size=3_000_000)
+image_store = StableBTreeMap[Principal, Image](memory_id=8, max_key_size=38, max_value_size=5_000_000)
 
 
 def generate_id() -> Principal:

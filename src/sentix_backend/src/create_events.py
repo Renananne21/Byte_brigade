@@ -1,6 +1,7 @@
-from kybra import ic, nat64, query, Record, StableBTreeMap, update, Vec, Opt, Principal
+from kybra import ic, nat64, query, Record, StableBTreeMap, update, Vec, Opt, Principal, blob , nat8
 from models import Event, User, CreateConcert, CreateConcertErr
 import secrets 
+from images import upload_image, get_images
 
 events = StableBTreeMap[Principal, Event](
     memory_id=7, max_key_size=80, max_value_size=5_000
@@ -32,10 +33,12 @@ def create_user(username: str) -> User:
 
 
 @update
-def create_event(title: str, description: str, date: str, price: nat64) -> CreateConcert:
+def create_event(title: str, description: str, date: str, price: nat64, image: Vec[nat8]) -> CreateConcert:
     """
     Create a new event with the given details.
     """
+
+    image = get_images()
     user_id = ic.caller()
 
     user = users.get(user_id)
@@ -51,6 +54,7 @@ def create_event(title: str, description: str, date: str, price: nat64) -> Creat
         "description": description,
         "date": date,
         "price": price,
+        "image": image,
         
     }
 
