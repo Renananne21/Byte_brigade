@@ -139,7 +139,7 @@ function CreateEvent() {
                 >
                     Select Image
                 </button>*/}
-                <p class="upload-text">Drag and drop your file here or click to upload</p>
+                <p className="upload-text">Drag and drop your file here or click to upload</p>
                 {selectedImage && (
                     <span>{selectedImage.target.files[0].name}</span>
                 )}

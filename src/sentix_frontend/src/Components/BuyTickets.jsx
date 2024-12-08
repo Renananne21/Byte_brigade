@@ -6,7 +6,9 @@ import CreditCardIcon from '/home/renan/Byte_brigade/src/sentix_frontend/src/Ima
 import ICPIcon from '/home/renan/Byte_brigade/src/sentix_frontend/src/Images/ICP icon.jpg';
 import TransferICPComponent from './Pay' // Adjust the path as needed
 
-function BuyTickets(props) {
+
+
+function BuyTickets() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const event = state?.event;
@@ -14,6 +16,17 @@ function BuyTickets(props) {
   const [selectedPayment, setSelectedPayment] = useState('credit');
   const [showTransferComponent, setShowTransferComponent] = useState(false);
   
+  if (!event) {
+    return (
+      <div className="buyTicketsPage">
+        <Navbar />
+        <div className="buy-tickets-container">
+          <h2>Event not found</h2>
+          <button onClick={() => navigate('/')}>Return to Home</button>
+        </div>
+      </div>
+    );
+  }
 
   // const totalPrice = quantity * parseFloat(event.price.replace(''));
 
@@ -67,7 +80,6 @@ function BuyTickets(props) {
   
         const requestTransferArg = {
           to: receiverAccountId,
-          amount: coffeeAmount,
         };
   
         if (transferStatus === 'COMPLETED') {
@@ -119,28 +131,24 @@ function BuyTickets(props) {
             <img src={event.image} alt={event.title} className="event-image" />
             <div className="details">
               <div className="detail-item">
-                <h3>Date & Time</h3>
-                <p>{event.date} at {event.time}</p>
+                <h3>Date</h3>
+                <p>{event.date} </p>
               </div>
               <div className="detail-item">
                 <h3>Location</h3>
-                <p>{event.location}</p>
+                <p>Kenya</p>
               </div>
               <div className="detail-item">
                 <h3>Base Price</h3>
                 <p>{event.price}</p>
               </div>
-              <div className="detail-item">
-                <h3>Availability</h3>
-                <p>{event.capacity - event.ticketsSold} tickets remaining</p>
-              </div>
-            </div>
-          </div>
+        
           <div className="event-description">
-            <h3>Event Description</h3>
+            <h3>Description</h3>
             <p>{event.description}</p>
           </div>
-          
+          </div>
+          </div>
           <div className="purchase-section">
             <div className="quantity-selector">
               <label>Number of Tickets:</label>
@@ -207,22 +215,11 @@ function BuyTickets(props) {
 
             <button 
               className="purchase-button"
-              onClick={handlePurchase}
+              onClick={selectedPayment === 'icpToken' ? connectToPlug : handlePurchase}
             >
               Complete Purchase
             </button>
-
-            <button onClick={connectToPlug} className="connect-plug-button">
-              Connect to Plug Wallet
-            </button>
-
-            <button onClick={connectToNFID} className="connect-nfid-button">
-              Connect to NFID Wallet
-            </button>
-
-            <button  onClick={handleToggleTransfer}>
-              {showTransferComponent ? "Hide Transfer ICP" : "Transfer ICP"}
-            </button>
+           
 
             {showTransferComponent && <TransferICPComponent />}
           </div>        

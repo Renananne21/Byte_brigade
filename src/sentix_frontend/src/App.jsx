@@ -16,16 +16,31 @@ import CreateEvent from './Components/CreateEvent';
 function App() {
   const navigate = useNavigate();
   const [upcomingEvents, setUpcomingEvents] = useState([]);
-
+  const [isloading, setIsLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedEventType, setSelectedEventType] = useState('All Events');
+  const [visibleCount, setVisibleCount] = useState(4);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [showBuyTicket, setShowBuyTicket] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const statusRef = useRef(null);
+ 
+ 
+  
   useEffect(() => {
     async function fetchEvents() {
       try {
+        setIsLoading(true);
         const events = await sentix_backend.get_images();
-        
-        const formattedEvents = events.map(event => {
+      
+        const details = await sentix_backend.get_events();
+        console.log('Events:', details);
+        const formattedEvents = events.map((event, index) => {
           if (!event.image || !(event.image instanceof Uint8Array)) {
             console.error("Invalid or missing image data for event:", event);
             return null; 
+          
           }
         
           const base64Image = btoa(
@@ -34,20 +49,31 @@ function App() {
               .join('')
           );
         
+          const eventDetails = details[index];
+            if (!eventDetails) {
+              console.error("Missing details for event at index:", index);
+              return null;
+            }
+
           return {
             id: event.id,
             image: `data:image/jpeg;base64,${base64Image}`, 
-            title: 'Hackathon',
-            description: 'coders',
+            title: eventDetails.title,
+            description: eventDetails.description,
             eventType: 'festival',
+            date: eventDetails.date,
+            price: eventDetails.price,
           };
         });
         
+
         
         const validEvents = formattedEvents.filter(event => event !== null);
         setUpcomingEvents(validEvents);
       } catch (error) {
         console.error("Error fetching events:", error);
+      } finally {
+        setIsLoading(false);
       }
     }
 
@@ -77,22 +103,7 @@ function App() {
     }
   }
 
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedEventType, setSelectedEventType] = useState('All Events');
-  const [visibleCount, setVisibleCount] = useState(4);
-  
-  const [showToast, setShowToast] = useState(false);
-  const [showBuyTicket, setShowBuyTicket] = useState(false);
-  const [selectedEvent, setSelectedEvent] = useState(null);
-  const statusRef = useRef(null);
 
- /* const handleAddToCart = (event) => {
-    setCart(prevCart => [...prevCart, event]);
-  };
-
-  const handleRemoveFromCart = (eventId) => {
-    setCart(prevCart => prevCart.filter(item => item.id !== eventId));
-  };*/
 
   const handleBuyTicket = (eventId, price) => {
     const event = upcomingEvents.find(event => event.id === eventId);
@@ -121,6 +132,57 @@ function App() {
     return () => clearInterval(slideInterval);
   }, []);
 
+
+
+const login = async () => {
+    try {
+        const authClient = await AuthClient.create({
+            idleOptions: { disableIdle: true }
+        });
+        
+        if (await authClient.isAuthenticated()) {
+            handleAuthenticated(authClient);
+            return;
+        }
+
+        await authClient.login({
+            identityProvider: "https://identity.ic0.app/#authorize",
+            onSuccess: () => handleAuthenticated(authClient),
+            onError: (error) => {
+                console.error("Login failed:", error);
+                setIsAuthenticated(false);
+            },
+            maxTimeToLive: BigInt(7 * 24 * 60 * 60 * 1000 * 1000 * 1000)
+        });
+    } catch (error) {
+        console.error("Authentication error:", error);
+        setIsAuthenticated(false);
+    }
+};
+
+const handleAuthenticated = async (authClient) => {
+    const identity = await authClient.getIdentity();
+    if (identity) {
+        setIsAuthenticated(true);
+        setShowToast(true);
+    } else {
+        setIsAuthenticated(false);
+    }
+};
+
+React.useEffect(() => {
+    async function checkAuth() {
+        const authClient = await AuthClient.create({
+            idleOptions: { disableIdle: true }
+        });
+        if (await authClient.isAuthenticated()) {
+            handleAuthenticated(authClient);
+        }
+    }
+    checkAuth();
+}, []);
+ 
+
   return (
 
     <div className="app-container">
@@ -144,8 +206,8 @@ function App() {
                 <div className="slider-content">
                   <h2>{event.title}</h2>
                   <div className="slider-info">
-                    <p className="slider-date">{event.date} at {event.time}</p>
-                    <p className="slider-location">{event.location}</p>
+                    <p className="slider-date">{event.date} </p>
+                    <p className="slider-location">Kenya</p>
                   </div>
 
 
@@ -177,7 +239,7 @@ function App() {
 
           <div className="events-grid" id='events-grid' >
             {filteredEvents.slice(0, visibleCount).map((event, index) => (
-              <div className="event-card" key={index} onClick={() => handleBuyTicket(event.id, event.price)} >
+              <div className="event-card" key={index} onClick={ () =>(!isAuthenticated? login: handleBuyTicket(event.id, event.price))} >
                 <div className="event-image-container" >
                   <img src={event.image} alt={event.title} className="event-image" />
                   <div className="event-type-badge">{event.eventType}</div>
@@ -185,22 +247,19 @@ function App() {
                 <div className="event-details" >
                   <h3>{event.title}</h3>
                   <div className="event-info" >
-                      <p className="event-date">Date and Time: TBA</p>
-                      <p className="event-location">Location: TBA</p>
-                      <p className="event-price">Price: TBA</p>
-                      <p className="event-description">Description: TBA</p>
-                      <p className="event-tickets">
-                      Available Tickets: {event.capacity - event.ticketsSold} / {event.capacity}
-                    </p>
+                      <p className="event-date">{event.date}</p>
+                      <p className="event-location">Kenya</p>
+                      <p className="event-price">Price:{event.price} </p>
+                      <p className="event-description">Description: {event.description}</p>
+                     
                   </div>
                 </div>
               </div>
             ))}
           </div>
-
           {visibleCount < filteredEvents.length && (
             <button className="load-more-button" onClick={() => setVisibleCount(upcomingEvents.length)}>
-               See More Events
+               See More 
             </button>
           )}
         </section>
@@ -217,7 +276,11 @@ function App() {
               <p>Food and Drink Events. You name it!</p>
               <p style={{ marginBottom: '25px' }}>Our platform is designed to help creators and organizers reach their perfect audience.</p>
               <p>Ready to explore your potential?<br/> Lets's TockenTix!</p>
-              <Link to="createEvent" className="create-event-button">Create Event</Link>
+              {!isAuthenticated ?  (
+                <button className="create-event-button" onClick={login}>Create Event</button>
+              ): (
+              <Link to="createEvent" className="create-event-button">Create Event</Link>)
+            }
             </div>
             <img src={EventImage} alt="Create Event" className="create-event-image" />
           </div>
@@ -231,7 +294,11 @@ function App() {
               <p style={{ fontSize: '28px', marginBottom: '20px', color: 'black' }}>Can't make it to an event?</p>
               <p >Resell your tickets safely and easily on TockenTix!</p>
               <p style={{ marginBottom: '25px' }}>The #1 trusted platform for secure ticket resales</p>
+              {!isAuthenticated ?  (
+                <button className="resell-button" onClick={login}>Start Reselling</button>
+              ): (
               <Link to="resell-ticket" className="resell-button">Start Reselling</Link>
+              )}
             </div>
           </div>
         </section>

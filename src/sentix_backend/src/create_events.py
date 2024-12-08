@@ -1,4 +1,4 @@
-from kybra import ic, nat64, query, Record, StableBTreeMap, update, Vec, Opt, Principal, blob , nat8
+from kybra import ic, nat64, query, Record, StableBTreeMap, update, Vec, Opt, Principal, blob , nat8, Tuple 
 from models import Event, User, CreateConcert, CreateConcertErr
 import secrets 
 from images import upload_image, get_images
@@ -39,12 +39,12 @@ def create_event(title: str, description: str, date: str, price: nat64, image: V
     """
 
     image = get_images()
-    user_id = ic.caller()
+    # user_id = ic.caller()
 
-    user = users.get(user_id)
+    # user = users.get(user_id)
 
-    if user is None:
-        return {"Err": {"UserDoesNotExist": user_id}}
+    # if user is None:
+    #     return {"Err": {"UserDoesNotExist": user_id}}
     
     id = generate_id()
 
@@ -57,24 +57,28 @@ def create_event(title: str, description: str, date: str, price: nat64, image: V
         "image": image,
         
     }
+    
 
     events.insert(concert['id'], concert)
+    ic.print(f"Event ID: {concert['id']}, Data: {concert}")
 
-    new_user: User = {
-        "id": user["id"],
-        "created_at": user["created_at"],
-        "username": user["username"],
-        "creating_ids": [*user["creating_ids"], concert["id"]],
-    }
+    # new_user: User = {
+    #     "id": user["id"],
+    #     "created_at": user["created_at"],
+    #     "username": user["username"],
+    #     "creating_ids": [*user["creating_ids"], concert["id"]],
+    # }
 
-    users.insert(new_user["id"], new_user)
+    # users.insert(new_user["id"], new_user)
 
     return {"Ok": concert}
 
 #Fetch all the events defined in the dictionary.
 @query
 def get_events() -> Vec[Event]:
-    return events.values()
+    data = events.values()
+    ic.print(f"Retrieved events: {data}")
+    return data 
 
 #Fetch all the users. 
 @query
