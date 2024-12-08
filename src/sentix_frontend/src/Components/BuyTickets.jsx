@@ -52,10 +52,10 @@ function BuyTickets(props) {
       
       el.target.textContent = "Plug wallet is connected";
   
-      // Assigns the request balance result value to balance
+      
       const requestBalanceResponse = await window.ic?.plug?.requestBalance();
   
-      // Pick the balance value for the first account
+      
       const balance = requestBalanceResponse[0]?.value;
   
       if (balance > 0) {

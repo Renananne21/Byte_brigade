@@ -125,20 +125,21 @@ function CreateEvent() {
                 </div>
 
               
-                <div className="image-upload-section">
+                <div className="form-group">
                 <input 
                     type="file" 
                     onChange={(e) => setSelectedImage(e)} 
                     accept='image/*'
-                    style={{ display: 'none' }}
                     id="imageInput"
+
                 />
-                <button 
+                {/*<button 
                     type="button" 
                     onClick={() => document.getElementById('imageInput').click()}
                 >
                     Select Image
-                </button>
+                </button>*/}
+                <p class="upload-text">Drag and drop your file here or click to upload</p>
                 {selectedImage && (
                     <span>{selectedImage.target.files[0].name}</span>
                 )}
@@ -157,7 +158,7 @@ function CreateEvent() {
                 )}
             </div>
 
-                <button type="submit" disabled={isLoadingImage}>Create Event</button>
+                <button className='submit-event' type="submit" disabled={isLoadingImage}>Create Event</button>
             </form>
             </div>
         </div>

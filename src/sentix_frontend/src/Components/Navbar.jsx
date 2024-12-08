@@ -7,36 +7,68 @@ import { AuthClient } from "@dfinity/auth-client";
 function Navbar({ searchTerm, setSearchTerm }) {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [showToast, setShowToast] = useState(false);
-   
+    
 
-      
+
+   
     const defaultOptions = {
-      createOptions: {
-        idleOptions: {
-          disableIdle: true,
+        createOptions: {
+            idleOptions: {
+                disableIdle: true
+            }
         },
-      },
-      loginOptions: {
-        identityProvider:
-          process.env.DFX_NETWORK === "ic"
-            ? "https://identity.ic0.app/#authorize"
-            : `http://${process.env.CANISTER_ID_INTERNET_IDENTITY}.localhost:4943`,
-        maxTimeToLive:BigInt(30 * 24 * 60 * 60 * 1000 * 1000 * 1000)
-      },
+        loginOptions: {
+            identityProvider: "https://identity.ic0.app/#authorize"
+        }
     };
 
     const login = async () => {
-        const authClient = await AuthClient.create(defaultOptions.createOptions);
-        await authClient.login({
-          ...defaultOptions.loginOptions,
-          onSuccess: () => handleAuthenticated(authClient),
-        });
-      };
+        try {
+            const authClient = await AuthClient.create({
+                idleOptions: { disableIdle: true }
+            });
+            
+            if (await authClient.isAuthenticated()) {
+                handleAuthenticated(authClient);
+                return;
+            }
+
+            await authClient.login({
+                identityProvider: "https://identity.ic0.app/#authorize",
+                onSuccess: () => handleAuthenticated(authClient),
+                onError: (error) => {
+                    console.error("Login failed:", error);
+                    setIsAuthenticated(false);
+                },
+                maxTimeToLive: BigInt(7 * 24 * 60 * 60 * 1000 * 1000 * 1000)
+            });
+        } catch (error) {
+            console.error("Authentication error:", error);
+            setIsAuthenticated(false);
+        }
+    };
     
-      const handleAuthenticated = (authClient) => {
-        setIsAuthenticated(true);
-        setShowToast(true);
-      };
+    const handleAuthenticated = async (authClient) => {
+        const identity = await authClient.getIdentity();
+        if (identity) {
+            setIsAuthenticated(true);
+            setShowToast(true);
+        } else {
+            setIsAuthenticated(false);
+        }
+    };
+
+    React.useEffect(() => {
+        async function checkAuth() {
+            const authClient = await AuthClient.create({
+                idleOptions: { disableIdle: true }
+            });
+            if (await authClient.isAuthenticated()) {
+                handleAuthenticated(authClient);
+            }
+        }
+        checkAuth();
+    }, []);
      
     return (
         <div className="navbar">
@@ -48,16 +80,20 @@ function Navbar({ searchTerm, setSearchTerm }) {
                 <input className='search-input' type ='text' placeholder="Search events..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
             <ul>
                 <li><Link to="/">Home</Link></li>
+                <li><Link to="">Events</Link></li> 
                 <li><Link to="/about">About</Link></li>
-                <li><Link to="/contactUs">Contact</Link></li>          
+                         
                   </ul>
-            <span style={{ fontSize: '2rem' }}>&#128722;</span>
+            <span style={{ fontSize: '2rem' }} className="cart-icon" >🛒</span>
+            <div>
+            <Link to='/contactUs'><button className="contact-button">Contact US</button></Link>
             
                 {!isAuthenticated && (
                     <button onClick={login} className="login-button">Log In</button>
                 )}
-            
+            </div>
             </nav>
+           
         </div> 
     );
 }

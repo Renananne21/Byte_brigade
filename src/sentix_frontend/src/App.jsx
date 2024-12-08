@@ -4,7 +4,6 @@ import { AuthClient } from '@dfinity/auth-client';
 import { sentix_backend } from 'declarations/sentix_backend';
 import { Link, useNavigate } from 'react-router-dom';
 import Navbar from './Components/Navbar';
-import Cart from './Components/Cart';
 import BuyTickets from './Components/BuyTickets';
 import EventImage from './Images/EventImage.jpg'
 import Image1 from './Images/Img1.jpg';
@@ -15,7 +14,6 @@ import ticketImage from './Images/ticketImage.jpg'
 import CreateEvent from './Components/CreateEvent';
 
 function App() {
-  const [cart, setCart] = useState([]);
   const navigate = useNavigate();
   const [upcomingEvents, setUpcomingEvents] = useState([]);
 
@@ -23,8 +21,11 @@ function App() {
     async function fetchEvents() {
       try {
         const events = await sentix_backend.get_images();
+
+        const details = await sentix_backend.get_events();
+        console.log('Events:', details);
         
-        const formattedEvents = events.map(event => {
+        const formattedEvents = events.map((event, index) => {
           if (!event.image || !(event.image instanceof Uint8Array)) {
             console.error("Invalid or missing image data for event:", event);
             return null; 
@@ -35,13 +36,21 @@ function App() {
               .map(byte => String.fromCharCode(byte))
               .join('')
           );
+
+          const eventDetails = details[index];
+            if (!eventDetails) {
+              console.error("Missing details for event at index:", index);
+              return null;
+            }
         
           return {
             id: event.id,
-            image: `data:image/jpeg;base64,${base64Image}`, 
-            title: 'Hackathon',
-            description: 'coders',
-            eventType: 'festival',
+            image: `data:image/jpeg;base64,${base64Image}`,
+            title: eventDetails.title,
+            description: eventDetails.description,
+            eventType: eventDetails.title,
+            date: eventDetails.date,
+            price: eventDetails.price,
           };
         });
         
@@ -88,14 +97,6 @@ function App() {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const statusRef = useRef(null);
 
-  const handleAddToCart = (event) => {
-    setCart(prevCart => [...prevCart, event]);
-  };
-
-  const handleRemoveFromCart = (eventId) => {
-    setCart(prevCart => prevCart.filter(item => item.id !== eventId));
-  };
-
   const handleBuyTicket = (eventId, price) => {
     const event = upcomingEvents.find(event => event.id === eventId);
     navigate(`/buy-tickets/${eventId}`, { state: { event } });
@@ -111,6 +112,8 @@ function App() {
 
   const [currentSlide, setCurrentSlide] = useState(0);
 
+  // Get unique event types from upcomingEvents
+  const uniqueEventTypes = ['All Events', ...new Set(upcomingEvents.map(event => event.eventType))];
 
   useEffect(() => {
     const slideInterval = setInterval(() => {
@@ -132,8 +135,6 @@ function App() {
       />
       <main>
 
-
-
         <div className="welcome-section">
           <div className="featured-slider">
             {upcomingEvents.slice(currentSlide, currentSlide + 1).map((event, index) => (
@@ -149,35 +150,29 @@ function App() {
                     <p className="slider-date">{event.date} at {event.time}</p>
                     <p className="slider-location">{event.location}</p>
                   </div>
-
-
                 </div>          
               </div>
             ))}
           </div>
         </div>
 
-
         <section className="events-section">
           <div className="events-header">
             <h2>Upcoming Events</h2>
-
 
             <div className="search-filters">
               <select
                 value={selectedEventType}
                 onChange={(e) => setSelectedEventType(e.target.value)}
                 className="event-type-select">
-                <option>All Events</option>
-                <option>Concert</option>
-                <option>Art</option>
-                <option>Festival</option>
-                <option>Fashion</option>
+                {uniqueEventTypes.map((type, index) => (
+                  <option key={index}>{type}</option>
+                ))}
               </select>
             </div>
           </div>
 
-          <div className="events-grid" >
+          <div className="events-grid" id='events-grid' >
             {filteredEvents.slice(0, visibleCount).map((event, index) => (
               <div className="event-card" key={index} onClick={() => handleBuyTicket(event.id, event.price)} >
                 <div className="event-image-container" >
@@ -187,12 +182,11 @@ function App() {
                 <div className="event-details" >
                   <h3>{event.title}</h3>
                   <div className="event-info" >
-                      <p className="event-date">Date and Time: TBA</p>
-                      <p className="event-location">Location: TBA</p>
-                      <p className="event-price">Price: TBA</p>
-                      <p className="event-description">Description: TBA</p>
+                      <p className="event-date">{event.date}</p>
+                      <p className="event-price">{event.price}</p>
+                      <p className="event-description">{event.description}</p>
                       <p className="event-tickets">
-                      Available Tickets: {event.capacity - event.ticketsSold} / {event.capacity}
+                      {/* Available Tickets: {event.capacity - event.ticketsSold} / {event.capacity} */}
                     </p>
                   </div>
                 </div>
@@ -206,7 +200,7 @@ function App() {
             </button>
           )}
         </section>
-        <Cart cartItems={cart} onRemove={handleRemoveFromCart} />
+      
 
         <section className="create-event-section"></section>
 
@@ -233,7 +227,7 @@ function App() {
               <p style={{ fontSize: '28px', marginBottom: '20px', color: 'black' }}>Can't make it to an event?</p>
               <p >Resell your tickets safely and easily on TockenTix!</p>
               <p style={{ marginBottom: '25px' }}>The #1 trusted platform for secure ticket resales</p>
-              <Link to="resell-ticket" className="rese1ll-button">Start Reselling</Link>
+              <Link to="resell-ticket" className="resell-button">Start Reselling</Link>
             </div>
           </div>
         </section>
@@ -243,8 +237,7 @@ function App() {
             <div className="footer-section" >
               <h3>Events</h3>
               <ul >
-        
-                <li><a href='.events-section'>Upcoming Events</a></li>
+                <li><a href='#events-grid'>Upcoming Events</a></li>
                 <li>Resell Tickets</li>
                 <li>My Tickets</li>
               </ul>
