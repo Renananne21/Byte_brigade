@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from '../Images/LOGO.jpg';
-import { useState } from 'react';
 import { AuthClient } from "@dfinity/auth-client";
+import { Layout, Menu, Input, Button, Badge, Avatar } from 'antd';
+import { ShoppingCartOutlined, SearchOutlined, HomeOutlined, MailOutlined } from '@ant-design/icons';
+
+
+const { Header } = Layout;
 
 function Navbar({ searchTerm, setSearchTerm }) {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [showToast, setShowToast] = useState(false);
-    
 
-
-   
     const defaultOptions = {
         createOptions: {
             idleOptions: {
@@ -58,7 +59,7 @@ function Navbar({ searchTerm, setSearchTerm }) {
         }
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
         async function checkAuth() {
             const authClient = await AuthClient.create({
                 idleOptions: { disableIdle: true }
@@ -71,31 +72,91 @@ function Navbar({ searchTerm, setSearchTerm }) {
     }, []);
      
     return (
-        <div className="navbar">
-            <nav>
-                <div className="logo">
-                <img src={logo} alt="" />
-                <h1 className="ticketGo">TockenTix</h1>
-                </div>
-                <input className='search-input' type ='text' placeholder="Search events..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-            <ul>
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="">Events</Link></li> 
-                <li><Link to="/about">About</Link></li>
-                         
-                  </ul>
-            <span style={{ fontSize: '2rem' }} className="cart-icon" >🛒</span>
-            <div>
-            <Link to='/contactUs'><button className="contact-button">Contact US</button></Link>
-            
+        <Header style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            padding: '0 20px', 
+            background: 'transparent',
+            position: 'relative',
+            overflow: 'hidden'
+        }}>
+            <div className="plasma-background"></div>
+            <div className="logo" style={{ marginRight: '24px', position: 'relative', zIndex: 1 }}>
+                <img src={logo} alt="TockenTix" style={{ height: '32px' }} />
+            </div>
+
+            <Input.Search
+                placeholder="Search events..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                style={{ maxWidth: 300, marginRight: '24px', position: 'relative', zIndex: 1 }}
+            />
+
+            <div style={{ flex: 1 }}></div>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', position: 'relative', zIndex: 1 }}>
+                <Menu mode="horizontal" style={{ border: 'none', background: 'transparent' }}>
+                    <Menu.Item key="home" icon={<HomeOutlined />}>
+                        <Link to="/">Home</Link>
+                    </Menu.Item>
+                    <Menu.Item key="events">
+                        <Link to="#">Events</Link>
+                    </Menu.Item>
+                    <Menu.Item key="about">
+                        <Link to="/about">About</Link>
+                    </Menu.Item>
+                </Menu>
+                <Badge count={0}>
+                    <Avatar icon={<ShoppingCartOutlined />} />
+                </Badge>
+                <Button type="default" href="/contactUs" icon={<MailOutlined />}>
+                    Contact Us
+                </Button>
                 {!isAuthenticated && (
-                    <button onClick={login} className="login-button">Log In</button>
+                    <Button type="primary" onClick={login}>
+                        Log In
+                    </Button>
                 )}
             </div>
-            </nav>
-           
-        </div> 
-    );
-}
+            <style>{`
+                .plasma-background {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(45deg, #ff0000, #ff7300, #00ff00, #0073ff);
+                    background-size: 400% 400%;
+                    animation: plasma 15s ease infinite;
+                    opacity: 0.3;
+                    filter: blur(50px);
+                }
+                
+                @keyframes plasma {
+                    0% {
+                        background-position: 0% 50%;
+                    }
+                    50% {
+                        background-position: 100% 50%;
+                    }
+                    100% {
+                        background-position: 0% 50%;
+                    }
+                }
+
+                .ant-menu-horizontal {
+                    color: #fff;
+                }
+                
+                .ant-menu-horizontal > .ant-menu-item:hover {
+                    color: #1890ff;
+                }
+                
+                .ant-menu-horizontal > .ant-menu-item-selected {
+                    color: #1890ff;
+                }
+            `}</style>
+        </Header>
+    );}
 
 export default Navbar;
