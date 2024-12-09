@@ -37,10 +37,9 @@ const Confirmation = () => {
             <div className="payment-summary">
             <h3>Payment Details</h3>
             <div className="payment-info">
-              {/* <p><strong>Payment Method:</strong> {paymentMethod}</p>
-              <p><strong>Subtotal:</strong> ${(totalPrice).toFixed(2)}</p>
-              <p><strong>Service Fee:</strong> ${(totalPrice * 0.10).toFixed(2)}</p> */}
-              <p className="total-amount"><strong>Total Paid:</strong> ${(totalPrice * 1.10).toFixed(2)}</p>
+             {/* <p><strong>Payment Method:</strong> {paymentMethod}</p>
+              <p><strong>Service Fee:</strong> ${(totalPrice * 0.10).toFixed(2)}</p>
+              <p className="total-amount"><strong>Total Paid:</strong> ${(totalPrice * 1.10).toFixed(2)}</p>*/}
             </div>
           </div>
           </div>
