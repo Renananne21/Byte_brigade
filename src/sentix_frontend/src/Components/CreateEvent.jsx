@@ -6,13 +6,20 @@ import { Actor } from '@dfinity/agent';
 
 const handleCreateEventbtn = async (title, description, date, price, image) => {
     try {
-      const response = await sentix_backend.create_event(title, description, date, parseInt(price), image);
-      alert("Event created successfully!");
+        console.log("Sending price:", price); // Debug the price being sent
+        const response = await sentix_backend.create_event(
+            title,
+            description,
+            date,
+            Math.floor(price), // Ensure it's an integer
+            image
+        );
+        alert("Event created successfully!");
     } catch (error) {
-      alert("Failed to create event.");
-      console.error("Create Event Error:", error);
+        alert("Failed to create event.");
+        console.error("Create Event Error:", error);
     }
-  };
+};
 
 function CreateEvent() {
     const [eventImage, setEventImage] = useState(null);
@@ -72,7 +79,7 @@ function CreateEvent() {
             return;
         }
         await handleImageUpload();
-        await handleCreateEventbtn(title, description, date, parseInt(price), image);
+        await handleCreateEventbtn(title, description, date, Number(price), image);
     };
     
     return (
@@ -119,7 +126,7 @@ function CreateEvent() {
                         type="number"
                         id="price"
                         value={price}
-                        onChange={(e) => setPrice(parseInt(e.target.value) || 0)}
+                        onChange={(e) => setPrice(Number(e.target.value) || 0)}
                         required
                     />
                 </div>
@@ -133,13 +140,7 @@ function CreateEvent() {
                     id="imageInput"
 
                 />
-                {/*<button 
-                    type="button" 
-                    onClick={() => document.getElementById('imageInput').click()}
-                >
-                    Select Image
-                </button>*/}
-                <p class="upload-text">Drag and drop your file here or click to upload</p>
+                <p className="upload-text">Drag and drop your file here or click to upload</p>
                 {selectedImage && (
                     <span>{selectedImage.target.files[0].name}</span>
                 )}
@@ -158,75 +159,9 @@ function CreateEvent() {
                 )}
             </div>
 
-                <button className='submit-event pulse-button' type="submit" disabled={isLoadingImage}>
-                    <span className="button-text">Create Event</span>
-                    
-                </button>
+                <button className='submit-event' type="submit" disabled={isLoadingImage}>Create Event</button>
             </form>
             </div>
-            <style jsx>{`
-                .createEventPage {
-                    position: relative;
-                    overflow: hidden;
-                }
-                .musical-notes {
-                    position: absolute;
-                    width: 100%;
-                    height: 100%;
-                    pointer-events: none;
-                }
-                .musical-notes div {
-                    position: absolute;
-                    font-size: 30px;
-                    color: rgba(0, 0, 0, 0.2);
-                    animation: float 6s infinite;
-                }
-                .note-1 { left: 10%; animation-delay: 0s; }
-                .note-2 { left: 30%; animation-delay: 1s; }
-                .note-3 { left: 50%; animation-delay: 2s; }
-                .note-4 { left: 70%; animation-delay: 3s; }
-                .note-5 { left: 90%; animation-delay: 4s; }
-                @keyframes float {
-                    0% { top: 100%; opacity: 1; }
-                    100% { top: -10%; opacity: 0; }
-                }
-                .pulse-button {
-                    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-                    border: none;
-                    border-radius: 30px;
-                    padding: 15px 40px;
-                    color: white;
-                    font-size: 18px;
-                    font-weight: bold;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    gap: 10px;
-                    animation: pulse 2s infinite;
-                }
-                .pulse-button:hover {
-                    transform: scale(1.05);
-                    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-                }
-                .pulse-button:disabled {
-                    opacity: 0.7;
-                    cursor: not-allowed;
-                }
-                @keyframes pulse {
-                    0% { transform: scale(1); }
-                    50% { transform: scale(1.05); }
-                    100% { transform: scale(1); }
-                }
-                .button-text {
-                    margin-right: 8px;
-                }
-                .button-icon {
-                    font-size: 20px;
-                }
-            `}</style>
         </div>
     );
 };

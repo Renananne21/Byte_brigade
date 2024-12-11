@@ -6,13 +6,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import Navbar from './Components/Navbar';
 import BuyTickets from './Components/BuyTickets';
 import EventImage from './Images/EventImage.jpg'
+import Image1 from './Images/Img1.jpg';
+import Image2 from './Images/Img2.jpg';
+import Image3 from './Images/Img3.jpg';
+import Image4 from './Images/Img4.jpg';
 import ticketImage from './Images/ticketImage.jpg'
 import CreateEvent from './Components/CreateEvent';
-import { Layout,List, Divider } from 'antd';
-import { Card, Typography, Button, Image } from 'antd'   
-const { Footer } = Layout;
-const { Title } = Typography;
-
 
 function App() {
   const navigate = useNavigate();
@@ -61,7 +60,7 @@ function App() {
             image: `data:image/jpeg;base64,${base64Image}`, 
             title: eventDetails.title,
             description: eventDetails.description,
-            eventType: eventDetails.title,
+            eventType: 'festival',
             date: eventDetails.date,
             price: eventDetails.price,
           };
@@ -205,20 +204,11 @@ React.useEffect(() => {
               >
                 <img src={event.image} alt={event.title} />
                 <div className="slider-content">
-                                  <h2 style={{ 
-                                    color: '#ffffff',
-                                    fontFamily: 'Arial, sans-serif',
-                                    fontWeight: 'bold',
-                                    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)'
-                                  }}>{event.title}</h2>
-                                  <div className="slider-info">
-                                    <p className="slider-date" style={{ 
-                                      color: '#ffffff',
-                                      fontFamily: 'Arial, sans-serif',
-                                      fontWeight: '600',
-                                      textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)'
-                                    }}>{event.date} </p>
-                                                     </div>
+                  <h2>{event.title}</h2>
+                  <div className="slider-info">
+                    <p className="slider-date">{event.date} </p>
+                    <p className="slider-location">Kenya</p>
+                  </div>
 
 
                 </div>          
@@ -229,16 +219,8 @@ React.useEffect(() => {
 
 
         <section className="events-section">
-          <div className="events-header" style={{ textAlign: 'center' }}>
-            <h2 style={{ 
-              background: 'linear-gradient(45deg, #FF6B6B, #4ECDC4)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              animation: 'fadeInUp 1s ease-out',
-              fontSize: '2.5rem',
-              fontWeight: 'bold',
-              textShadow: '2px 2px 4px rgba(0,0,0,0.1)'
-            }}>Upcoming Events</h2>
+          <div className="events-header">
+            <h2>Upcoming Events</h2>
 
 
             <div className="search-filters">
@@ -266,7 +248,7 @@ React.useEffect(() => {
                   <h3>{event.title}</h3>
                   <div className="event-info" >
                       <p className="event-date">{event.date}</p>
-                    
+                      <p className="event-location">Kenya</p>
                       <p className="event-price">Price:{event.price} </p>
                       <p className="event-description">Description: {event.description}</p>
                      
@@ -282,85 +264,81 @@ React.useEffect(() => {
           )}
         </section>
       
-        <div className="side-by-side-sections" style={{ display: 'flex', gap: '2rem', justifyContent: 'center', padding: '2rem' }}>
-          <Card className="create-event-section" style={{ boxShadow: '8px 0 16px -4px rgba(0, 0, 0, 0.2), -8px 0 16px -4px rgba(0, 0, 0, 0.2), 0 8px 16px rgba(0, 0, 0, 0.2)', transform: 'translateY(-5px)', transition: 'all 0.3s ease', maxWidth: '900px', flex: 1 }}>
-            <Typography.Title level={2} style={{ background: 'linear-gradient(45deg, #FF6B6B, #4ECDC4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', fontFamily: 'Brush Script MT, cursive' }}>✨ Create Your Own Event ✨</Typography.Title>
-            <div className="create-event-content">
-              <div className="create-event-text">
-                <Typography.Paragraph style={{ fontSize: '1.5rem', fontFamily: 'Comic Sans MS, cursive' }}>Ready to Create your own event?</Typography.Paragraph>
-                <Typography.Paragraph style={{ fontSize: '1.5rem', fontFamily: 'Comic Sans MS, cursive' }}>Let's TockenTix!</Typography.Paragraph>
-                <Typography.Paragraph style={{ marginBottom: '25px', fontFamily: 'Comic Sans MS, cursive' }}>The #1 trusted platform for event creation</Typography.Paragraph>
-                {!isAuthenticated ? (
-                  <Button type="primary" onClick={login} style={{ background: 'linear-gradient(45deg, #FF6B6B, #4ECDC4)', border: 'none', animation: 'pulse 2s infinite' }}>✨ Create Event ✨</Button>
-                ) : (
-                  <Button type="primary" style={{ background: 'linear-gradient(45deg, #FF6B6B, #4ECDC4)', border: 'none', animation: 'pulse 2s infinite' }}><Link to="createEvent">✨ Create Event ✨</Link></Button>
-                )}
-              </div>
-              <Image
-                width={200}
-                src={EventImage}
-                alt="Create Event"
-                className="create-event-image"
-              />
-            </div>
-          </Card>
+        <div class="parent-card">
+        <section className="create-event-section"></section>
 
-          <Card className="resell-section" style={{ boxShadow: '8px 0 16px -4px rgba(0, 0, 0, 0.2), -8px 0 16px -4px rgba(0, 0, 0, 0.2), 0 8px 16px rgba(0, 0, 0, 0.2)', transform: 'translateY(-5px)', transition: 'all 0.3s ease', maxWidth: '900px', flex: 1 }}>
-            <Typography.Title level={2} style={{ background: 'linear-gradient(45deg, #FF6B6B, #4ECDC4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', fontFamily: 'Brush Script MT, cursive' }}>🎫 Ticket Resale Marketplace 🎫</Typography.Title>
-            <div className="resell-content">
-              <div className="resell-text">
-                <Typography.Paragraph style={{ fontSize: '1.5rem', fontFamily: 'Comic Sans MS, cursive' }}>Can't make it to an event?</Typography.Paragraph>
-                <Typography.Paragraph style={{ fontSize: '1.5rem', fontFamily: 'Comic Sans MS, cursive' }}>Resell your tickets safely and easily on TockenTix!</Typography.Paragraph>
-                <Typography.Paragraph style={{ marginBottom: '25px', fontFamily: 'Comic Sans MS, cursive' }}>The #1 trusted platform for secure ticket resales</Typography.Paragraph>
-                {!isAuthenticated ? (
-                  <Button type="primary" onClick={login} style={{ background: 'linear-gradient(45deg, #FF6B6B, #4ECDC4)', border: 'none', animation: 'pulse 2s infinite' }}>🎫 Start Reselling 🎫</Button>
-                ) : (
-                  <Button type="primary" style={{ background: 'linear-gradient(45deg, #FF6B6B, #4ECDC4)', border: 'none', animation: 'pulse 2s infinite' }}><Link to="resell-ticket">🎫 Start Reselling 🎫</Link></Button>
-                )}
-              </div>
-              <Image
-                width={200}
-                src={ticketImage}
-                alt="Resell Tickets"
-                className="resell-image"
-              />
+        <section className="create-event-section">
+          <h2>Create Your Own Event</h2>
+          <div className="create-event-content" >
+            <div className="create-event-text" >
+              <p>Sell it All with TockenTix!</p>
+              <p>Concerts. Workshops. Festivals<br/>Fashion shows</p>
+              <p>Food and Drink Events. You name it!</p>
+              
+              <p>Ready to explore your potential?<br/> Lets's TockenTix!</p>
+              {!isAuthenticated ?  (
+                <button className="create-event-button" onClick={login}>Create Event</button>
+              ): (
+              <Link to="createEvent" className="create-event-button">Create Event</Link>)
+            }
             </div>
-          </Card>       
+            <img src={EventImage} alt="Create Event" className="create-event-image" />
+          </div>
+        </section>
+
+        <section className="resell-section">
+          <h2>Ticket Resale Marketplace</h2>
+          <div className="resell-content" >
+            <img src={ticketImage} alt="Resell Tickets" className="resell-image" />
+            <div className="resell-text" >
+              <p style={{ marginBottom: '20px', color: 'black' }}>Can't make it to an event?</p>
+              <p style={{ marginBottom: '25px' }}>Sell your tickets to other fans and make a profi!</p>
+              <p >Resell your tickets safely and easily on TockenTix!</p>
+              <p style={{ marginBottom: '25px' }}>The #1 trusted platform for secure ticket resales</p>
+              {!isAuthenticated ?  (
+                <button className="resell-button" onClick={login}>Start Reselling</button>
+              ): (
+              <Link to="resell-ticket" className="resell-button">Start Reselling</Link>
+              )}
+            </div>
+          </div>
+          
+        </section>
         </div>
 
-           
-        <Footer style={{ padding: '20px 0' }}>
-          <div className="footer-content" style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'flex-start' }}>
-            <div className="footer-section">
-              <Title level={4}>Events</Title>
-              <List>
-                <List.Item><a href="#events-grid">Upcoming Events</a></List.Item>
-                <List.Item>Resell Tickets</List.Item>
-                <List.Item>My Tickets</List.Item>
-              </List>
+        <footer className="footer">
+          <div className="footer-content">
+            <div className="footer-section" >
+              <h3>Events</h3>
+              <ul >
+        
+                <li><a href='#events-grid'>Upcoming Events</a></li>
+                <li>Resell Tickets</li>
+                <li>My Tickets</li>
+              </ul>
             </div>
             <div className="footer-section">
-              <Title level={4}>Company</Title>
-              <List>
-                <List.Item><Link to="/about">About Us</Link></List.Item>
-                <List.Item>Careers</List.Item>
-                <List.Item>Blog</List.Item>
-              </List>
+              <h3>Company</h3>
+              <ul >
+                <li><Link to="/about" style={{ color: '#black', textDecoration: 'none' }}>About Us</Link></li>
+                <li>Careers</li>
+                <li>Blog</li>
+              </ul>
             </div>
-            <div className="footer-section">
-              <Title level={4}>Support</Title>
-              <List>
-                <List.Item>Help Center</List.Item>
-                <List.Item><Link to="/contactUs">Contact Us</Link></List.Item>
-                <List.Item>FAQs</List.Item>
-              </List>
+            <div className="footer-section" >
+              <h3 >Support</h3>
+              <ul >
+                <li>Help Center</li>
+                <li><Link to="/contactUs" style={{ color: '#black', textDecoration: 'none' }}>Contact Us</Link></li>
+                <li>FAQs</li>
+              </ul>
             </div>
           </div>
-          <Divider style={{ margin: '16px 0' }} />
           <div className="footer-bottom">
-            <Typography.Text>© 2024 TockenTix. All rights reserved.</Typography.Text>
+            <p>© 2024 TockenTix. All rights reserved.</p>
           </div>
-        </Footer>      </main>
+        </footer>
+      </main>
     </div>
   );
 }

@@ -39,13 +39,6 @@ def create_event(title: str, description: str, date: str, price: nat64, image: V
     """
 
     image = get_images()
-    # user_id = ic.caller()
-
-    # user = users.get(user_id)
-
-    # if user is None:
-    #     return {"Err": {"UserDoesNotExist": user_id}}
-    
     id = generate_id()
 
     concert: Event = {
@@ -61,15 +54,6 @@ def create_event(title: str, description: str, date: str, price: nat64, image: V
 
     events.insert(concert['id'], concert)
     ic.print(f"Event ID: {concert['id']}, Data: {concert}")
-
-    # new_user: User = {
-    #     "id": user["id"],
-    #     "created_at": user["created_at"],
-    #     "username": user["username"],
-    #     "creating_ids": [*user["creating_ids"], concert["id"]],
-    # }
-
-    # users.insert(new_user["id"], new_user)
 
     return {"Ok": concert}
 

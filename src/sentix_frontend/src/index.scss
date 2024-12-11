@@ -13,7 +13,7 @@ body {
   margin: 0;
   padding-top: 60px;
   min-height: 100vh;
-  background-color: #efeceb;
+  background-color: #E7ECEF;
 }
 
 .welcome-section {
@@ -143,7 +143,7 @@ body {
 
 
     .event-card {
-      background-color: #98c5e8;
+      background-color: #6096BA;
       border-radius: 10px;
       overflow: hidden;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -193,7 +193,7 @@ body {
           margin-bottom: 20px;
 
           .event-date {
-            color: #555;
+            color: #8B8C89;
             font-size: 15px;
             margin-bottom: 8px;
             display: flex;
@@ -202,7 +202,7 @@ body {
           }
 
           .event-location {
-            color: #555;
+            color: #8B8C89;
             font-size: 15px;
             margin-bottom: 12px;
             display: flex;
@@ -212,7 +212,7 @@ body {
         }
 
         .event-description {
-          color: #555;
+          color: #8B8C89;
           font-size: 15px;
           margin-bottom: 20px;
           line-height: 1.6;
@@ -254,7 +254,7 @@ body {
     display: block;
     margin: 30px auto;
     padding: 12px 30px;
-    background-color: #1d275f;
+    background-color: #274C77;
     border: none;
     color: white;
     border-radius: 5px;
@@ -267,140 +267,120 @@ body {
   }
 }
 
-.create-event-section {
+// .parent-card {
+//   display: flex; /* Arrange child elements side by side */
+//   justify-content: space-between; /* Add space between the cards */
+//   align-items: flex-start; /* Align items at the top */
+//   gap: 20px; /* Add space between the cards */
+//   padding: 20px;
+//   background-color: #f5f5f5; /* Background for the parent card */
+//   border-radius: 15px;
+//   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+// }
 
-  padding: 0 10px;
-  margin-bottom: 10px ;
-
-  h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    letter-spacing: .5px;
-    color: black;
-    font-size: 30px;
-  }
-
-  .create-event-content {
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-
-    .create-event-text {
-      flex: 1;
-      color: black;
-
-
-      p {
-        font-size: 18px;
-        line-height: 1.6;
-        margin-bottom: 20px;
-        opacity: 0.9;
-        
-      }
-
-      .create-event-button {
-        padding: 12px 10px;
-        background-color: #1d275f;
-        color: white;
-        border: none;        
-        border-radius: 10px;
-        font-weight: bold;
-        cursor: pointer;
-
-        &:hover {
-          background-color: #0056b3;
-        }
-      }
-    }
-
-    .create-event-image {
-      flex: 1;
-      max-width: 500px;
-      height: auto;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-
-    }
-  }
-}
-
-@media (max-width: 768px) {
-  .create-event-content {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .create-event-image {
-    max-width: 100%;
-    order: -1;
-  }
-}
-
+.create-event-section,
 .resell-section {
-  padding: 10px 10px;
+  flex: 1;
+  padding: 0 10px;
   margin-bottom: 10px;
+  max-width: 50%; /* Slightly reduced width for spacing */
+  display: inline-block;
+  vertical-align: top;
+  transition: transform 0.3s ease;
 
-  h2 {
-    font-size: 30px;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 20px;
-    letter-spacing: .5px;
-    color: black;
-  }
-
-  .resell-content {
-    display: flex;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    justify-content: space-evenly;
-
-
-    .resell-image {
-      flex: 1;
-      max-width: 500px;
-      height: auto;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    .resell-text {
-      padding-right: 20px;
-
-
-      p {
-        color: black;
-        font-size: 18px;
-        line-height: 1.6;
-        margin-bottom: 20px;
-        opacity: 0.9;
-      }
-
-      .resell-button {
-        padding: 12px 10px;
-        background-color: #1d275f;
-        color: white;
-        border: none;
-        border-radius: 10px;
-        font-weight: bold;
-        cursor: pointer;
-
-        &:hover {
-          background-color: #0056b3;
-        }
-      }
-    }
+  &:hover {
+    transform: translateY(-10px);
   }
 }
 
+.create-event-section h2,
+.resell-section h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+  color: black;
+  font-size: 30px;
+}
+
+.create-event-content,
+.resell-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: #AFBFC9;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  margin: 0 auto;
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.create-event-text,
+.resell-text {
+  flex: 1;
+  color: black;
+  padding-right: 20px;
+}
+
+.create-event-text p,
+.resell-text p {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  opacity: 0.9;
+}
+
+.create-event-button,
+.resell-button {
+  padding: 12px 10px;
+  background-color: #274c77;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.create-event-button:hover,
+.resell-button:hover {
+  background-color: #0056b3;
+}
+
+.create-event-image,
+.resell-image {
+  flex: 1;
+  max-width: 500px;
+  height: auto;
+  border-radius: 10px;
+  border: 2px solid #6096ba;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
 @media (max-width: 768px) {
+  .parent-card {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .create-event-section,
+  .resell-section {
+    width: 100%;
+    display: block;
+  }
+
+  .create-event-content,
   .resell-content {
     flex-direction: column;
     text-align: center;
   }
 
+  .create-event-image,
   .resell-image {
     max-width: 100%;
     order: -1;
@@ -408,9 +388,9 @@ body {
 }
 
 .footer {
-  padding: 10px 0;
+  padding: 20px 0;
   margin-top: 20px;
-  background-color: #f8f9fa;
+  background-color: #708CA1;
 
   .footer-content {
     max-width: 1200px;
@@ -418,15 +398,23 @@ body {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
+    padding: 0 20px;
   }
 
   .footer-section {
     margin: 20px;
     min-width: 200px;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+    }
 
     h3 {
       color: black;
       margin-bottom: 15px;
+      font-size: 1.2rem;
+      font-weight: 600;
     }
 
     ul {
@@ -434,21 +422,26 @@ body {
       padding: 0;
 
       li {
-        margin: 8px 0;
-        color: black;
+        margin: 10px 0;
+        color: #e7ecef;
         cursor: pointer;
+        transition: color 0.2s ease;
+
+        &:hover {
+          color: #6096ba;
+        }
       }
     }
   }
 
   .footer-bottom {
-    border-top: 1px solid #ddd;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     margin-top: 20px;
     padding-top: 20px;
     text-align: center;
 
     p {
-      color: black;
+      color: #e7ecef;
       font-size: 14px;
     }
   }
@@ -456,11 +449,12 @@ body {
 
 a {
   text-decoration: none;
-  color: black;
+  color: #e7ecef;
+  transition: color 0.2s ease;
 }
 
 a:hover {
-  color: #2C3E50;
+  color: #6096ba;
 }
 
 
@@ -544,7 +538,7 @@ a:hover {
   }
 
   .contact-button{
-    background-color: #1d275f;
+    background-color: #274c77;
     border: none;
     border-radius: 8px;
     height: 34px;
@@ -566,7 +560,7 @@ a:hover {
     }
   }
   .login-button {
-    background-color: #1d275f;
+    background-color: #274c77;
     border: none;
     width: 100px;
     height: 34px;
@@ -686,42 +680,40 @@ a:hover {
 
 .contact {
 margin: 0;
-background-color: #f2f0ef;
+background-color: #E7ECEF;
 padding-top: 80px;
 
   header {
-    max-width: 100%;
+    max-width: 90%;
     margin: 0 auto;
-    padding: 60px auto;
+    padding: 40px auto;
     overflow: hidden;
     text-align: center;
   }
 
   main {
     margin: 20px auto;
-    max-width: 80%;
-    padding: 20px auto;
-
+    max-width: 70%;
+    padding: 15px auto;
   }
 
-
   form {
-    margin: 20px auto;
-    padding: 20px;
+    margin: 15px auto;
+    padding: 15px;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
   }
 
   label {
     display: block;
-    margin: 10px 0 5px;
+    margin: 8px 0 5px;
   }
 
   input,
   textarea {
     width: 97%;
-    padding: 10px;
-    margin-bottom: 15px;
+    padding: 8px;
+    margin-bottom: 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
   }
@@ -729,20 +721,20 @@ padding-top: 80px;
   button {
     text-decoration: none;
     display: block;
-    padding: 10px 20px;
-    background-color: #1d275f;
+    padding: 8px 16px;
+    background-color: #274C77;
     color: white;
-    margin: 20px auto;
+    margin: 15px auto;
     cursor: pointer;
     border: none;
-    border-radius: 10px;
+    border-radius: 8px;
     font-weight: bold;
 
     &:hover {
       background-color: #0056b3;
     }
   }
-
+}
   .info {
     margin: 20px auto;
     padding: 20px;
@@ -752,23 +744,25 @@ padding-top: 80px;
       margin: 10px;
     }
   }
-}
+
 
 .createEventPage{
   margin: 0;
   margin-top: 10px;
   padding-top: 70px;
- background: #f2f0ef;
-  
+  background: #E7ECEF;
+  display: flex;
+  justify-content: center;
 }
 
   form {
     background: #98c5e8;
-  
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    padding: 100px;
     margin: auto;
-    width: 90%;
+    width: 85%;
+    max-width: 900px;
+    border-radius: 15px;
   }
 
   h1 {
@@ -788,11 +782,11 @@ padding-top: 80px;
     input,
     textarea {       
       width: 99%;
-  padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 1rem;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
 
       &:focus {
         border-color: #80d4ff;
@@ -802,9 +796,14 @@ padding-top: 80px;
     }
 
     textarea {
-      height: 100px;
+      height: 120px;
       resize: none;
     }
+  }
+
+  button {
+    width: 150px;
+    margin: 20px auto;
   }
 
   .file-upload {
@@ -825,7 +824,7 @@ padding-top: 80px;
   .submit-event {
     width: 100%;
     padding: 15px;
-    background: #1d275f;
+    background: #274C77;
     color: white;
     border: none;
     border-radius: 8px;
@@ -988,8 +987,8 @@ padding-top: 80px;
       .purchase-button {
         width: 100%;
         padding: 15px;
-        background: #1d275f;
-        color: white;
+        background: #274C77;
+        color: #E7ECEF;
         border: none;
         border-radius: 8px;
         font-size: 1.1em;
@@ -1006,7 +1005,7 @@ padding-top: 80px;
 }
 }
 .confirmation {
-   background-color: #f2f0ef;
+   background-color: #E7ECEF;
    margin: 0;
    margin-top: 60px;
 
@@ -1189,19 +1188,20 @@ padding-top: 80px;
     }
 
     .resell-submit-btn {
-      width: 100%;
+      width: 50%;
+      display: block;
+      margin: 20px auto 0;
       padding: 14px;
-      background-color: #1d275f;
+      background-color: #274c77;
       color: white;
       border: none;
       border-radius: 8px;
       font-size: 16px;
       font-weight: 600;
       cursor: pointer;
-      margin-top: 20px;
 
       &:hover {
-        background-color: #0056b3;
+        background-color: #274c77;
       }
     }
   }

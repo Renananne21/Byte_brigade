@@ -27,7 +27,7 @@ const EventList = () => {
                         <h3>{event.title}</h3>
                         <p>{event.description}</p>
                         <p>{event.date}</p>
-                        <p>Price: ${event.price}</p>
+                        <p>{event.price}</p>
                     </div>
                 ))}
             </div>
